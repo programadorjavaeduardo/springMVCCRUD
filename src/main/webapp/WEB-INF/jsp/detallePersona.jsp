@@ -8,7 +8,7 @@
 <title>Datos Recursos Humanos</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventos.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 </head>
 <body>
@@ -39,7 +39,7 @@
     <select name="formacion" id="formacion">
       <option value="-1">Seleccione una de las opciones...</option>
       <c:forEach items="${formaciones}" var="formacion">
-        <option value="${formacion.codigoFormacion}" ${formacion.codigoFormacion == formacionSeleccionada ? 'selected="selected"' : ''}>${formacion.descripcion}</option>
+        <option value="${formacion.id_formacion}" ${formacion.id_formacion == formacionSeleccionada ? 'selected="selected"' : ''}>${formacion.descripcion}</option>
       </c:forEach>
 
     </select>

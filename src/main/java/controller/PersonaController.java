@@ -35,10 +35,10 @@ public class PersonaController {
 	
 	private List<Formacion> formaciones;
 	
-	@RequestMapping(value="/personList")
-	public ModelAndView mostrarDatos() {
+	@RequestMapping(value="/gestionPersonas")
+	public ModelAndView mostrargestionPersonas() {
 		List<Persona> personas= personaService.findAll();
-		ModelAndView m = new ModelAndView("datos");
+		ModelAndView m = new ModelAndView("gestionPersonas");
 		m.addObject("personas", personas);
 		return m;
 	}
@@ -49,7 +49,7 @@ public class PersonaController {
 
 		System.out.println("IdPersona a borrar:"+idPersona);
 		boolean realizado=personaService.deletePersona(idPersona);
-		ModelAndView m= new ModelAndView("datos");
+		ModelAndView m= new ModelAndView("gestionPersonas");
 
 		//carga de las personas
 		List<Persona> personas= personaService.findAll();
@@ -92,7 +92,7 @@ public class PersonaController {
 		persona.setEmail(email);
 		persona.setTelefono(telefono);
 		Formacion formacion= new Formacion();
-		formacion.setCodigoFormacion(id_formacion);
+		formacion.setId_formacion(id_formacion);
 		persona.setFormacion(formacion);
 		
 		boolean realizado=personaService.insertarPersona(persona);
@@ -101,7 +101,7 @@ public class PersonaController {
 		}else {
 			mensaje="Insercion no realizada";
 		}
-		ModelAndView m= new ModelAndView("datos");
+		ModelAndView m= new ModelAndView("gestionPersonas");
 		List<Persona> personas=personaService.findAll();
 		m.addObject("personas", personas);
 		m.addObject("mensaje",mensaje);
@@ -116,7 +116,7 @@ public class PersonaController {
 		
 		Persona persona=personaService.getPersonaById(idPersona);
 		formaciones=formacionService.getFormaciones();
-		int seleccionado= persona.getFormacion().getCodigoFormacion();
+		int seleccionado= persona.getFormacion().getId_formacion();
 		m.addObject("persona", persona);
 		m.addObject("titulo", titulo);
 		m.addObject("textoBoton", textoBoton);
@@ -130,7 +130,7 @@ public class PersonaController {
 			@RequestParam("ape_paterno") String apePaterno, @RequestParam("ape_materno") String apeMaterno,
 			@RequestParam("email") String email, @RequestParam("telefono") String telefono,
 			@RequestParam("formacion") Integer id_formacion){
-		ModelAndView m= new ModelAndView("datos");
+		ModelAndView m= new ModelAndView("gestionPersonas");
 		Persona persona= new Persona();
 		persona.setId_persona(idPersona);
 		persona.setNombre(nombre);
@@ -139,7 +139,7 @@ public class PersonaController {
 		persona.setEmail(email);
 		persona.setTelefono(telefono);
 		Formacion formacion= new Formacion();
-		formacion.setCodigoFormacion(id_formacion);
+		formacion.setId_formacion(id_formacion);
 		persona.setFormacion(formacion);
 		boolean realizado=personaService.updatePersona(persona);
 		if(realizado) {

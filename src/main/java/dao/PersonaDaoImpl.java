@@ -57,7 +57,7 @@ public class PersonaDaoImpl implements PersonaDao {
 				p.setEmail(rs.getString(6));
 				
 				Formacion f= new Formacion();
-				f.setCodigoFormacion(rs.getInt(7));
+				f.setId_formacion(rs.getInt(7));
 				f.setDescripcion(rs.getString(8));
 				p.setFormacion(f);
 				personas.add(p);
@@ -109,7 +109,7 @@ public class PersonaDaoImpl implements PersonaDao {
 			pstmt.setString(3, p.getApe_materno());
 			pstmt.setString(4, p.getTelefono());
 			pstmt.setString(5, p.getEmail());
-			pstmt.setInt(6, p.getFormacion().getCodigoFormacion());
+			pstmt.setInt(6, p.getFormacion().getId_formacion());
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {
 				realizado=true;
@@ -145,7 +145,7 @@ public class PersonaDaoImpl implements PersonaDao {
 				p.setEmail(rs.getString(6));
 				
 				Formacion f= new Formacion();
-				f.setCodigoFormacion(rs.getInt(7));
+				f.setId_formacion(rs.getInt(7));
 				f.setDescripcion(rs.getString(8));
 				p.setFormacion(f);
 			}
@@ -172,7 +172,7 @@ public class PersonaDaoImpl implements PersonaDao {
 			pstmt.setString(4, persona.getTelefono());
 			pstmt.setString(5, persona.getEmail());
 			
-			pstmt.setInt(6, persona.getFormacion().getCodigoFormacion());
+			pstmt.setInt(6, persona.getFormacion().getId_formacion());
 			pstmt.setInt(7, persona.getId_persona());
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {

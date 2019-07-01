@@ -19,7 +19,7 @@ public class FormacionDaoImpl implements FormacionDao {
 	
 	public static String SQL_GET_FORMACIONES="SELECT * FROM formacion";
 	
-	public static String SQL_GET_FORMACION_BY_ID="SELECT * FROM Formacion WHERE idFormacion=?";
+	public static String SQL_GET_FORMACION_BY_ID="SELECT * FROM Formacion WHERE id_formacion=?";
 	
 	public static String SQL_INSERT_FORMACION="INSERT INTO Formacion(descripcion) VALUES (?)";
 	
@@ -46,7 +46,7 @@ public class FormacionDaoImpl implements FormacionDao {
 			
 			while(rs.next()) {
 				Formacion f= new Formacion();
-				f.setCodigoFormacion(rs.getInt(1));
+				f.setId_formacion(rs.getInt(1));
 				f.setDescripcion(rs.getString(2));
 				formaciones.add(f);
 			}
@@ -69,7 +69,7 @@ public class FormacionDaoImpl implements FormacionDao {
 			
 			while(rs.next()) {
 				f= new Formacion();
-				f.setCodigoFormacion(rs.getInt(1));
+				f.setId_formacion(rs.getInt(1));
 				f.setDescripcion(rs.getString(2));
 			}
 		} catch (SQLException e) {
@@ -137,7 +137,7 @@ public class FormacionDaoImpl implements FormacionDao {
 			
 			pstmt=con.prepareStatement(SQL_UPDATE_FORMACION);
 			pstmt.setString(1, f.getDescripcion());
-			pstmt.setInt(2, f.getCodigoFormacion());
+			pstmt.setInt(2, f.getId_formacion());
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {
 				realizado=true;

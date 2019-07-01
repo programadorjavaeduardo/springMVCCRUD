@@ -9,6 +9,8 @@
 <body>
 	<p> Bienvenido </p>
 
-	<a href="${pageContext.request.contextPath}/person/personList.html">Acceso a Datos Recursos Humanos</a>
+	<a href="${pageContext.request.contextPath}/person/gestionPersonas.html">Acceso a Gestion Personas</a>
+	
+	<a href="${pageContext.request.contextPath}/formacion/gestionFormaciones.html">Acceso a Gestion Formaciones</a>
 </body>
 </html>

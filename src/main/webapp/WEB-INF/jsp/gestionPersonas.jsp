@@ -8,7 +8,7 @@
 <title>Datos Recursos Humanos</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventos.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
 </head>
 <body>
 	<p id="rojo"> ${mensaje} </p>
@@ -45,5 +45,8 @@
 	</table>
   <a href="${pageContext.request.contextPath}/person/downloadPDFFormat.html">Descargar archivo PDF</a>
   <a href="${pageContext.request.contextPath}/person/downloadXLSFormat.html">Descargar archivo XLS</a>
+  <br/>
+  <a href="${pageContext.request.contextPath}/">Ir a Inicio</a>
+  
 </body>
 </html>
