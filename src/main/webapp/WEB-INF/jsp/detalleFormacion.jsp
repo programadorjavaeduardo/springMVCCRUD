@@ -7,23 +7,40 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Datos Recursos Humanos</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 </head>
 <body>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="jumbotron">
+          <h1>${titulo}</h1>
+        </div>
+      </div>
+    </div>
 
-	<h1>${titulo}</h1>
-	<form action="" name="form" id="form" method="post" onsubmit="return direccionar('${textoBoton}')">
-    <label for="descripcion">Descripcion:</label>
-    <br>
-    <input type="text" name="descripcion" id="descripcion" value="${formacion.descripcion}">
-    <br>
-    
-    <br/>
-    <input type="submit" name="botonEnviar" value="${textoBoton}">
-    <input type="button" id="botonCancelar" name="botonCancelar" value="Cancelar">
-    <input type="hidden" name="id_formacion" value="${formacion.id_formacion}">
-  </form>
+    <div class="row">
+      <div class="col">
+        <form action="" name="form" id="form" method="post" onsubmit="return direccionar('${textoBoton}')">
+          <div class="form-group">
+            <label for="descripcion">Descripcion:</label>
+            <input class="form-control" type="text" name="descripcion" id="descripcion" value="${formacion.descripcion}">
+          </div>
+          <div class="form-group">
+            <input type="submit" name="botonEnviar" value="${textoBoton}" class="btn btn-primary mr-3">
+            <input type="button" id="botonCancelar" name="botonCancelar" value="Cancelar" class="btn btn-danger mr-3">
+            <input type="hidden" name="id_formacion" value="${formacion.id_formacion}">
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+
 </body>
 </html>

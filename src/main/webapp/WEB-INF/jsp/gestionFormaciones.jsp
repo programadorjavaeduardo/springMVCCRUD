@@ -7,32 +7,69 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Datos Recursos Humanos</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
 </head>
 <body>
-	<p id="rojo"> ${mensaje} </p>
-	<h1> Lista de Formaciones</h1>
-	<table border="1">
-			<tr>
-				<th>Id </th>
-				<th>Descripcion </th>
-				<th>Acciones</th>
-		<c:forEach var="formacion" items="${formaciones}">
-			<tr>
-				<td> ${formacion.id_formacion}</td>
-				<td> ${formacion.descripcion}</td>
-				<td> <a href="${pageContext.request.contextPath}/formacion/deleteFormacion.html?id_formacion=${formacion.id_formacion}" id="enlBorrar" onclick="return confirmarBorrar()">Borrar</a> </td>
-        		<td> <a href="${pageContext.request.contextPath}/formacion/getFormacion.html?id_formacion=${formacion.id_formacion}">Editar</a> </td>
-			</tr>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="jumbotron">
+          <h1> Lista de Formaciones</h1>
+        </div>
+      </div>
+    </div>
 
-		</c:forEach>
+    <div class="row">
+        <div class="col">
+          <p id="rojo"> ${mensaje} </p>
+        </div>
 
-    <a href="${pageContext.request.contextPath}/formacion/newFormacion.html">Nueva Formacion</a>
+    </div>
 
-    <br>
-	
-	</table>
-	<a href="${pageContext.request.contextPath}/">Ir a Inicio</a>
+    <div class="row mt-5">
+      <div class="col">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+      				<th>Id </th>
+      				<th>Descripcion </th>
+      				<th colspan="2">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <c:forEach var="formacion" items="${formaciones}">
+              <tr>
+                <td> ${formacion.id_formacion}</td>
+                <td> ${formacion.descripcion}</td>
+                <td> <a href="${pageContext.request.contextPath}/formacion/deleteFormacion.html?id_formacion=${formacion.id_formacion}" id="enlBorrar" onclick="return confirmarBorrar()">Borrar</a> </td>
+                <td> <a href="${pageContext.request.contextPath}/formacion/getFormacion.html?id_formacion=${formacion.id_formacion}">Editar</a> </td>
+              </tr>
+
+            </c:forEach>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/formacion/newFormacion.html">Nueva Formacion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/">Ir a Inicio</a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+
 </body>
 </html>
