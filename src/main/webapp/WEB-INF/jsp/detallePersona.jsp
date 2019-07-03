@@ -23,43 +23,41 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col">
-          <form:errors path="*" cssStyle="color: #ff0000;"/>
-      </div>
-    </div>
+    
 
   <div class="row">
     <div class="col">
       <form:form action="" name="form" id="form" method="post" onsubmit="return direccionar('${textoBoton}')" commandName="persona">
+      	
+      	<form:errors path="*" cssStyle="color: #ff0000;" />
         <div class="form-group">
           <label for="nombre">Nombre:</label>
           <form:input class="form-control" type="text" name="nombre" id="nombre" path="nombre"/>
-          <form:errors path="nombre" cssStyle="color: #ff0000;"/>
+          
         </div>
 
         <div class="form-group">
           <label for="ape_paterno">Apellido Paterno:</label>
           <form:input class="form-control" type="text" name="ape_paterno" id="ape_paterno" path="ape_paterno"/>
-          <form:errors path="ape_paterno" cssStyle="color: #ff0000;"/>
+          
         </div>
 
         <div class="form-group">
           <label for="ape_materno">Apellido Materno:</label>
           <form:input class="form-control" type="text" name="ape_materno" id="ape_materno" path="ape_materno"/>
-          <form:errors path="ape_materno" cssStyle="color: #ff0000;"/>
+          
         </div>
 
         <div class="form-group">
           <label for="telefono">Telefono:</label>
           <form:input class="form-control" type="text" name="telefono" id="telefono" path="telefono"/>
-          <form:errors path="telefono" cssStyle="color: #ff0000;"/>
+          
         </div>
 
         <div class="form-group">
           <label for="email">Email:</label>
           <form:input class="form-control" type="text" name="email" id="email" path="email"/>
-          <form:errors path="email" cssStyle="color: #ff0000;"/>
+         
         </div>
 
         <div class="form-group">
@@ -70,7 +68,7 @@
               <option value="${formacion.id_formacion}" ${formacion.id_formacion == formacionSeleccionada ? 'selected="selected"' : ''}>${formacion.descripcion}</option>
             </c:forEach>
           </form:select>
-          <form:errors path="formacion.id_formacion" cssStyle="color: #ff0000;"/>
+          
         </div>
 
         <div class="form-group">
