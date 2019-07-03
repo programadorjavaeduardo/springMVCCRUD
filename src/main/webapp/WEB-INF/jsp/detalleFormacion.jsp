@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,17 +25,20 @@
 
     <div class="row">
       <div class="col">
-        <form action="" name="form" id="form" method="post" onsubmit="return direccionar('${textoBoton}')">
+        <form:form action="" name="form" id="form" method="post" onsubmit="return direccionar('${textoBoton}')" commandName="formacion">
+        
           <div class="form-group">
             <label for="descripcion">Descripcion:</label>
-            <input class="form-control" type="text" name="descripcion" id="descripcion" value="${formacion.descripcion}">
+            <form:input class="form-control" type="text" name="descripcion" id="descripcion" path="descripcion"/>
+           	<form:errors path="descripcion" cssStyle="color: #ff0000;"/>
           </div>
           <div class="form-group">
             <input type="submit" name="botonEnviar" value="${textoBoton}" class="btn btn-primary mr-3">
             <input type="button" id="botonCancelar" name="botonCancelar" value="Cancelar" class="btn btn-danger mr-3">
             <input type="hidden" name="id_formacion" value="${formacion.id_formacion}">
           </div>
-        </form>
+          
+        </form:form>
       </div>
     </div>
     <jsp:include page="../../common/footer.jsp" />

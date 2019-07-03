@@ -3,9 +3,15 @@ package controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import beans.Formacion;
+import beans.FormacionValidator;
 import beans.Persona;
+import beans.PersonaValidator;
 import service.FormacionService;
 import service.PersonaService;
 
@@ -27,6 +35,9 @@ public class PersonaController {
 
 	@Autowired
 	FormacionService formacionService;
+	
+	@Autowired
+	Validator validator;
 
 	private String titulo;
 
@@ -36,6 +47,11 @@ public class PersonaController {
 
 	private List<Formacion> formaciones;
 
+	@InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(new PersonaValidator()); // registramos el validador
+    }
+	
 	@RequestMapping(value="/gestionPersonas")
 	public ModelAndView mostrargestionPersonas() {
 		List<Persona> personas= personaService.findAll();
@@ -81,30 +97,34 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value="/addPerson", method=RequestMethod.POST)
-	public ModelAndView agregarPersona(@RequestParam Map<String,String> params ){
-
-		Persona persona= new Persona();
-		persona.setNombre(params.get("nombre"));
-		persona.setApe_materno(params.get("ape_materno"));
-		persona.setApe_paterno(params.get("ape_paterno"));
-		persona.setEmail(params.get("email"));
-		persona.setTelefono(params.get("telefono"));
-		Formacion formacion= new Formacion();
-		int idFormacion=Integer.parseInt(params.get("formacion"));
-		formacion.setId_formacion(idFormacion);
-		persona.setFormacion(formacion);
-
-		boolean realizado=personaService.insertarPersona(persona);
-		if(realizado) {
-			mensaje="Insercion realizada correctamente";
+	public ModelAndView agregarPersona(@Valid Persona persona, BindingResult bindingResult){
+		ModelAndView m;
+		
+		if(bindingResult.hasErrors()) {
+			m = new ModelAndView("detallePersona");
+			titulo="Nueva Persona";
+			textoBoton= "Agregar";
+			formaciones=formacionService.getFormaciones();
+			m.addObject("persona", new Persona());
+			m.addObject("titulo", titulo);
+			m.addObject("textoBoton", textoBoton);
+			m.addObject("formaciones", formaciones);
 		}else {
-			mensaje="Insercion no realizada";
+			boolean realizado=personaService.insertarPersona(persona);
+			if(realizado) {
+				mensaje="Insercion realizada correctamente";
+			}else {
+				mensaje="Insercion no realizada";
+			}
+			m= new ModelAndView("gestionPersonas");
+			List<Persona> personas=personaService.findAll();
+			m.addObject("personas", personas);
+			m.addObject("mensaje",mensaje);
+			
 		}
-		ModelAndView m= new ModelAndView("gestionPersonas");
-		List<Persona> personas=personaService.findAll();
-		m.addObject("personas", personas);
-		m.addObject("mensaje",mensaje);
+		
 		return m;
+		
 	}
 
 	@RequestMapping(value="/getPerson")
@@ -125,34 +145,34 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value="/editPerson")
-	public ModelAndView editarPersona(@RequestParam Map<String,String> params){
-		ModelAndView m= new ModelAndView("gestionPersonas");
-		Persona persona= new Persona();
-		persona.setId_persona(Integer.parseInt(params.get("id_persona")));
-		persona.setNombre(params.get("nombre"));
-		persona.setApe_materno(params.get("ape_materno"));
-		persona.setApe_paterno(params.get("ape_paterno"));
-		persona.setEmail(params.get("email"));
-		persona.setTelefono(params.get("telefono"));
-		Formacion formacion= new Formacion();
-		int idFormacion=Integer.parseInt(params.get("formacion"));
-		formacion.setId_formacion(idFormacion);
-		persona.setFormacion(formacion);
+	public ModelAndView editarPersona(@Valid Persona persona, BindingResult bindingResult){
+		ModelAndView m;
 		
-		
-		boolean realizado=personaService.updatePersona(persona);
-		if(realizado) {
-			mensaje="Modificacion realizada correctamente";
-			m.addObject("mensaje",mensaje);
+		if(bindingResult.hasErrors()) {
+			m = new ModelAndView("detallePersona");
+			titulo="Edicion Persona";
+			textoBoton= "Modificar";
+			formaciones=formacionService.getFormaciones();
+			m.addObject("persona", new Persona());
+			m.addObject("titulo", titulo);
+			m.addObject("textoBoton", textoBoton);
+			m.addObject("formaciones", formaciones);
 		}else {
-			mensaje="Modificacion no realizada";
+			boolean realizado=personaService.updatePersona(persona);
+			if(realizado) {
+				mensaje="Modificacion realizada correctamente";
+			}else {
+				mensaje="Modificacion no realizada";
+			}
+			m= new ModelAndView("gestionPersonas");
+			List<Persona> personas=personaService.findAll();
+			m.addObject("personas", personas);
 			m.addObject("mensaje",mensaje);
+			
 		}
-		List<Persona> personas= personaService.findAll();
-
-		m.addObject("personas", personas);
-
+		
 		return m;
+		
 	}
 
 	@RequestMapping("/downloadPDFFormat")
