@@ -13,13 +13,17 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="jumbotron">
-              <h1> Lista de Personas</h1>
-            </div>
 
+
+
+  <div class="container">
+
+    <jsp:include page="../../common/header.jsp" />
+    <hr>
+
+    <div class="row mb-4">
+        <div class="col">
+           <h4> Lista de Personas</h4>
         </div>
     </div>
     <div class="row mb-6">

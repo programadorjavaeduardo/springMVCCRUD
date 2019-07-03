@@ -14,13 +14,13 @@
 </head>
 <body>
   <div class="container">
-    <div class="row">
+    <jsp:include page="../../common/header.jsp" />
+    <div class="row mt-5">
       <div class="col">
-        <div class="jumbotron">
-          <h1> Lista de Formaciones</h1>
-        </div>
+          <h3> Lista de Formaciones</h3>
       </div>
     </div>
+
 
     <div class="row">
         <div class="col">

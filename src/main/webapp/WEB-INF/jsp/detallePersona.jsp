@@ -15,11 +15,10 @@
 </head>
 <body>
   <div class="container">
-    <div class="row">
+    <jsp:include page="../../common/header.jsp" />
+    <div class="row mt-5">
       <div class="col">
-        <div class="jumbotron">
-          <h1>${titulo}</h1>
-        </div>
+          <h3>${titulo}</h3>
       </div>
     </div>
 

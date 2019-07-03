@@ -22,7 +22,7 @@
     </div>
     <div class="row">
       <div class="col">
-          <ul class="nav flex-column">
+          <ul class="nav">
             <li class="nav-item">
               <a href="${pageContext.request.contextPath}/person/gestionPersonas.html" class="nav-link">Acceso a Gestion Personas</a>
             </li>
