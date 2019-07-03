@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col">
         <div class="jumbotron">
-          <h1>Bienvenidos a la aplicacion de gestion de personas</h1>
+          <h1 class="text-center">Header Aplicacion MVC</h1>
         </div>
     </div>
 

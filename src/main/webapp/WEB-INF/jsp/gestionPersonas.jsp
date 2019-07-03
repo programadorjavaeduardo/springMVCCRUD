@@ -86,7 +86,7 @@
     <a href="${pageContext.request.contextPath}/person/downloadXLSFormat.html">Descargar archivo XLS</a> --%>
 
 
-
+    <jsp:include page="../../common/footer.jsp" />
   </div>
 
 </body>
