@@ -1,24 +1,25 @@
 package beans;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-@Component
 public class Persona {
 
 	private Integer id_persona;
 	
+	
 	private String nombre;
+	
 	
 	private String ape_paterno;
 	
+	
 	private String ape_materno;
+	
 	
 	private String email;
 	
+	
 	private String telefono;
 	
-	@Autowired
+	
 	private Formacion formacion;
 
 	public Persona() {

@@ -37,11 +37,6 @@
         </div>
 
         <div class="form-group">
-          <label for="ape_paterno">Apellido Paterno:</label>
-          <input class="form-control" type="text" name="ape_paterno" id="ape_paterno" value="${persona.ape_paterno}">
-        </div>
-
-        <div class="form-group">
           <label for="ape_materno">Apellido Materno:</label>
           <input class="form-control" type="text" name="ape_materno" id="ape_materno" value="${persona.ape_materno}">
         </div>

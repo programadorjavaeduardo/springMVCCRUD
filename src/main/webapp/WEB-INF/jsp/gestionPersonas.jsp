@@ -34,7 +34,7 @@
 
     <div class="row">
       <div class="col">
-        <table class="table table-hover table-bordered">
+        <table class="table table-hover table_bordered">
           <thead>
             <tr>
               <th>Id </th>

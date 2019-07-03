@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class PersonaController {
 
 	@Autowired
 	PersonaService personaService;
-	
+
 	@Autowired
 	FormacionService formacionService;
 
@@ -32,9 +33,9 @@ public class PersonaController {
 	private String mensaje;
 
 	private String textoBoton;
-	
+
 	private List<Formacion> formaciones;
-	
+
 	@RequestMapping(value="/gestionPersonas")
 	public ModelAndView mostrargestionPersonas() {
 		List<Persona> personas= personaService.findAll();
@@ -80,21 +81,19 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value="/addPerson", method=RequestMethod.POST)
-	public ModelAndView agregarPersona(@RequestParam("nombre") String nombre,
-			@RequestParam("ape_paterno") String apePaterno, @RequestParam("ape_materno") String apeMaterno,
-			@RequestParam("email") String email, @RequestParam("telefono") String telefono,
-			@RequestParam("formacion") Integer id_formacion){
-		
+	public ModelAndView agregarPersona(@RequestParam Map<String,String> params ){
+
 		Persona persona= new Persona();
-		persona.setNombre(nombre);
-		persona.setApe_materno(apeMaterno);
-		persona.setApe_paterno(apePaterno);
-		persona.setEmail(email);
-		persona.setTelefono(telefono);
+		persona.setNombre(params.get("nombre"));
+		persona.setApe_materno(params.get("ape_materno"));
+		persona.setApe_paterno(params.get("ape_paterno"));
+		persona.setEmail(params.get("email"));
+		persona.setTelefono(params.get("telefono"));
 		Formacion formacion= new Formacion();
-		formacion.setId_formacion(id_formacion);
+		int idFormacion=Integer.parseInt(params.get("formacion"));
+		formacion.setId_formacion(idFormacion);
 		persona.setFormacion(formacion);
-		
+
 		boolean realizado=personaService.insertarPersona(persona);
 		if(realizado) {
 			mensaje="Insercion realizada correctamente";
@@ -113,7 +112,7 @@ public class PersonaController {
 		ModelAndView m= new ModelAndView("detallePersona");
 		titulo="Edicion Persona";
 		textoBoton= "Editar";
-		
+
 		Persona persona=personaService.getPersonaById(idPersona);
 		formaciones=formacionService.getFormaciones();
 		int seleccionado= persona.getFormacion().getId_formacion();
@@ -126,21 +125,21 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value="/editPerson")
-	public ModelAndView editarPersona(@RequestParam("id_persona") Integer idPersona, @RequestParam("nombre") String nombre,
-			@RequestParam("ape_paterno") String apePaterno, @RequestParam("ape_materno") String apeMaterno,
-			@RequestParam("email") String email, @RequestParam("telefono") String telefono,
-			@RequestParam("formacion") Integer id_formacion){
+	public ModelAndView editarPersona(@RequestParam Map<String,String> params){
 		ModelAndView m= new ModelAndView("gestionPersonas");
 		Persona persona= new Persona();
-		persona.setId_persona(idPersona);
-		persona.setNombre(nombre);
-		persona.setApe_materno(apeMaterno);
-		persona.setApe_paterno(apePaterno);
-		persona.setEmail(email);
-		persona.setTelefono(telefono);
+		persona.setId_persona(Integer.parseInt(params.get("id_persona")));
+		persona.setNombre(params.get("nombre"));
+		persona.setApe_materno(params.get("ape_materno"));
+		persona.setApe_paterno(params.get("ape_paterno"));
+		persona.setEmail(params.get("email"));
+		persona.setTelefono(params.get("telefono"));
 		Formacion formacion= new Formacion();
-		formacion.setId_formacion(id_formacion);
+		int idFormacion=Integer.parseInt(params.get("formacion"));
+		formacion.setId_formacion(idFormacion);
 		persona.setFormacion(formacion);
+		
+		
 		boolean realizado=personaService.updatePersona(persona);
 		if(realizado) {
 			mensaje="Modificacion realizada correctamente";

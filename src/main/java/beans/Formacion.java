@@ -1,8 +1,5 @@
 package beans;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Formacion {
 	
 	private int id_formacion;
