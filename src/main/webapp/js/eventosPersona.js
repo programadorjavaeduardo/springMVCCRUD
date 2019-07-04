@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
   $("#botonCancelar").on("click",function(){
-    window.location=ctx+"/person/gestionFormaciones.html";
+    window.location=ctx+"/person/gestionPersonas.html";
   });
 
 
