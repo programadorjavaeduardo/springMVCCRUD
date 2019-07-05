@@ -10,11 +10,11 @@ $(document).ready(function(){
 function obtenerPersona(idPersona){
 	window.location=ctx+"/person/getPerson.html?idPersona="+idPersona+"&locale="+lang;
 }
-function direccionar(textoBoton){
-    if(textoBoton === "Agregar"){
+function direccionar(idPersona){
+    if(idPersona === undefined){
       window.form.action=ctx+"/person/addPerson.html?locale="+lang;
       $('#form').serializeArray();
-    }else if(textoBoton === "Editar"){
+    }else{
       window.form.action=ctx+"/person/editPerson.html?locale="+lang;
     }
     return true;

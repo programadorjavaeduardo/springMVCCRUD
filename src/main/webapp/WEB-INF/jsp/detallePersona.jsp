@@ -14,6 +14,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
+<script>var lang = "${sessionScope['lang']}"</script>
 </head>
 <body>
   <div class="container">
@@ -28,7 +29,7 @@
 
   <div class="row">
     <div class="col">
-      <form:form action="" name="form" id="form" method="post" onsubmit="return direccionar('${textoBoton}')" commandName="persona">
+      <form:form action="" name="form" id="form" method="post" onsubmit="return direccionar(${persona.id_persona})" commandName="persona">
       	
       	<form:errors path="*" cssStyle="color: #ff0000;" />
         <div class="form-group">
@@ -78,6 +79,7 @@
             <input type="button" id="botonCancelar" name="botonCancelar" value="<spring:message code="actions.cancel"></spring:message>" class="btn btn-danger mr-4">
 
             <input type="hidden" name="id_persona" value="${persona.id_persona}">
+            
         </div>
       </form:form>
     </div>

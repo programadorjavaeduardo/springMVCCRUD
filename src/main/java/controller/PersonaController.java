@@ -1,11 +1,13 @@
 package controller;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,6 +40,9 @@ public class PersonaController {
 	
 	@Autowired
 	Validator validator;
+	
+	@Autowired
+	MessageSource messageSource;
 
 	private String titulo;
 
@@ -46,7 +51,17 @@ public class PersonaController {
 	private String textoBoton;
 
 	private List<Formacion> formaciones;
-
+	
+	private static String TITULO_NUEVA_PERSONA="title.newPerson";
+	private static String BOTON_AGREGAR="button.add";
+	private static String MENSAJE_BORRADO_OK="message.delete.ok";
+	private static String MENSAJE_BORRADO_NOOK="message.delete.nook";
+	private static String MENSAJE_INSERT_OK="message.insert.ok";
+	private static String MENSAJE_INSERT_NOOK="message.insert.nook"; 
+	private static String MENSAJE_UPDATE_OK="message.update.ok"; 
+	private static String MENSAJE_UPDATE_NOOK="message.update.nook"; 
+	private static String TITULO_EDIT_PERSONA="title.editPerson";
+	private static String BOTON_EDITAR="button.edit";
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(new PersonaValidator()); // registramos el validador
@@ -61,7 +76,7 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value="/deletePerson")
-	public ModelAndView borrarPersona(@RequestParam(value="idPersona")int idPersona) {
+	public ModelAndView borrarPersona(@RequestParam(value="idPersona")int idPersona, Locale locale) {
 
 
 		System.out.println("IdPersona a borrar:"+idPersona);
@@ -74,20 +89,21 @@ public class PersonaController {
 
 
 		if(realizado) {
-			mensaje="Borrado realizado correctamente";
+			
+			mensaje=messageSource.getMessage(MENSAJE_BORRADO_OK, null, locale);
 			m.addObject("mensaje",mensaje);
 		}else {
-			mensaje="Borrado no realizado";
+			mensaje=messageSource.getMessage(MENSAJE_BORRADO_NOOK, null, locale);
 			m.addObject("mensaje",mensaje);
 		}
 
 		return m;
 	}
 	@RequestMapping(value="/newPerson")
-	public ModelAndView nuevaPersona(){
+	public ModelAndView nuevaPersona(Locale locale){
 		ModelAndView m= new ModelAndView("detallePersona");
-		titulo="Nueva Persona";
-		textoBoton= "Agregar";
+		titulo=messageSource.getMessage(TITULO_NUEVA_PERSONA, null, locale);
+		textoBoton= messageSource.getMessage(BOTON_AGREGAR, null, locale);
 		formaciones=formacionService.getFormaciones();
 		m.addObject("persona", new Persona());
 		m.addObject("titulo", titulo);
@@ -97,13 +113,13 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value="/addPerson", method=RequestMethod.POST)
-	public ModelAndView agregarPersona(@Valid Persona persona, BindingResult bindingResult){
+	public ModelAndView agregarPersona(@Valid Persona persona, BindingResult bindingResult, Locale locale){
 		ModelAndView m;
 		
 		if(bindingResult.hasErrors()) {
 			m = new ModelAndView("detallePersona");
-			titulo="Nueva Persona";
-			textoBoton= "Agregar";
+			titulo=messageSource.getMessage(TITULO_NUEVA_PERSONA, null, locale);
+			textoBoton= messageSource.getMessage(BOTON_AGREGAR, null, locale);
 			formaciones=formacionService.getFormaciones();
 			m.addObject("persona", new Persona());
 			m.addObject("titulo", titulo);
@@ -112,9 +128,9 @@ public class PersonaController {
 		}else {
 			boolean realizado=personaService.insertarPersona(persona);
 			if(realizado) {
-				mensaje="Insercion realizada correctamente";
+				mensaje=messageSource.getMessage(MENSAJE_INSERT_OK, null, locale);
 			}else {
-				mensaje="Insercion no realizada";
+				mensaje=messageSource.getMessage(MENSAJE_INSERT_NOOK, null, locale);
 			}
 			m= new ModelAndView("gestionPersonas");
 			List<Persona> personas=personaService.findAll();
@@ -128,10 +144,10 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value="/getPerson")
-	public ModelAndView getPersona(@RequestParam("idPersona") int idPersona ){
+	public ModelAndView getPersona(@RequestParam("idPersona") int idPersona, Locale locale ){
 		ModelAndView m= new ModelAndView("detallePersona");
-		titulo="Edicion Persona";
-		textoBoton= "Editar";
+		titulo=messageSource.getMessage(TITULO_EDIT_PERSONA, null, locale);
+		textoBoton= messageSource.getMessage(BOTON_EDITAR, null, locale);
 
 		Persona persona=personaService.getPersonaById(idPersona);
 		formaciones=formacionService.getFormaciones();
@@ -145,13 +161,13 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value="/editPerson")
-	public ModelAndView editarPersona(@Valid Persona persona, BindingResult bindingResult){
+	public ModelAndView editarPersona(@Valid Persona persona, BindingResult bindingResult, Locale locale){
 		ModelAndView m;
 		
 		if(bindingResult.hasErrors()) {
 			m = new ModelAndView("detallePersona");
-			titulo="Edicion Persona";
-			textoBoton= "Modificar";
+			titulo=messageSource.getMessage(TITULO_EDIT_PERSONA, null, locale);
+			textoBoton= messageSource.getMessage(BOTON_EDITAR, null, locale);
 			formaciones=formacionService.getFormaciones();
 			m.addObject("persona", new Persona());
 			m.addObject("titulo", titulo);
@@ -160,9 +176,9 @@ public class PersonaController {
 		}else {
 			boolean realizado=personaService.updatePersona(persona);
 			if(realizado) {
-				mensaje="Modificacion realizada correctamente";
+				mensaje=messageSource.getMessage(MENSAJE_UPDATE_OK, null, locale);
 			}else {
-				mensaje="Modificacion no realizada";
+				mensaje=messageSource.getMessage(MENSAJE_UPDATE_NOOK, null, locale);
 			}
 			m= new ModelAndView("gestionPersonas");
 			List<Persona> personas=personaService.findAll();

@@ -11,9 +11,10 @@
  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
 <script>var lang = "${sessionScope['lang']}"</script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
+
 </head>
 <body>
 
@@ -26,7 +27,7 @@
 
     <div class="row mb-4">
         <div class="col">
-           <h4> <spring:message code="title.formations"></spring:message></h4>
+           <h4> <spring:message code="title.peopleList"></spring:message></h4>
         </div>
     </div>
     <div class="row mb-6">
