@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -31,39 +32,39 @@
       	
       	<form:errors path="*" cssStyle="color: #ff0000;" />
         <div class="form-group">
-          <label for="nombre">Nombre:</label>
+          <label for="nombre"><spring:message code="persona.header.name"></spring:message></label>
           <form:input class="form-control" type="text" name="nombre" id="nombre" path="nombre"/>
           
         </div>
 
         <div class="form-group">
-          <label for="ape_paterno">Apellido Paterno:</label>
+          <label for="ape_paterno"><spring:message code="persona.header.fatherSurname"></spring:message></label>
           <form:input class="form-control" type="text" name="ape_paterno" id="ape_paterno" path="ape_paterno"/>
           
         </div>
 
         <div class="form-group">
-          <label for="ape_materno">Apellido Materno:</label>
+          <label for="ape_materno"><spring:message code="persona.header.motherSurname"></spring:message></label>
           <form:input class="form-control" type="text" name="ape_materno" id="ape_materno" path="ape_materno"/>
           
         </div>
 
         <div class="form-group">
-          <label for="telefono">Telefono:</label>
+          <label for="telefono"><spring:message code="persona.header.telephone"></spring:message></label>
           <form:input class="form-control" type="text" name="telefono" id="telefono" path="telefono"/>
           
         </div>
 
         <div class="form-group">
-          <label for="email">Email:</label>
+          <label for="email"><spring:message code="persona.header.email"></spring:message></label>
           <form:input class="form-control" type="text" name="email" id="email" path="email"/>
          
         </div>
 
         <div class="form-group">
-          <label for="formacion">Formacion:</label>
+          <label for="formacion"><spring:message code="persona.header.formation"></spring:message></label>
           <form:select class="form-control" name="formacion" id="formacion" path="formacion.id_formacion">
-            <form:option value="-1">Seleccione una de las opciones...</form:option>
+            <form:option value="-1"><spring:message code="formation.select"></spring:message></form:option>
             <c:forEach items="${formaciones}" var="formacion">
               <option value="${formacion.id_formacion}" ${formacion.id_formacion == formacionSeleccionada ? 'selected="selected"' : ''}>${formacion.descripcion}</option>
             </c:forEach>
@@ -74,7 +75,7 @@
         <div class="form-group">
 
             <input type="submit" name="botonEnviar" value="${textoBoton}" class="btn btn-primary mr-3">
-            <input type="button" id="botonCancelar" name="botonCancelar" value="Cancelar" class="btn btn-danger mr-4">
+            <input type="button" id="botonCancelar" name="botonCancelar" value="<spring:message code="actions.cancel"></spring:message>" class="btn btn-danger mr-4">
 
             <input type="hidden" name="id_persona" value="${persona.id_persona}">
         </div>

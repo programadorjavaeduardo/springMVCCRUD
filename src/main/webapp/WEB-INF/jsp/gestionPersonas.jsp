@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,6 +12,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
+<script>var lang = "${sessionScope['lang']}"</script>
+<script>var ctx = "${pageContext.request.contextPath}"</script>
 </head>
 <body>
 
@@ -23,7 +26,7 @@
 
     <div class="row mb-4">
         <div class="col">
-           <h4> Lista de Personas</h4>
+           <h4> <spring:message code="title.formations"></spring:message></h4>
         </div>
     </div>
     <div class="row mb-6">
@@ -37,14 +40,14 @@
         <table class="table table-hover table_bordered">
           <thead>
             <tr>
-              <th>Id </th>
-      				<th>Nombre </th>
-      				<th>Apellido Materno</th>
-      				<th>Apellido Paterno</th>
-      				<th>Telefono </th>
-      				<th>Email </th>
-      				<th>Formacion Academica </th>
-      				<th colspan="2">Acciones</th>
+              		<th>Id </th>
+      				<th><spring:message code="persona.header.name"></spring:message></th>
+      				<th><spring:message code="persona.header.motherSurname"></spring:message></th>
+      				<th><spring:message code="persona.header.fatherSurname"></spring:message></th>
+      				<th><spring:message code="persona.header.telephone"></spring:message> </th>
+      				<th><spring:message code="persona.header.email"></spring:message> </th>
+      				<th><spring:message code="persona.header.formation"></spring:message></th>
+      				<th colspan="2"><spring:message code="persona.header.actions"></spring:message></th>
             </tr>
           </thead>
           <tbody>
@@ -57,8 +60,8 @@
                 <td> ${persona.telefono}</td>
                 <td> ${persona.email}</td>
                 <td> ${persona.formacion.descripcion}</td>
-                <td> <a href="${pageContext.request.contextPath}/person/deletePerson.html?idPersona=${persona.id_persona}" id="enlBorrar" onclick="return confirmarBorrar()">Borrar</a> </td>
-                <td> <a href="${pageContext.request.contextPath}/person/getPerson.html?idPersona=${persona.id_persona}">Editar</a> </td>
+                <td> <a onclick="return confirmarBorrar(${persona.id_persona})"><spring:message code="actions.delete"></spring:message></a> </td>
+                <td> <a onclick="obtenerPersona(${persona.id_persona})"> <spring:message code="actions.edit"></spring:message></a> </td>
               </tr>
 
             </c:forEach>
@@ -73,10 +76,10 @@
       <div class="col">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/person/newPerson.html">Nueva Persona</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/person/newPerson.html"><spring:message code="actions.newPerson"></spring:message></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/">Ir a Inicio</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/"><spring:message code="actions.index"></spring:message></a>
           </li>
         </ul>
 
