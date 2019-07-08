@@ -3,6 +3,12 @@ $(document).ready(function(){
   $("#botonCancelar").on("click",function(){
     window.location=ctx+"/person/gestionPersonas.html?locale="+lang;
   });
+  
+  $("#linkPeopleZone").on("click",function(){
+		 
+	  $(this).attr("href",ctx+"/person/gestionPersonas.html?locale="+lang);
+	  $(this).click();
+  });
 
 
 });
@@ -21,7 +27,7 @@ function direccionarSalidaP(idPersona){
 }
 
 function confirmarBorrarPersona(idPersona){
-  if(confirm("Realmente desea borrar la persona seleccionada?")){
+  if(confirm(mensajeConfirmacion)){
 	 window.location=ctx+"/person/deletePerson.html?idPersona="+idPersona+"&locale="+lang; 
     return true;
   }else{

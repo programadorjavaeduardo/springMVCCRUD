@@ -47,6 +47,8 @@ public class PersonaController {
 	private String titulo;
 
 	private String mensaje;
+	
+	private String mensajeConfirmacion;
 
 	private String textoBoton;
 
@@ -70,9 +72,12 @@ public class PersonaController {
 	@RequestMapping(value="/gestionPersonas")
 	public ModelAndView mostrargestionPersonas(Locale locale) {
 		List<Persona> personas= personaService.findAll();
+		mensajeConfirmacion= messageSource.getMessage("mensajeConfirmacion.formacion", null, locale);
 		//personas= geti18nTexts(personas,locale);
 		ModelAndView m = new ModelAndView("gestionPersonas");
+		
 		m.addObject("personas", personas);
+		m.addObject("mensajeConfirmacion",mensajeConfirmacion);
 		return m;
 	}
 

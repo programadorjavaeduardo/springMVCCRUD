@@ -13,6 +13,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
 <script>var lang = "${sessionScope['lang']}"</script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
+<script>var mensajeConfirmacion="${mensajeConfirmacion}"</script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
 </head>

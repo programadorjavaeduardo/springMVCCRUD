@@ -39,6 +39,8 @@ public class FormacionController {
 
 	private String textoBoton;
 	
+	private String mensajeConfirmacion;
+	
 	private List<Formacion> formaciones;
 	
 	@Autowired
@@ -61,10 +63,12 @@ public class FormacionController {
     }
 	
 	@RequestMapping(value="/gestionFormaciones")
-	public ModelAndView mostrargestionFormaciones() {
+	public ModelAndView mostrargestionFormaciones(Locale locale) {
 		List<Formacion> formaciones= formacionService.getFormaciones();
+		mensajeConfirmacion= messageSource.getMessage("mensajeConfirmacion.formacion", null, locale);
 		ModelAndView m = new ModelAndView("gestionFormaciones");
 		m.addObject("formaciones", formaciones);
+		m.addObject("mensajeConfirmacion", mensajeConfirmacion);
 		return m;
 	}
 
@@ -140,7 +144,6 @@ public class FormacionController {
 		ModelAndView m= new ModelAndView("detalleFormacion");
 		titulo=messageSource.getMessage(TITULO_EDIT_FORMACION, null, locale);
 		textoBoton= messageSource.getMessage(BOTON_EDITAR, null, locale);
-		
 		Formacion formacion=formacionService.getFormacionById(idFormacion);
 		
 		m.addObject("titulo", titulo);

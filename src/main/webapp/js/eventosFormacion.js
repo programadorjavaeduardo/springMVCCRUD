@@ -3,6 +3,12 @@ $(document).ready(function(){
   $("#botonCancelar").on("click",function(){
     window.location=ctx+"/formacion/gestionFormaciones.html";
   });
+  
+  $("#linkFormationZone").on("click",function(){
+	 
+	  $(this).attr("href",ctx+"/formacion/gestionFormaciones.html?locale="+lang);
+	  $(this).click();
+  });
 
 
 
@@ -21,15 +27,13 @@ function direccionarSalidaF(idFormacion){
 }
 
 function confirmarBorrarFormacion(){
-  if(confirm("Realmente desea borrar la formacion seleccionada?")){
+  if(confirm(mensajeConfirmacion)){
     return true;
   }else{
     return false;
   }
 }
 
-function abrirMenuGestionFormacion(){
-	console.log(lang);
-	window.location= ctx+"/formacion/gestionFormaciones.html?locale="+lang;
-}
+
+
 

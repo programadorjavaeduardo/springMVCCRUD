@@ -16,6 +16,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
 <script>var lang = "${sessionScope['lang']}"</script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
+
+
 </head>
 <body>
   <div class="container">
