@@ -67,7 +67,7 @@
           <form:select class="form-control" name="formacion" id="formacion" path="formacion.id_formacion">
             <form:option value="-1"><spring:message code="formation.select"></spring:message></form:option>
             <c:forEach items="${formaciones}" var="formacion">
-              <option value="${formacion.id_formacion}" ${formacion.id_formacion == formacionSeleccionada ? 'selected="selected"' : ''}>${formacion.descripcion}</option>
+              <option value="${formacion.id_formacion}" ${formacion.id_formacion == formacionSeleccionada ? 'selected="selected"' : ''}>${formacion.descripcionEsp}</option>
             </c:forEach>
           </form:select>
           

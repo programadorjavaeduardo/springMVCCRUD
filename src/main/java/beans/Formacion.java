@@ -1,19 +1,17 @@
 package beans;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Formacion {
 	
 	private int id_formacion;
 	
-	private String descripcion;
+	private String descripcionEsp;
 	
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
+	private String descripcionEng;
+	
+	
 	public int getId_formacion() {
 		return id_formacion;
 	}
@@ -22,10 +20,31 @@ public class Formacion {
 		this.id_formacion = id_formacion;
 	}
 
+	
+	public String getDescripcionEsp() {
+		return descripcionEsp;
+	}
+
+	public void setDescripcionEsp(String descripcionEsp) {
+		this.descripcionEsp = descripcionEsp;
+	}
+
+	public String getDescripcionEng() {
+		return descripcionEng;
+	}
+
+	public void setDescripcionEng(String descripcionEng) {
+		this.descripcionEng = descripcionEng;
+	}
+
 	@Override
 	public String toString() {
-		return "Formacion [id_formacion=" + id_formacion + ", descripcion=" + descripcion + "]";
+		return "Formacion [id_formacion=" + id_formacion + ", descripcionEsp=" + descripcionEsp + ", descripcionEng="
+				+ descripcionEng + "]";
 	}
+
+	
+	
 	
 	
 	

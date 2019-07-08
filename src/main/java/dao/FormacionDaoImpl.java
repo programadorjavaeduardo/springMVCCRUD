@@ -21,9 +21,9 @@ public class FormacionDaoImpl implements FormacionDao {
 	
 	public static String SQL_GET_FORMACION_BY_ID="SELECT * FROM Formacion WHERE id_formacion=?";
 	
-	public static String SQL_INSERT_FORMACION="INSERT INTO Formacion(descripcion) VALUES (?)";
+	public static String SQL_INSERT_FORMACION="INSERT INTO Formacion(descripcionEsp,descripcionEng) VALUES (?,?)";
 	
-	public static String SQL_UPDATE_FORMACION="UPDATE Formacion SET descripcion=? where id_formacion=?";
+	public static String SQL_UPDATE_FORMACION="UPDATE Formacion SET descripcionEsp=?, descripcionEng=? where id_formacion=?";
 	
 	public static String SQL_DELETE_FORMACION="DELETE FROM Formacion where id_formacion=?";
 	
@@ -47,7 +47,8 @@ public class FormacionDaoImpl implements FormacionDao {
 			while(rs.next()) {
 				Formacion f= new Formacion();
 				f.setId_formacion(rs.getInt(1));
-				f.setDescripcion(rs.getString(2));
+				f.setDescripcionEsp(rs.getString(2));
+				f.setDescripcionEng(rs.getString(3));
 				formaciones.add(f);
 			}
 		} catch (SQLException e) {
@@ -70,7 +71,8 @@ public class FormacionDaoImpl implements FormacionDao {
 			while(rs.next()) {
 				f= new Formacion();
 				f.setId_formacion(rs.getInt(1));
-				f.setDescripcion(rs.getString(2));
+				f.setDescripcionEsp(rs.getString(2));
+				f.setDescripcionEng(rs.getString(3));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -112,8 +114,8 @@ public class FormacionDaoImpl implements FormacionDao {
 			Connection con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_INSERT_FORMACION);
-			pstmt.setString(1, f.getDescripcion());
-			
+			pstmt.setString(1, f.getDescripcionEsp());
+			pstmt.setString(2, f.getDescripcionEng());
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {
 				realizado=true;
@@ -136,8 +138,9 @@ public class FormacionDaoImpl implements FormacionDao {
 			Connection con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_UPDATE_FORMACION);
-			pstmt.setString(1, f.getDescripcion());
-			pstmt.setInt(2, f.getId_formacion());
+			pstmt.setString(1, f.getDescripcionEsp());
+			pstmt.setString(2, f.getDescripcionEng());
+			pstmt.setInt(3, f.getId_formacion());
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {
 				realizado=true;

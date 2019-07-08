@@ -68,12 +68,20 @@ public class PersonaController {
     }
 	
 	@RequestMapping(value="/gestionPersonas")
-	public ModelAndView mostrargestionPersonas() {
+	public ModelAndView mostrargestionPersonas(Locale locale) {
 		List<Persona> personas= personaService.findAll();
+		//personas= geti18nTexts(personas,locale);
 		ModelAndView m = new ModelAndView("gestionPersonas");
 		m.addObject("personas", personas);
 		return m;
 	}
+
+//	private List<Persona> geti18nTexts(List<Persona> personas,Locale locale) {
+//		for(Persona p: personas) {
+//			String descFormacion= p.getFormacion().getDescripcion();
+//			//messageSource.getMessage(code, args, locale)
+//		}
+//	}
 
 	@RequestMapping(value="/deletePerson")
 	public ModelAndView borrarPersona(@RequestParam(value="idPersona")int idPersona, Locale locale) {

@@ -18,10 +18,10 @@
 </head>
 <body>
 
-
+ 
 
   <div class="container">
-
+	Lang: ${sessionScope['lang']}
     <jsp:include page="../../common/header.jsp" />
     <hr>
 
@@ -60,7 +60,7 @@
                 <td> ${persona.ape_paterno}</td>
                 <td> ${persona.telefono}</td>
                 <td> ${persona.email}</td>
-                <td> ${persona.formacion.descripcion}</td>
+                <td> ${sessionScope['lang']=='es' ? persona.formacion.descripcionEsp : persona.formacion.descripcionEng} </td>
                 <td> <a onclick="return confirmarBorrar(${persona.id_persona})"><spring:message code="actions.delete"></spring:message></a> </td>
                 <td> <a onclick="obtenerPersona(${persona.id_persona})"> <spring:message code="actions.edit"></spring:message></a> </td>
               </tr>

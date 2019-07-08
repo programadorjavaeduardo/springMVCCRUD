@@ -23,7 +23,9 @@ public class HomeController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		session.setAttribute("lang", "es");
+		if(session.getAttribute("lang").equals(null)) {
+			session.setAttribute("lang", "es");
+		}
 		return "index";
 	}
 	

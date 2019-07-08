@@ -13,10 +13,11 @@ public class FormacionValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		Formacion formacion = (Formacion) target;
 		
-		// la descripcion es obligatoria
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "descripcion", "field.descripcion.required", "La descripcion es obligatoria");
+		// la descripcionEsp es obligatoria
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "descripcionEsp", "field.descripcionEsp.required", "La descripcion en español es obligatoria");
 		
-		
+		// la descripcionEng es obligatoria
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "descripcionEng", "field.descripcionEng.required", "La descripcion en ingles es obligatoria");
 		
 	}
 

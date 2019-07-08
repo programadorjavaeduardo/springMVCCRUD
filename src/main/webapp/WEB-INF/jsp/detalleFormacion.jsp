@@ -28,9 +28,14 @@
         <form:form action="" name="form" id="form" method="post" onsubmit="return direccionar('${textoBoton}')" commandName="formacion">
         
           <div class="form-group">
-            <label for="descripcion">Descripcion:</label>
-            <form:input class="form-control" type="text" name="descripcion" id="descripcion" path="descripcion"/>
-           	<form:errors path="descripcion" cssStyle="color: #ff0000;"/>
+            <label for="descripcion">Descripcion Esp:</label>
+            <form:input class="form-control" type="text" name="descripcionEsp" id="descripcionEsp" path="descripcionEsp"/>
+           	<form:errors path="descripcionEsp" cssStyle="color: #ff0000;"/>
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Descripcion Eng:</label>
+            <form:input class="form-control" type="text" name="descripcionEng" id="descripcionEng" path="descripcionEng"/>
+           	<form:errors path="descripcionEng" cssStyle="color: #ff0000;"/>
           </div>
           <div class="form-group">
             <input type="submit" name="botonEnviar" value="${textoBoton}" class="btn btn-primary mr-3">

@@ -31,10 +31,10 @@ public class PersonaDaoImpl implements PersonaDao {
 	
 	private ResultSet rs;
 	
-	private static String SQL_FIND_ALL="SELECT p.id_persona, p.nombre, p.apellido_paterno, p.apellido_materno, p.telefono, p.email, f.id_formacion, f.descripcion FROM Persona p LEFT JOIN Formacion f ON p.id_formacion=f.id_formacion";
+	private static String SQL_FIND_ALL="SELECT p.id_persona, p.nombre, p.apellido_paterno, p.apellido_materno, p.telefono, p.email, f.id_formacion, f.descripcionEsp, f.descripcionEng FROM Persona p LEFT JOIN Formacion f ON p.id_formacion=f.id_formacion";
 	private static String SQL_DELETE_PERSONA="DELETE FROM Persona where id_persona=?";
 	private static String SQL_INSERT_PERSONA="INSERT INTO Persona(nombre, apellido_paterno, apellido_materno, telefono, email, id_formacion) VALUES(?,?,?,?,?,?)";
-	private static String SQL_GET_PERSONA="SELECT p.id_persona, p.nombre, p.apellido_paterno, p.apellido_materno, p.telefono, p.email, f.id_formacion, f.descripcion FROM Persona p LEFT JOIN Formacion f ON p.id_formacion=f.id_formacion WHERE id_persona=?";
+	private static String SQL_GET_PERSONA="SELECT p.id_persona, p.nombre, p.apellido_paterno, p.apellido_materno, p.telefono, p.email, f.id_formacion, f.descripcionEsp, f.descripcionEng FROM Persona p LEFT JOIN Formacion f ON p.id_formacion=f.id_formacion WHERE id_persona=?";
 	private static String SQL_UPDATE_PERSONA="UPDATE Persona SET nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, id_formacion=? where id_persona=?";
 	
 	public List<Persona> findAll() {
@@ -58,7 +58,8 @@ public class PersonaDaoImpl implements PersonaDao {
 				
 				Formacion f= new Formacion();
 				f.setId_formacion(rs.getInt(7));
-				f.setDescripcion(rs.getString(8));
+				f.setDescripcionEsp(rs.getString(8));
+				f.setDescripcionEng(rs.getString(9));
 				p.setFormacion(f);
 				personas.add(p);
 			}
@@ -146,7 +147,8 @@ public class PersonaDaoImpl implements PersonaDao {
 				
 				Formacion f= new Formacion();
 				f.setId_formacion(rs.getInt(7));
-				f.setDescripcion(rs.getString(8));
+				f.setDescripcionEsp(rs.getString(8));
+				f.setDescripcionEsp(rs.getString(9));
 				p.setFormacion(f);
 			}
 		} catch (SQLException e) {

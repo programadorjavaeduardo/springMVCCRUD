@@ -38,7 +38,8 @@
           <thead>
             <tr>
       				<th>Id </th>
-      				<th>Descripcion </th>
+      				<th>Descripcion Esp </th>
+      				<th>Descripcion Eng </th>
       				<th colspan="2">Acciones</th>
             </tr>
           </thead>
@@ -46,7 +47,8 @@
             <c:forEach var="formacion" items="${formaciones}">
               <tr>
                 <td> ${formacion.id_formacion}</td>
-                <td> ${formacion.descripcion}</td>
+                <td> ${formacion.descripcionEsp}</td>
+                <td> ${formacion.descripcionEng}</td>
                 <td> <a href="${pageContext.request.contextPath}/formacion/deleteFormacion.html?id_formacion=${formacion.id_formacion}" id="enlBorrar" onclick="return confirmarBorrar()">Borrar</a> </td>
                 <td> <a href="${pageContext.request.contextPath}/formacion/getFormacion.html?id_formacion=${formacion.id_formacion}">Editar</a> </td>
               </tr>
