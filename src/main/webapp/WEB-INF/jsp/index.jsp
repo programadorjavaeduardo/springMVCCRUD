@@ -19,7 +19,7 @@
 <body>
 
 	<div class="container">
-		Lang: ${sessionScope["lang"]}
+		
     <div class="row">
        <div class="col-10">
             <div class="jumbotron">

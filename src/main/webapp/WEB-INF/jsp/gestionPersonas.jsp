@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Datos Recursos Humanos</title>
+<title><spring:message code="title.peopleManagement"></spring:message></title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
@@ -14,14 +14,13 @@
 <script>var lang = "${sessionScope['lang']}"</script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
 </head>
 <body>
 
  
 
   <div class="container">
-	Lang: ${sessionScope['lang']}
     <jsp:include page="../../common/header.jsp" />
     <hr>
 
@@ -61,7 +60,7 @@
                 <td> ${persona.telefono}</td>
                 <td> ${persona.email}</td>
                 <td> ${sessionScope['lang']=='es' ? persona.formacion.descripcionEsp : persona.formacion.descripcionEng} </td>
-                <td> <a onclick="return confirmarBorrar(${persona.id_persona})"><spring:message code="actions.delete"></spring:message></a> </td>
+                <td> <a onclick="return confirmarBorrarPersona(${persona.id_persona})"><spring:message code="actions.delete"></spring:message></a> </td>
                 <td> <a onclick="obtenerPersona(${persona.id_persona})"> <spring:message code="actions.edit"></spring:message></a> </td>
               </tr>
 

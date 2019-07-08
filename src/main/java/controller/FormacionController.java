@@ -1,12 +1,13 @@
 package controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,9 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import beans.Formacion;
 import beans.FormacionValidator;
-import beans.Persona;
 import service.FormacionService;
-import service.PersonaService;
 
 
 @Controller
@@ -42,6 +41,20 @@ public class FormacionController {
 	
 	private List<Formacion> formaciones;
 	
+	@Autowired
+	private MessageSource messageSource;
+	
+	private static String TITULO_NUEVA_FORMACION="title.newFormacion";
+	private static String BOTON_AGREGAR="button.add";
+	private static String MENSAJE_BORRADO_OK="message.delete.ok";
+	private static String MENSAJE_BORRADO_NOOK="message.delete.nook";
+	private static String MENSAJE_INSERT_OK="message.insert.ok";
+	private static String MENSAJE_INSERT_NOOK="message.insert.nook"; 
+	private static String MENSAJE_UPDATE_OK="message.update.ok"; 
+	private static String MENSAJE_UPDATE_NOOK="message.update.nook"; 
+	private static String TITULO_EDIT_FORMACION="title.editFormacion";
+	private static String BOTON_EDITAR="button.edit";
+	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(new FormacionValidator()); // registramos el validador
@@ -56,7 +69,7 @@ public class FormacionController {
 	}
 
 	@RequestMapping(value="/deleteFormacion")
-	public ModelAndView borrarFormacion(@RequestParam(value="id_formacion")int idFormacion) {
+	public ModelAndView borrarFormacion(@RequestParam(value="id_formacion")int idFormacion, Locale locale) {
 
 
 		System.out.println("IdFormacion a borrar:"+idFormacion);
@@ -69,20 +82,21 @@ public class FormacionController {
 
 
 		if(realizado) {
-			mensaje="Borrado realizado correctamente";
+			
+			mensaje=messageSource.getMessage(MENSAJE_BORRADO_OK, null, locale);
 			m.addObject("mensaje",mensaje);
 		}else {
-			mensaje="Borrado no realizado";
+			mensaje=messageSource.getMessage(MENSAJE_BORRADO_NOOK, null, locale);
 			m.addObject("mensaje",mensaje);
 		}
 
 		return m;
 	}
 	@RequestMapping(value="/newFormacion")
-	public ModelAndView nuevaFormacion(){
+	public ModelAndView nuevaFormacion(Locale locale){
 		ModelAndView m= new ModelAndView("detalleFormacion");
-		titulo="Nueva Formacion";
-		textoBoton= "Agregar";
+		titulo=messageSource.getMessage(TITULO_NUEVA_FORMACION, null, locale);
+		textoBoton= messageSource.getMessage(BOTON_AGREGAR, null, locale);
 		m.addObject("formacion", new Formacion());
 		m.addObject("titulo", titulo);
 		m.addObject("textoBoton", textoBoton);
@@ -90,24 +104,28 @@ public class FormacionController {
 	}
 
 	@RequestMapping(value="/addFormacion", method=RequestMethod.POST)
-	public ModelAndView agregarFormacion(@ModelAttribute("formacion") @Valid Formacion formacion, BindingResult bindingResult){
-		ModelAndView m;
+	public ModelAndView agregarFormacion(@ModelAttribute("formacion") @Valid Formacion formacion, BindingResult bindingResult, Locale locale){
+		ModelAndView m = null;
 		if(bindingResult.hasErrors()) {
 			m= new ModelAndView("detalleFormacion");
-			titulo="Nueva Formacion";
-			textoBoton= "Agregar";
+			titulo=messageSource.getMessage(TITULO_NUEVA_FORMACION, null, locale);
+			textoBoton= messageSource.getMessage(BOTON_AGREGAR, null, locale);
 			m.addObject("titulo", titulo);
 			m.addObject("textoBoton", textoBoton);
 		}else {
-			Formacion f= new Formacion();
-			//formacion.setDescripcion(descripcion);
-			boolean realizado=formacionService.addFormacion(f);
-			if(realizado) {
-				mensaje="Insercion realizada correctamente";
-			}else {
-				mensaje="Insercion no realizada";
-			}
 			m= new ModelAndView("gestionFormaciones");
+			
+			boolean realizado=formacionService.addFormacion(formacion);
+			
+			if(realizado) {
+				
+				mensaje=messageSource.getMessage(MENSAJE_INSERT_OK, null, locale);
+				m.addObject("mensaje",mensaje);
+			}else {
+				mensaje=messageSource.getMessage(MENSAJE_INSERT_NOOK, null, locale);
+				m.addObject("mensaje",mensaje);
+			}
+			
 			List<Formacion> formaciones=formacionService.getFormaciones();
 			m.addObject("formaciones", formaciones);
 			m.addObject("mensaje",mensaje);
@@ -118,10 +136,10 @@ public class FormacionController {
 	}
 
 	@RequestMapping(value="/getFormacion")
-	public ModelAndView getFormacion(@RequestParam("id_formacion") int idFormacion ){
+	public ModelAndView getFormacion(@RequestParam("id_formacion") int idFormacion, Locale locale ){
 		ModelAndView m= new ModelAndView("detalleFormacion");
-		titulo="Edicion Formacion";
-		textoBoton= "Editar";
+		titulo=messageSource.getMessage(TITULO_EDIT_FORMACION, null, locale);
+		textoBoton= messageSource.getMessage(BOTON_EDITAR, null, locale);
 		
 		Formacion formacion=formacionService.getFormacionById(idFormacion);
 		
@@ -132,24 +150,27 @@ public class FormacionController {
 	}
 
 	@RequestMapping(value="/editFormacion")
-	public ModelAndView editarFormacion(@Valid Formacion formacion, BindingResult bindingResult){
+	public ModelAndView editarFormacion(@Valid Formacion formacion, BindingResult bindingResult, Locale locale){
 		ModelAndView m= new ModelAndView("gestionFormaciones");
 		if(bindingResult.hasErrors()) {
 			m= new ModelAndView("detalleFormacion");
-			titulo="Nueva Formacion";
-			textoBoton= "Agregar";
+			titulo=messageSource.getMessage(TITULO_EDIT_FORMACION, null, locale);
+			textoBoton= messageSource.getMessage(BOTON_EDITAR, null, locale);
 			m.addObject("titulo", titulo);
 			m.addObject("textoBoton", textoBoton);
 		}
 		else {
 			boolean realizado=formacionService.updateFormacion(formacion);
+			
 			if(realizado) {
-				mensaje="Modificacion realizada correctamente";
+				
+				mensaje=messageSource.getMessage(MENSAJE_UPDATE_OK, null, locale);
 				m.addObject("mensaje",mensaje);
 			}else {
-				mensaje="Modificacion no realizada";
+				mensaje=messageSource.getMessage(MENSAJE_UPDATE_NOOK, null, locale);
 				m.addObject("mensaje",mensaje);
 			}
+			
 			List<Formacion> formaciones= formacionService.getFormaciones();
 
 			m.addObject("formaciones", formaciones);

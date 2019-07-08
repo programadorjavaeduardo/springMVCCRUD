@@ -10,7 +10,7 @@ $(document).ready(function(){
 function obtenerPersona(idPersona){
 	window.location=ctx+"/person/getPerson.html?idPersona="+idPersona+"&locale="+lang;
 }
-function direccionar(idPersona){
+function direccionarSalidaP(idPersona){
     if(idPersona === undefined){
       window.form.action=ctx+"/person/addPerson.html?locale="+lang;
       $('#form').serializeArray();
@@ -20,7 +20,7 @@ function direccionar(idPersona){
     return true;
 }
 
-function confirmarBorrar(idPersona){
+function confirmarBorrarPersona(idPersona){
   if(confirm("Realmente desea borrar la persona seleccionada?")){
 	 window.location=ctx+"/person/deletePerson.html?idPersona="+idPersona+"&locale="+lang; 
     return true;

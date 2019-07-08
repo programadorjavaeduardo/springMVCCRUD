@@ -7,12 +7,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Datos Recursos Humanos</title>
+<title><spring:message code="title.detailPeople"></spring:message></title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var lang = "${sessionScope['lang']}"</script>
 </head>
@@ -29,7 +30,7 @@
 
   <div class="row">
     <div class="col">
-      <form:form action="" name="form" id="form" method="post" onsubmit="return direccionar(${persona.id_persona})" commandName="persona">
+      <form:form action="" name="form" id="form" method="post" onsubmit="return direccionarSalidaP(${persona.id_persona})" commandName="persona">
       	
       	<form:errors path="*" cssStyle="color: #ff0000;" />
         <div class="form-group">
