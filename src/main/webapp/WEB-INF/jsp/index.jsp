@@ -19,7 +19,7 @@
 <body>
 
 	<div class="container">
-		
+   
     <div class="row">
        <div class="col-10 align-self-start">
             <div class="jumbotron">
@@ -27,8 +27,8 @@
             </div>
         </div>
         <div class="col-2 align-self-center">
-           <a href="${pageContext.request.contextPath}/language/esp.html?locale=es">ES</a>
-           <a href="${pageContext.request.contextPath}/language/eng.html?locale=en">EN</a>
+           <a id="linkES" href="">ES</a>
+           <a id="linkEN" href="">EN</a>
         </div>
 
     </div>
@@ -46,7 +46,7 @@
 
       </div>
 
-     
+
 
     </div>
 

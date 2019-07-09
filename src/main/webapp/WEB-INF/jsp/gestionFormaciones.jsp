@@ -51,8 +51,8 @@
                 <td> ${formacion.id_formacion}</td>
                 <td> ${formacion.descripcionEsp}</td>
                 <td> ${formacion.descripcionEng}</td>
-                <td> <a href="${pageContext.request.contextPath}/formacion/deleteFormacion.html?id_formacion=${formacion.id_formacion}" id="enlBorrar" onclick="return confirmarBorrarFormacion()"><spring:message code="actions.delete"></spring:message></a> </td>
-                <td> <a href="${pageContext.request.contextPath}/formacion/getFormacion.html?id_formacion=${formacion.id_formacion}"><spring:message code="actions.edit"></spring:message></a> </td>
+                <td> <a onclick="return confirmarBorrarFormacion(${formacion.id_formacion})"><spring:message code="actions.delete"></spring:message></a> </td>
+                <td> <a onclick="obtenerFormacion(${formacion.id_formacion})"><spring:message code="actions.edit"></spring:message></a> </td>
               </tr>
 
             </c:forEach>
@@ -66,10 +66,10 @@
       <div class="col">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/formacion/newFormacion.html"><spring:message code="actions.newFormation"></spring:message></a>
+            <a id="linkNewFormacion" class="nav-link" href=""><spring:message code="actions.newFormation"></spring:message></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/"><spring:message code="actions.index"></spring:message></a>
+            <a id="linkIndex" class="nav-link" href=""><spring:message code="actions.index"></spring:message></a>
           </li>
         </ul>
 

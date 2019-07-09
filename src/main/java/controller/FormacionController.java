@@ -79,12 +79,6 @@ public class FormacionController {
 		System.out.println("IdFormacion a borrar:"+idFormacion);
 		boolean realizado=formacionService.deleteFormacion(idFormacion);
 		ModelAndView m= new ModelAndView("gestionFormaciones");
-
-		//carga de las formaciones
-		List<Formacion> formaciones= formacionService.getFormaciones();
-		m.addObject("formaciones", formaciones);
-
-
 		if(realizado) {
 			
 			mensaje=messageSource.getMessage(MENSAJE_BORRADO_OK, null, locale);
@@ -93,6 +87,10 @@ public class FormacionController {
 			mensaje=messageSource.getMessage(MENSAJE_BORRADO_NOOK, null, locale);
 			m.addObject("mensaje",mensaje);
 		}
+		
+		//carga de las formaciones
+		List<Formacion> formaciones= formacionService.getFormaciones();
+		m.addObject("formaciones", formaciones);
 
 		return m;
 	}

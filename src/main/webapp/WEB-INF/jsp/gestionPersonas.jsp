@@ -19,7 +19,7 @@
 </head>
 <body>
 
- 
+
 
   <div class="container">
     <jsp:include page="../../common/header.jsp" />
@@ -77,10 +77,10 @@
       <div class="col">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/person/newPerson.html"><spring:message code="actions.newPerson"></spring:message></a>
+            <a id="linkNewPersona" class="nav-link" href=""><spring:message code="actions.newPerson"></spring:message></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/"><spring:message code="actions.index"></spring:message></a>
+            <a id="linkIndex" class="nav-link" href=""><spring:message code="actions.index"></spring:message></a>
           </li>
         </ul>
 

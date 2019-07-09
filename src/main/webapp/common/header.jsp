@@ -1,18 +1,19 @@
 	<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 	<div class="row">
+		
        <div class="col-10 align-self-start">
             <div class="jumbotron">
               <h1><spring:message code="header.welcome" /></h1>
             </div>
         </div>
-        <div class="col-2 align-self-center">
-           <a href="${pageContext.request.contextPath}/language/esp.html?locale=es">ES</a>
-           <a href="${pageContext.request.contextPath}/language/eng.html?locale=en">EN</a>
+				<div class="col-2 align-self-center">
+           <a id="linkES" href="">ES</a>
+           <a id="linkEN" href="">EN</a>
         </div>
 
     </div>
 
- 
+
      <div class="row">
       <div class="col">
           <ul class="nav">
@@ -26,6 +27,6 @@
 
       </div>
 
-     
+
 
     </div>

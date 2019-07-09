@@ -72,7 +72,7 @@ public class PersonaController {
 	@RequestMapping(value="/gestionPersonas")
 	public ModelAndView mostrargestionPersonas(Locale locale) {
 		List<Persona> personas= personaService.findAll();
-		mensajeConfirmacion= messageSource.getMessage("mensajeConfirmacion.formacion", null, locale);
+		mensajeConfirmacion= messageSource.getMessage("mensajeConfirmacion.persona", null, locale);
 		//personas= geti18nTexts(personas,locale);
 		ModelAndView m = new ModelAndView("gestionPersonas");
 		
