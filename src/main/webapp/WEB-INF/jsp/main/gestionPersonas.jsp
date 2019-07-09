@@ -22,7 +22,8 @@
 
 
   <div class="container">
-    <jsp:include page="../../common/header.jsp" />
+    <jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/actions.jsp" ></jsp:include>
     <hr>
 
     <div class="row mb-4">
@@ -90,7 +91,7 @@
     <a href="${pageContext.request.contextPath}/person/downloadXLSFormat.html">Descargar archivo XLS</a> --%>
 
 
-    <jsp:include page="../../common/footer.jsp" />
+    <jsp:include page="../common/footer.jsp" />
   </div>
 
 </body>

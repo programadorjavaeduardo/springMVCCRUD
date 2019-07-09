@@ -21,7 +21,8 @@
 </head>
 <body>
   <div class="container">
-    <jsp:include page="../../common/header.jsp" />
+    <jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/actions.jsp" ></jsp:include>
     <div class="row mt-5">
       <div class="col">
         <h1>${titulo}</h1>
@@ -51,7 +52,7 @@
         </form:form>
       </div>
     </div>
-    <jsp:include page="../../common/footer.jsp" />
+    <jsp:include page="../common/footer.jsp" />
   </div>
 
 

@@ -11,7 +11,7 @@
 		in the /WEB-INF/views directory -->
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/jsp/" />
+		<beans:property name="prefix" value="/WEB-INF/jsp/main/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
   

@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+  
+  
+  	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
 	
-
-	<context:component-scan
-        base-package="beans, controller, dao, service" />
-	<context:annotation-config />
-</beans>
+  
+  	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <beans:property name="url" value="jdbc:mysql://localhost/recursos_humanos"/>
+        <beans:property name="username" value="root"/>
+        <beans:property name="password" value="admin"/>
+        <beans:property name="maxActive" value="100000"/>
+        <beans:property name="maxIdle" value="30"/>
+        <beans:property name="maxWait" value="16000"/>
+        <beans:property name="minIdle" value="0"/>
+	</beans:bean>
+  
+  	
+    
+    
+	
+    
+    <context:component-scan
+        base-package="beans, controller, dao, service, view" />
+    
+   
+    
+    
+     
+</beans:beans>

@@ -12,6 +12,7 @@ import dao.FormacionDaoImpl;
 import service.FormacionService;
 import service.PersonaService;
 import service.PersonaServiceImpl;
+import service.UsuarioAccesoService;
 
 public class Prueba {
 
@@ -19,10 +20,10 @@ public class Prueba {
 		// TODO Auto-generated method stub
 		ApplicationContext ctx= new ClassPathXmlApplicationContext("applicationContext.xml");
 		BeanFactory beanFactory= ctx;
-		PersonaService personaService=(PersonaService) beanFactory.getBean("personaServiceImpl");
-		List<Persona> personas=personaService.findAll();
-		for(Persona p: personas) {
-			System.out.println(p.toString());
+		UsuarioAccesoService usuarioAccesoService=(UsuarioAccesoService) beanFactory.getBean("usuarioAccesoServiceImpl");
+		List<UsuarioAcceso> usuarios=usuarioAccesoService.getUsuariosAccesoByIdPersona(71);
+		for(UsuarioAcceso u: usuarios) {
+			System.out.println(u.toString());
 		}
 		
 		

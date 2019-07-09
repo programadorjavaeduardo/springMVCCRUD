@@ -19,7 +19,8 @@
 </head>
 <body>
   <div class="container">
-    <jsp:include page="../../common/header.jsp" />
+    <jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/actions.jsp" ></jsp:include>
     <div class="row mt-5">
       <div class="col">
           <h3> <spring:message code="title.formationManagement"></spring:message></h3>
@@ -75,7 +76,7 @@
 
       </div>
     </div>
-      <jsp:include page="../../common/footer.jsp" />
+      <jsp:include page="../common/footer.jsp" />
   </div>
 
 </body>
