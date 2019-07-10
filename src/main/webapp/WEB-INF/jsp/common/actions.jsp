@@ -11,6 +11,10 @@
 	            <li class="nav-item">
 	              <a id="linkFormationZone" href="" class="nav-link"><spring:message code="link.formationZone"/></a>
 	            </li>
+	            
+	            <li class="nav-item">
+	              <a id="linkUserZone" href="" class="nav-link"><spring:message code="link.userZone"/></a>
+	            </li>
 	          </ul>
 	
 	      </div> 

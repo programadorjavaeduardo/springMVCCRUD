@@ -7,14 +7,15 @@ import beans.UsuarioAcceso;
 
 public interface UsuarioAccesoDao {
 	
-	public List<UsuarioAcceso> getUsuariosAccesoByIdPersona(int id_persona);
+	public UsuarioAcceso getUsuarioAccesoByUserPass(String user, String pass);
 	
 	public boolean addUsuarioAcceso(UsuarioAcceso u);
 	
 	public boolean updateUsuarioAcceso(UsuarioAcceso u);
 	
 	public boolean deleteUsuarioAcceso(int id_usuario);
+	
+	public UsuarioAcceso getUsuarioByIdUsuario(int id_usuario);
 
-	public boolean comprobarLogin(UsuarioAcceso u);
 }
 

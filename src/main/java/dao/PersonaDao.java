@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import beans.Persona;
+import beans.UsuarioAcceso;
 
 public interface PersonaDao {
 	public List<Persona> findAll();
@@ -10,4 +11,5 @@ public interface PersonaDao {
 	public boolean insertarPersona(Persona p);
 	public Persona getPersonaById(int idPersona);
 	public boolean updatePersona(Persona persona);
+	public List<UsuarioAcceso> obtenerUsuariosByIdPersona(int idPersona);
 }

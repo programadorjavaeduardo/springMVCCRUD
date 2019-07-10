@@ -14,6 +14,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosUsuario.js"></script>
 <script>var lang = "${sessionScope['lang']}"</script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 
@@ -31,22 +32,23 @@
 
     <div class="row">
       <div class="col">
-        <form:form action="" name="form" id="form" method="post" onsubmit="return direccionarSalidaF('${formacion.id_formacion}')" commandName="formacion">
+        <form:form action="" name="form" id="form" method="post" onsubmit="return direccionarSalidaU('${usuario.id_usuario}')" commandName="usuario">
           <form:errors path="*" cssStyle="color: #ff0000;" />	
           <div class="form-group">
-            <label for="descripcion"><spring:message code="formation.header.formationDescEsp"></spring:message></label>
-            <form:input class="form-control" type="text" name="descripcionEsp" id="descripcionEsp" path="descripcionEsp"/>
+            <label for="username"><spring:message code="usuario.header.username"></spring:message></label>
+            <form:input class="form-control" type="text" name="username" id="username" path="username"/>
            	
           </div>
           <div class="form-group">
-            <label for="descripcion"><spring:message code="formation.header.formationDescEng"></spring:message></label>
-            <form:input class="form-control" type="text" name="descripcionEng" id="descripcionEng" path="descripcionEng"/>
+            <label for="password"><spring:message code="usuario.header.password"></spring:message></label>
+            <form:input class="form-control" type="text" name="password" id="password" path="password"/>
            	
           </div>
           <div class="form-group">
             <input type="submit" name="botonEnviar" value="${textoBoton}" class="btn btn-primary mr-3">
             <input type="button" id="botonCancelar" name="botonCancelar" value="<spring:message code="actions.cancel"></spring:message>" class="btn btn-danger mr-3">
-            <input type="hidden" name="id_formacion" value="${formacion.id_formacion}">
+            <input type="hidden" name="id_persona" value="${usuario.id_persona}">
+            <input type="hidden" name="id_usuario" value="${usuario.id_usuario}">
           </div>
           
         </form:form>

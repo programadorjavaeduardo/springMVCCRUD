@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import beans.Formacion;
 import beans.Persona;
+import beans.UsuarioAcceso;
 
 
 
@@ -36,6 +37,7 @@ public class PersonaDaoImpl implements PersonaDao {
 	private static String SQL_INSERT_PERSONA="INSERT INTO Persona(nombre, apellido_paterno, apellido_materno, telefono, email, id_formacion) VALUES(?,?,?,?,?,?)";
 	private static String SQL_GET_PERSONA="SELECT p.id_persona, p.nombre, p.apellido_paterno, p.apellido_materno, p.telefono, p.email, f.id_formacion, f.descripcionEsp, f.descripcionEng FROM Persona p LEFT JOIN Formacion f ON p.id_formacion=f.id_formacion WHERE id_persona=?";
 	private static String SQL_UPDATE_PERSONA="UPDATE Persona SET nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, id_formacion=? where id_persona=?";
+	private static String SQL_GET_USUARIOS_BY_ID_PERSONA="SELECT u.id_usuario, u.id_persona, u.username, u.password from usuarioacceso u where u.id_persona=?";
 	
 	public List<Persona> findAll() {
 		// TODO Auto-generated method stub
@@ -189,6 +191,37 @@ public class PersonaDaoImpl implements PersonaDao {
 	 	}
 	
 		return realizado;
+	}
+
+
+
+	public List<UsuarioAcceso> obtenerUsuariosByIdPersona(int idPersona) {
+		List<UsuarioAcceso> usuarios= null;
+		try {
+
+			Connection con=(Connection) dataSource.getConnection();
+			
+			pstmt=con.prepareStatement(SQL_GET_USUARIOS_BY_ID_PERSONA);
+			pstmt.setInt(1, idPersona);
+			rs= pstmt.executeQuery();
+			usuarios= new ArrayList<UsuarioAcceso>();
+			while(rs.next()) {
+				UsuarioAcceso u= new UsuarioAcceso();
+				u.setId_usuario(rs.getInt(1));
+				u.setId_persona(rs.getInt(2));
+				u.setUsername(rs.getString(3));
+				u.setPassword(rs.getString(4));
+				usuarios.add(u);
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de obtencion de usuarios de id=" + idPersona + " ha fallado");
+			e.printStackTrace();
+		}
+		
+		return usuarios;
 	}
 	
 	

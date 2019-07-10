@@ -18,10 +18,10 @@ public class UsuarioAccesoValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 	
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "field.descripcionEsp.required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "field.username.required");
 		
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "field.descripcionEng.required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "field.password.required");
 		
 	}
 

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
@@ -14,6 +14,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosUsuario.js"></script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var lang = "${sessionScope['lang']}"</script>
 </head>
@@ -22,7 +23,7 @@
     	<jsp:include page="../common/header.jsp" ></jsp:include>
     	<jsp:include page="../common/actions.jsp" ></jsp:include>
    
-		<div class="row">
+		<div class="row mt-10">
 			<div class="col">
 	   			${mensaje}
 	    	</div>

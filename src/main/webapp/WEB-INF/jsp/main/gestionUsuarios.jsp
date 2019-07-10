@@ -2,11 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><spring:message code="title.formationManagement"></spring:message></title>
+<title><spring:message code="title.userManagement"></spring:message></title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
@@ -16,6 +17,7 @@
 <script>var mensajeConfirmacion="${mensajeConfirmacion}"</script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosUsuario.js"></script>
 </head>
 <body>
   <div class="container">
@@ -23,7 +25,7 @@
     <jsp:include page="../common/actions.jsp" ></jsp:include>
     <div class="row mt-5">
       <div class="col">
-          <h3> <spring:message code="title.formationManagement"></spring:message></h3>
+          <h3> <spring:message code="title.userManagement"></spring:message></h3>
       </div>
     </div>
 
@@ -37,29 +39,35 @@
 
     <div class="row mt-5">
       <div class="col">
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-      				<th>Id </th>
-      				<th><spring:message code="formation.header.formationDescEsp"></spring:message></th>
-      				<th><spring:message code="formation.header.formationDescEng"></spring:message></th>
-      				<th colspan="2"><spring:message code="persona.header.actions"></spring:message></th>
-            </tr>
-          </thead>
-          <tbody>
-            <c:forEach var="formacion" items="${formaciones}">
-              <tr>
-                <td> ${formacion.id_formacion}</td>
-                <td> ${formacion.descripcionEsp}</td>
-                <td> ${formacion.descripcionEng}</td>
-                <td> <a onclick="return confirmarBorrarFormacion(${formacion.id_formacion})"><spring:message code="actions.delete"></spring:message></a> </td>
-                <td> <a onclick="obtenerFormacion(${formacion.id_formacion})"><spring:message code="actions.edit"></spring:message></a> </td>
-              </tr>
-
-            </c:forEach>
-          </tbody>
-        </table>
-
+      	<c:choose>
+	      	<c:when test="${fn:length(usuarios)>0}">
+		        <table class="table table-bordered table-hover">
+		          <thead>
+		            <tr>
+		      				<th>Id </th>
+		      				<th><spring:message code="usuario.header.username"></spring:message></th>
+		      				<th><spring:message code="usuario.header.password"></spring:message></th>
+		      				<th colspan="2"><spring:message code="persona.header.actions"></spring:message></th>
+		            </tr>
+		          </thead>
+		          <tbody>
+		            <c:forEach var="usuario" items="${usuarios}">
+		              <tr>
+		                <td> ${usuario.id_usuario}</td>
+		                <td> ${usuario.username}</td>
+		                <td> ${usuario.password}</td>
+		                <td> <a onclick="return confirmarBorrarUsuario(${usuario.id_usuario})"><spring:message code="actions.delete"></spring:message></a> </td>
+		                <td> <a onclick="obtenerUsuario(${usuario.id_usuario})"><spring:message code="actions.edit"></spring:message></a> </td>
+		              </tr>
+		
+		            </c:forEach>
+		          </tbody>
+		        </table>
+			</c:when>
+			<c:otherwise>
+				No data
+			</c:otherwise>
+	   </c:choose>	
       </div>
     </div>
 
@@ -67,7 +75,7 @@
       <div class="col">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a id="linkNewFormacion" class="nav-link" href=""><spring:message code="actions.newFormation"></spring:message></a>
+            <a id="linkNewUsuario" class="nav-link" href=""><spring:message code="actions.newUsuario"></spring:message></a>
           </li>
           <li class="nav-item">
             <a id="linkIndex" class="nav-link" href=""><spring:message code="actions.index"></spring:message></a>

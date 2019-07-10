@@ -31,57 +31,37 @@ public class UsuarioAccesoDaoImpl implements UsuarioAccesoDao {
 	
 	private ResultSet rs;
 	
-	private static String SQL_FIND_USUARIOS_BY_ID_PERSONA="SELECT u.id_usuario, u.id_persona,u.username,u.password from usuarioacceso u LEFT JOIN Persona p ON p.id_persona=u.id_persona where id_persona=?";
+	;
 	private static String SQL_DELETE_USUARIO="DELETE FROM usuarioacceso where id_usuario=?";
-	private static String SQL_INSERT_USUARIO="INSERT INTO usuarioacceso(username, password) VALUES(?,?)";
+	private static String SQL_INSERT_USUARIO="INSERT INTO usuarioacceso(id_persona,username, password) VALUES(?,?,?)";
 	private static String SQL_UPDATE_USUARIO="UPDATE usuarioacceso SET username=?, password=? where id_usuario=?";
-	private static String SQL_GET_USUARIO_BY_USER_AND_PASS="SELECT * FROM usuarioacceso u where u.username=? and password=?";
+	private static String SQL_GET_USUARIO_BY_USER_AND_PASS="SELECT u.id_usuario, u.id_persona, u.username, u.password FROM usuarioacceso u where u.username=? and u.password=?";
+	private static String SQL_GET_USUARIO_BY_ID_USUARIO=" SELECT u.id_usuario, u.id_persona,u.username,u.password from usuarioacceso u where u.id_usuario=?";
 	
-	public boolean comprobarLogin(UsuarioAcceso u) {
-		boolean existe=false;
+	public UsuarioAcceso getUsuarioAccesoByUserPass(String user,String pass) {
+		UsuarioAcceso usuario= null;
 		try {
 			Connection con=(Connection) dataSource.getConnection();
 			pstmt=con.prepareStatement(SQL_GET_USUARIO_BY_USER_AND_PASS);
-			pstmt.setString(1, u.getUser());
-			pstmt.setString(2, u.getPassword());
+			pstmt.setString(1, user);
+			pstmt.setString(2, pass);
 			rs= pstmt.executeQuery();
 			
 			if(rs.next()) {
-				existe=true;
+				usuario= new UsuarioAcceso();
+				usuario.setId_usuario(rs.getInt(1));
+				usuario.setId_persona(rs.getInt(2));
+				usuario.setUsername(rs.getString(3));
+				usuario.setPassword(rs.getString(4));
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("La consulta de comprobarLogin ha fallado");
-			e.printStackTrace();
-		}
-		return existe;
-	}
-	
-	
-	
-	public List<UsuarioAcceso> getUsuariosAccesoByIdPersona(int id_persona) {
-		List<UsuarioAcceso> usuarios= null;
-		try {
-			Connection con=(Connection) dataSource.getConnection();
-			pstmt=con.prepareStatement(SQL_FIND_USUARIOS_BY_ID_PERSONA);
-			pstmt.setInt(1, id_persona);
-			rs= pstmt.executeQuery();
-			
-			while(rs.next()) {
-				UsuarioAcceso u= new UsuarioAcceso();
-				u.setId_usuario(rs.getInt(1));
-				u.setId_persona(rs.getInt(2));
-				u.setUser(rs.getString(3));
-				u.setPassword(rs.getString(4));
-				usuarios.add(u);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("La consulta de obtencion de usuarios por id ha fallado");
+			System.out.println("La consulta de obtencion de usuario por user y pass ha fallado");
 			e.printStackTrace();
 		}
 		
-		return usuarios;
+		return usuario;
 	}
 	
 	public boolean addUsuarioAcceso(UsuarioAcceso u) {
@@ -91,8 +71,9 @@ public class UsuarioAccesoDaoImpl implements UsuarioAccesoDao {
 			Connection con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_INSERT_USUARIO);
-			pstmt.setString(1, u.getUser());
-			pstmt.setString(2, u.getPassword());
+			pstmt.setInt(1, u.getId_persona());
+			pstmt.setString(2, u.getUsername());
+			pstmt.setString(3, u.getPassword());
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {
 				realizado=true;
@@ -114,7 +95,7 @@ public class UsuarioAccesoDaoImpl implements UsuarioAccesoDao {
 			Connection con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_UPDATE_USUARIO);
-			pstmt.setString(1, u.getUser());
+			pstmt.setString(1, u.getUsername());
 			pstmt.setString(2, u.getPassword());
 			pstmt.setInt(3, u.getId_usuario());
 			int registros=pstmt.executeUpdate();
@@ -153,6 +134,34 @@ public class UsuarioAccesoDaoImpl implements UsuarioAccesoDao {
 	
 		return realizado;
 	}
+	
+	public UsuarioAcceso getUsuarioByIdUsuario(int id_usuario) {
+		UsuarioAcceso usuario=null;
+		try {
+			
+			Connection con=(Connection) dataSource.getConnection();
+			
+			pstmt=con.prepareStatement(SQL_GET_USUARIO_BY_ID_USUARIO);
+			pstmt.setInt(1, id_usuario);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				usuario= new UsuarioAcceso();
+				usuario.setId_usuario(rs.getInt(1));
+				usuario.setId_persona(rs.getInt(2));
+				usuario.setUsername(rs.getString(3));
+				usuario.setPassword(rs.getString(4));
+			}
+			
+		}
+	 	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de obtencion de usuario por id_usuario ha fallado");
+			e.printStackTrace();
+	 	}
+	
+		return usuario;
+	}
+	
 	public DataSource getDataSource() {
 		return dataSource;
 	}
@@ -171,6 +180,8 @@ public class UsuarioAccesoDaoImpl implements UsuarioAccesoDao {
 	public void setRs(ResultSet rs) {
 		this.rs = rs;
 	}
+
+	
 
 	
 	

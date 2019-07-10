@@ -14,8 +14,8 @@ public class UsuarioAccesoServiceImpl implements UsuarioAccesoService{
 	@Autowired
 	UsuarioAccesoDao usuarioAccesoDao;
 	
-	public List<UsuarioAcceso> getUsuariosAccesoByIdPersona(int id_persona) {
-		return usuarioAccesoDao.getUsuariosAccesoByIdPersona(id_persona);
+	public UsuarioAcceso getUsuarioAccesoByUserPass(String user, String pass) {
+		return usuarioAccesoDao.getUsuarioAccesoByUserPass(user,pass);
 	}
 
 	public boolean addUsuarioAcceso(UsuarioAcceso u) {
@@ -30,8 +30,9 @@ public class UsuarioAccesoServiceImpl implements UsuarioAccesoService{
 		return usuarioAccesoDao.deleteUsuarioAcceso(id_usuario);
 	}
 
-	public boolean comprobarLogin(UsuarioAcceso u) {
-		return usuarioAccesoDao.comprobarLogin(u);
+	public UsuarioAcceso getUsuarioByIdUsuario(int id_usuario) {
+		return usuarioAccesoDao.getUsuarioByIdUsuario(id_usuario);
 	}
+
 
 }

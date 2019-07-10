@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -36,7 +36,7 @@
 	      	
 	        <div class="form-group">
 	          <label for="username"><spring:message code="usuario.header.username"></spring:message></label>
-	          <input class="form-control" type="text" name="user" id="user"/>
+	          <input class="form-control" type="text" name="username" id="username"/>
 	          
 	        </div>
 	

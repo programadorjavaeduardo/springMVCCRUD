@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.List;
+
 public class Persona {
 
 	private Integer id_persona;
@@ -21,13 +23,15 @@ public class Persona {
 	
 	
 	private Formacion formacion;
+	
+	private List<UsuarioAcceso> usuarios;
 
 	public Persona() {
 		
 	}
 	
 	public Persona(Integer idPersona,String nombre, String ape_paterno, String ape_materno, String email,
-			String telefono, Formacion formacion) {
+			String telefono, Formacion formacion, List<UsuarioAcceso> usuarios) {
 		super();
 		this.id_persona= idPersona;
 		this.nombre = nombre;
@@ -36,7 +40,10 @@ public class Persona {
 		this.email = email;
 		this.telefono = telefono;
 		this.formacion = formacion;
+		this.usuarios=usuarios;
 	}
+
+	
 
 	
 
@@ -46,7 +53,7 @@ public class Persona {
 	public String toString() {
 		return "Persona [id_persona=" + id_persona + ", nombre=" + nombre + ", ape_paterno=" + ape_paterno
 				+ ", ape_materno=" + ape_materno + ", email=" + email + ", telefono=" + telefono + ", formacion="
-				+ formacion + "]";
+				+ formacion + ", usuarios=" + usuarios + "]";
 	}
 
 	public Integer getId_persona() {
@@ -103,6 +110,14 @@ public class Persona {
 
 	public void setFormacion(Formacion formacion) {
 		this.formacion = formacion;
+	}
+
+	public List<UsuarioAcceso> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<UsuarioAcceso> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	

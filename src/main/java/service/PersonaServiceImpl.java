@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import beans.Persona;
+import beans.UsuarioAcceso;
 import dao.PersonaDao;
 
 @Service
@@ -33,6 +34,10 @@ public class PersonaServiceImpl implements PersonaService {
 
 	public boolean updatePersona(Persona persona) {
 		return personaDao.updatePersona(persona);
+	}
+
+	public List<UsuarioAcceso> obtenerUsuariosByIdPersona(int idPersona) {
+		return personaDao.obtenerUsuariosByIdPersona(idPersona);
 	}
 
 	

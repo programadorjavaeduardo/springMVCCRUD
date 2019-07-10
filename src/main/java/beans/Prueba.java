@@ -21,11 +21,11 @@ public class Prueba {
 		ApplicationContext ctx= new ClassPathXmlApplicationContext("applicationContext.xml");
 		BeanFactory beanFactory= ctx;
 		UsuarioAccesoService usuarioAccesoService=(UsuarioAccesoService) beanFactory.getBean("usuarioAccesoServiceImpl");
-		List<UsuarioAcceso> usuarios=usuarioAccesoService.getUsuariosAccesoByIdPersona(71);
-		for(UsuarioAcceso u: usuarios) {
-			System.out.println(u.toString());
-		}
-		
+//		List<UsuarioAcceso> usuarios=usuarioAccesoService.getUsuariosAccesoByIdPersona(71);
+//		for(UsuarioAcceso u: usuarios) {
+//			System.out.println(u.toString());
+//		}
+//		
 		
 		
 	}

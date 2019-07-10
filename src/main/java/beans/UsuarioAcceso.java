@@ -9,17 +9,17 @@ public class UsuarioAcceso {
 	
 	private Integer id_persona;
 	
-	private String user;
+	private String username;
 	
 	private String password;
 	
 	
 
-	public UsuarioAcceso(Integer id_usuario, Integer id_persona, String user, String password) {
+	public UsuarioAcceso(Integer id_usuario, Integer id_persona, String username, String password) {
 		super();
 		this.id_usuario = id_usuario;
 		this.id_persona = id_persona;
-		this.user = user;
+		this.username = username;
 		this.password = password;
 	}
 
@@ -43,12 +43,13 @@ public class UsuarioAcceso {
 		this.id_persona = id_persona;
 	}
 
-	public String getUser() {
-		return user;
+	
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -61,7 +62,7 @@ public class UsuarioAcceso {
 
 	@Override
 	public String toString() {
-		return "UsuariosAcceso [id_usuario=" + id_usuario + ", id_persona=" + id_persona + ", user=" + user
+		return "UsuariosAcceso [id_usuario=" + id_usuario + ", id_persona=" + id_persona + ", username=" + username
 				+ ", password=" + password + "]";
 	}
 	
