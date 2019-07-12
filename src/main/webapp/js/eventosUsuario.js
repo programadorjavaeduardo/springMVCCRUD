@@ -41,6 +41,18 @@ $(document)
 						$(this).attr("href", ctx + "/");
 						$(this).click();
 					});
+					
+					$("#linkES").on("click",function(){
+
+						  $(this).attr("href",ctx+"/language/esp.html?locale=es");
+						  $(this).click();
+					});
+
+					$("#linkEN").on("click",function(){
+
+						  $(this).attr("href",ctx+"/language/eng.html?locale=en");
+						  $(this).click();
+					});
 
 				});
 
@@ -77,5 +89,5 @@ function confirmarBorrarUsuario(idUsuario) {
 }
 
 function nuevoUsuario(idPersona){
-	window.location= ctx+ "/usuarioAcceso/newUsuario.html?id_persona="+idPersona;
+	window.location= ctx+ "/usuarioAcceso/newUsuario.html?id_persona="+idPersona + "&locale=" + lang;
 }

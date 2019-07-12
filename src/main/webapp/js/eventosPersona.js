@@ -10,18 +10,7 @@ $(document).ready(function(){
 	  $(this).click();
   });
 
-  $("#linkES").on("click",function(){
-
-	  $(this).attr("href",ctx+"/language/esp.html?locale=es");
-	  $(this).click();
-  });
-
-  $("#linkEN").on("click",function(){
-
-	  $(this).attr("href",ctx+"/language/eng.html?locale=en");
-	  $(this).click();
-  });
-
+  
   $("#linkNewPersona").on("click",function(){
 
 	  $(this).attr("href",ctx+"/person/newPerson.html");
@@ -51,7 +40,30 @@ function direccionarSalidaP(idPersona){
 
 function confirmarBorrarPersona(idPersona){
   if(confirm(mensajeConfirmacion)){
-	 window.location=ctx+"/person/deletePerson.html?idPersona="+idPersona+"&locale="+lang;
+	 
+	  $.ajax({
+		  url: ctx+"/person/deletePersonAJAX.html?idPersona="+idPersona+"&locale="+lang,
+		  dataType: 'json',
+		  success: function(data){
+			  alert(data);
+			  alert(data.realizado);
+			  if(data.realizado===true){
+				  alert("Persona borrada correctamente");
+				  
+				  $("table #tr_"+idPersona).remove();
+			  }else{
+				  alert("La persona no se ha borrado");
+			  }
+			  
+			  
+		  },
+		  error: function(){
+			  alert("No se ha podido obtener la informacion AJAX");
+		  }
+	  		
+	  })
+	  
+	  
     return true;
   }else{
     return false;

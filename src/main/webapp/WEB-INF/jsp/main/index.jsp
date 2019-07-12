@@ -6,15 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
- <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
- <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
- <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> --%>
 <title><spring:message code="header.welcome" /></title>
-<script>var lang = "${sessionScope['lang']}"</script>
-<script>var ctx = "${pageContext.request.contextPath}"</script>
+
 </head>
 <body>
 

@@ -19,7 +19,12 @@ public class LanguageController {
     {
         HttpSession ses= req.getSession();
         ses.setAttribute("lang", "es");
-        return "index";
+        if(ses.getAttribute("id_persona")!=null) {
+        	return "welcome";
+        }else {
+        	 return "login";
+        }
+        
     }
 
     @RequestMapping("/eng")
@@ -27,6 +32,11 @@ public class LanguageController {
     {
     	HttpSession ses= req.getSession();
         ses.setAttribute("lang", "en");
-        return "index";
+        if(ses.getAttribute("id_persona")!=null) {
+        	return "welcome";
+        }else {
+        	 return "login";
+        }
+       
     }
 }

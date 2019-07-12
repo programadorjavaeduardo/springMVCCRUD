@@ -34,8 +34,15 @@ public class HomeController {
 		if(lang==null) {
 			session.setAttribute("lang", "es");
 		}
-		m= new ModelAndView("index");
-		m.addObject("textoBoton",textoBoton);
+		
+		if(session.getAttribute("id_persona")!=null) {
+			m= new ModelAndView("welcome");
+		}else {
+			m= new ModelAndView("login");
+			m.addObject("textoBoton",textoBoton);
+		}
+		
+		
 		return m;
 	}
 	

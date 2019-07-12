@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.JsonViewRequestBodyAdvice;
 
 import beans.Formacion;
 import beans.FormacionValidator;
@@ -26,7 +28,7 @@ import beans.Persona;
 import beans.PersonaValidator;
 import service.FormacionService;
 import service.PersonaService;
-
+import org.json.*;
 
 @Controller
 @RequestMapping("person")
@@ -112,6 +114,20 @@ public class PersonaController {
 
 		return m;
 	}
+	
+	@RequestMapping(value="/deletePersonAJAX")
+	@ResponseBody
+	public String borrarPersonaAJAX(@RequestParam(value="idPersona")int idPersona, Locale locale) {
+
+		JSONObject jsonRespuesta= new JSONObject();
+		System.out.println("IdPersona a borrar:"+idPersona);
+		//boolean realizado=personaService.deletePersona(idPersona);
+		boolean realizado=true;
+		jsonRespuesta.put("realizado", realizado);
+		
+		return jsonRespuesta.toString();
+	}
+	
 	@RequestMapping(value="/newPerson")
 	public ModelAndView nuevaPersona(Locale locale){
 		ModelAndView m= new ModelAndView("detallePersona");
