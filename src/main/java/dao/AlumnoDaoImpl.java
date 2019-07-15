@@ -26,12 +26,13 @@ public class AlumnoDaoImpl implements AlumnoDao {
 	
 	private ResultSet rs;
 	
-	private static String SQL_FIND_ALL="SELECT a.id_alumno, a.nombre, a.apellido_paterno, a.apellido_materno, a.telefono, a.email, a.password, f.id_formacion, f.descripcionEsp, f.descripcionEng FROM Alumno a LEFT JOIN Formacion f ON a.id_formacion=f.id_formacion";
+	private static String SQL_FIND_ALL="SELECT a.id_alumno, a.nombre, a.apellido_paterno, a.apellido_materno, a.telefono, a.email, a.password, a.id_formacion, a.es_instructor, f.descripcionEsp, f.descripcionEng FROM Alumno a LEFT JOIN Formacion f ON a.id_formacion=f.id_formacion";
 	private static String SQL_DELETE_ALUMNO="DELETE FROM Alumno where id_alumno=?";
-	private static String SQL_INSERT_ALUMNO="INSERT INTO Alumno(nombre, apellido_paterno, apellido_materno, telefono, email, password, id_formacion) VALUES(?,?,?,?,?,?,?)";
-	private static String SQL_GET_ALUMNO_BY_ID="SELECT a.id_alumno, a.nombre, a.apellido_paterno, a.apellido_materno, a.telefono, a.email, a.password, f.id_formacion, f.descripcionEsp, f.descripcionEng FROM Alumno a LEFT JOIN Formacion f ON a.id_formacion=f.id_formacion WHERE a.id_alumno=?";
-	private static String SQL_UPDATE_ALUMNO="UPDATE Alumno SET nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, password=?, id_formacion=? where id_alumno=?";
-	private static String SQL_GET_ALUMNO_BY_USER_PASS="SELECT a.id_alumno, a.nombre, a.apellido_paterno, a.apellido_materno, a.telefono, a.email, a.password, f.id_formacion, f.descripcionEsp, f.descripcionEng FROM Alumno a LEFT JOIN Formacion f ON a.id_formacion=f.id_formacion WHERE a.email=? AND a.password=?";
+	private static String SQL_INSERT_ALUMNO="INSERT INTO Alumno(nombre, apellido_paterno, apellido_materno, telefono, email, password, id_formacion, es_instructor) VALUES(?,?,?,?,?,?,?,?)";
+	private static String SQL_GET_ALUMNO_BY_ID="SELECT a.id_alumno, a.nombre, a.apellido_paterno, a.apellido_materno, a.telefono, a.email, a.password, a.id_formacion, a.es_instructor, f.descripcionEsp, f.descripcionEng FROM Alumno a LEFT JOIN Formacion f ON a.id_formacion=f.id_formacion WHERE a.id_alumno=?";
+	private static String SQL_UPDATE_ALUMNO="UPDATE Alumno SET nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, password=?, id_formacion=?, a.es_instructor=? where id_alumno=?";
+	private static String SQL_GET_ALUMNO_BY_USER_PASS="SELECT a.id_alumno, a.nombre, a.apellido_paterno, a.apellido_materno, a.telefono, a.email, a.password, a.id_formacion, a.es_instructor, f.descripcionEsp, f.descripcionEng FROM Alumno a LEFT JOIN Formacion f ON a.id_formacion=f.id_formacion WHERE a.email=? AND a.password=?";
+	
 	public List<Alumno> findAll() {
 		// TODO Auto-generated method stub
 		List<Alumno> Alumnos= null;
@@ -53,8 +54,9 @@ public class AlumnoDaoImpl implements AlumnoDao {
 				a.setPassword(rs.getString(7));
 				Formacion f= new Formacion();
 				f.setId_formacion(rs.getInt(8));
-				f.setDescripcionEsp(rs.getString(9));
-				f.setDescripcionEng(rs.getString(10));
+				a.setEs_instructor(rs.getInt(9));
+				f.setDescripcionEsp(rs.getString(10));
+				f.setDescripcionEng(rs.getString(11));
 				a.setFormacion(f);
 				Alumnos.add(a);
 			}
@@ -107,6 +109,7 @@ public class AlumnoDaoImpl implements AlumnoDao {
 			pstmt.setString(5, a.getEmail());
 			pstmt.setString(6, a.getPassword());
 			pstmt.setInt(7, a.getFormacion().getId_formacion());
+			pstmt.setInt(8,0);
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {
 				realizado=true;
@@ -143,8 +146,9 @@ public class AlumnoDaoImpl implements AlumnoDao {
 				a.setPassword(rs.getString(7));
 				Formacion f= new Formacion();
 				f.setId_formacion(rs.getInt(8));
-				f.setDescripcionEsp(rs.getString(9));
+				a.setEs_instructor(rs.getInt(9));
 				f.setDescripcionEsp(rs.getString(10));
+				f.setDescripcionEsp(rs.getString(11));
 				a.setFormacion(f);
 			}
 		} catch (SQLException e) {
@@ -171,7 +175,8 @@ public class AlumnoDaoImpl implements AlumnoDao {
 			pstmt.setString(5, alumno.getEmail());
 			pstmt.setString(6, alumno.getPassword());
 			pstmt.setInt(7, alumno.getFormacion().getId_formacion());
-			pstmt.setInt(8, alumno.getId_alumno());
+			pstmt.setInt(8, 0);
+			pstmt.setInt(9, alumno.getId_alumno());
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {
 				realizado=true;

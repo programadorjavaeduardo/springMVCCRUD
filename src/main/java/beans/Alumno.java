@@ -27,7 +27,7 @@ public class Alumno {
 	@Autowired
 	private Formacion formacion;
 	
-	private boolean es_instructor;
+	private int es_instructor;
 	
 	
 	
@@ -38,7 +38,7 @@ public class Alumno {
 	
 	
 	public Alumno(Integer id_alumno, String nombre, String ape_paterno, String ape_materno, String email,
-			String password, String telefono, Formacion formacion, boolean es_instructor) {
+			String password, String telefono, Formacion formacion, int es_instructor) {
 		super();
 		this.id_alumno = id_alumno;
 		this.nombre = nombre;
@@ -117,12 +117,13 @@ public class Alumno {
 	}
 
 
-	public boolean isEs_instructor() {
+	public int getEs_instructor() {
 		return es_instructor;
 	}
 
 
-	public void setEs_instructor(boolean es_instructor) {
+
+	public void setEs_instructor(int es_instructor) {
 		this.es_instructor = es_instructor;
 	}
 
