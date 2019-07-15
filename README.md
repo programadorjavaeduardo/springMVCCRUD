@@ -1,2 +1,2 @@
 # springMVCCRUD
-Aplicacion Spring MVC para la gestion de personas, formaciones y cursos
+Aplicacion Spring MVC3 para la gestion de alumnos, formaciones y cursos
