@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Instructor {
@@ -27,6 +29,9 @@ public class Instructor {
 	
 	private int es_instructor;
 	
+	@Autowired
+	private List<Curso> cursos;
+	
 	
 	public Instructor() {
 		
@@ -35,7 +40,7 @@ public class Instructor {
 	
 	
 	public Instructor(Integer id_instructor, String nombre, String ape_paterno, String ape_materno, String email,
-			String password, String telefono, int es_instructor) {
+			String password, String telefono, int es_instructor, List<Curso> cursos) {
 		super();
 		this.id_instructor = id_instructor;
 		this.nombre = nombre;
@@ -45,6 +50,7 @@ public class Instructor {
 		this.password = password;
 		this.telefono = telefono;
 		this.es_instructor = es_instructor;
+		this.cursos=cursos;
 	}
 
 
@@ -99,16 +105,6 @@ public class Instructor {
 	}
 
 	
-	
-	@Override
-	public String toString() {
-		return "Instructor [id_instructor=" + id_instructor + ", nombre=" + nombre + ", ape_paterno=" + ape_paterno
-				+ ", ape_materno=" + ape_materno + ", email=" + email + ", password=" + password + ", telefono="
-				+ telefono + ", es_instructor=" + es_instructor + "]";
-	}
-
-
-
 	public Integer getId_instructor() {
 		return id_instructor;
 	}
@@ -130,6 +126,29 @@ public class Instructor {
 	public void setEs_instructor(int es_instructor) {
 		this.es_instructor = es_instructor;
 	}
+
+
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Instructor [id_instructor=" + id_instructor + ", nombre=" + nombre + ", ape_paterno=" + ape_paterno
+				+ ", ape_materno=" + ape_materno + ", email=" + email + ", password=" + password + ", telefono="
+				+ telefono + ", es_instructor=" + es_instructor + ", cursos=" + cursos + "]";
+	}
+	
+	
 
 
 
