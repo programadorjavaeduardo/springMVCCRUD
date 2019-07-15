@@ -2,9 +2,9 @@ package beans;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class Alumno {
+public class Instructor {
 
-	private Integer id_alumno;
+	private Integer id_instructor;
 	
 	
 	private String nombre;
@@ -24,32 +24,29 @@ public class Alumno {
 	
 	private String telefono;
 	
-	@Autowired
-	private Formacion formacion;
 	
 	private boolean es_instructor;
 	
 	
-	
-	public Alumno() {
+	public Instructor() {
 		
 	}
 	
 	
 	
-	public Alumno(Integer id_alumno, String nombre, String ape_paterno, String ape_materno, String email,
-			String password, String telefono, Formacion formacion, boolean es_instructor) {
+	public Instructor(Integer id_instructor, String nombre, String ape_paterno, String ape_materno, String email,
+			String password, String telefono, boolean es_instructor) {
 		super();
-		this.id_alumno = id_alumno;
+		this.id_instructor = id_instructor;
 		this.nombre = nombre;
 		this.ape_paterno = ape_paterno;
 		this.ape_materno = ape_materno;
 		this.email = email;
 		this.password = password;
 		this.telefono = telefono;
-		this.formacion = formacion;
 		this.es_instructor = es_instructor;
 	}
+
 
 
 	public String getNombre() {
@@ -92,22 +89,7 @@ public class Alumno {
 		this.telefono = telefono;
 	}
 
-	public Formacion getFormacion() {
-		return formacion;
-	}
-
-	public void setFormacion(Formacion formacion) {
-		this.formacion = formacion;
-	}
-
-	public Integer getId_alumno() {
-		return id_alumno;
-	}
-
-	public void setId_alumno(Integer id_alumno) {
-		this.id_alumno = id_alumno;
-	}
-
+	
 	public String getPassword() {
 		return password;
 	}
@@ -130,10 +112,14 @@ public class Alumno {
 
 	@Override
 	public String toString() {
-		return "Alumno [id_alumno=" + id_alumno + ", nombre=" + nombre + ", ape_paterno=" + ape_paterno
+		return "Instructor [id_instructor=" + id_instructor + ", nombre=" + nombre + ", ape_paterno=" + ape_paterno
 				+ ", ape_materno=" + ape_materno + ", email=" + email + ", password=" + password + ", telefono="
-				+ telefono + ", formacion=" + formacion + ", es_instructor=" + es_instructor + "]";
+				+ telefono + ", es_instructor=" + es_instructor + "]";
 	}
+
+
+
+	
 	
 	
 	
