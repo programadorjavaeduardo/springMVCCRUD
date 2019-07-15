@@ -8,13 +8,13 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><spring:message code="title.detailPeople"></spring:message></title>
+<title><spring:message code="title.login"></spring:message></title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosUsuario.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var lang = "${sessionScope['lang']}"</script>
 
@@ -34,17 +34,17 @@
 	  	
 	    <div class="col">
 	      	
-	      <form action="" name="form" id="form" method="post" onsubmit="comprobarLogin();">
+	      <form action="${pageContext.request.contextPath}/alumno/comprobarLogin.html" name="form" id="form" method="post" >
 	      	
 	      	
 	        <div class="form-group">
-	          <label for="username"><spring:message code="usuario.header.username"></spring:message></label>
-	          <input class="form-control" type="text" name="username" id="username"/>
+	          <label for="email"><spring:message code="alumno.header.email"></spring:message></label>
+	          <input class="form-control" type="text" name="email" id="email" />
 	          
 	        </div>
 	
 	        <div class="form-group">
-	          <label for="password"><spring:message code="usuario.header.password"></spring:message></label>
+	          <label for="password"><spring:message code="alumno.header.password"></spring:message></label>
 	          <input class="form-control" type="password" name="password" id="password"/>
 	          
 	        </div>

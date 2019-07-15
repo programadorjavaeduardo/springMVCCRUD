@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.Locale;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,7 +17,7 @@ public class LanguageController {
     {
         HttpSession ses= req.getSession();
         ses.setAttribute("lang", "es");
-        if(ses.getAttribute("id_persona")!=null) {
+        if(ses.getAttribute("id_alumno")!=null) {
         	return "welcome";
         }else {
         	 return "login";
@@ -32,7 +30,7 @@ public class LanguageController {
     {
     	HttpSession ses= req.getSession();
         ses.setAttribute("lang", "en");
-        if(ses.getAttribute("id_persona")!=null) {
+        if(ses.getAttribute("id_alumno")!=null) {
         	return "welcome";
         }else {
         	 return "login";

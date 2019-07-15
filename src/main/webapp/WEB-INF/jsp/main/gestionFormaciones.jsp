@@ -16,9 +16,9 @@
 <script>var lang = "${sessionScope['lang']}"</script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var mensajeConfirmacion="${mensajeConfirmacion}"</script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosUsuario.js"></script>
+
 </head>
 <body>
   <div class="container">
@@ -46,7 +46,7 @@
       				<th>Id </th>
       				<th><spring:message code="formation.header.formationDescEsp"></spring:message></th>
       				<th><spring:message code="formation.header.formationDescEng"></spring:message></th>
-      				<th colspan="2"><spring:message code="persona.header.actions"></spring:message></th>
+      				<th colspan="2"><spring:message code="alumno.header.actions"></spring:message></th>
             </tr>
           </thead>
           <tbody>

@@ -14,8 +14,8 @@ import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
-import beans.Persona;
-import service.PersonaService;
+import beans.Alumno;
+import service.AlumnoService;
 
 @Component
 public class PdfView extends AbstractPdfView {
@@ -24,7 +24,7 @@ public class PdfView extends AbstractPdfView {
     @Override
     protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        List<Persona> personList = (List<Persona>) model.get("personas");
+        List<Alumno> alumnos = (List<Alumno>) model.get("Alumnos");
 
         PdfPTable table = new PdfPTable(5);
 
@@ -34,12 +34,12 @@ public class PdfView extends AbstractPdfView {
         table.addCell("Mother surname");
         table.addCell("Email");
 
-        for(Persona p: personList) {
-            table.addCell(p.getId_persona().toString());
-            table.addCell(p.getNombre());
-            table.addCell(p.getApe_paterno());
-            table.addCell(p.getApe_materno());
-            table.addCell(p.getEmail());
+        for(Alumno a: alumnos) {
+            table.addCell(a.getId_alumno().toString());
+            table.addCell(a.getNombre());
+            table.addCell(a.getApe_paterno());
+            table.addCell(a.getApe_materno());
+            table.addCell(a.getEmail());
         }
 
         document.add(table);

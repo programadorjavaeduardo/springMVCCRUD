@@ -7,15 +7,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><spring:message code="title.detailPeople"></spring:message></title>
+<title><spring:message code="title.detailAlumno"></spring:message></title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosPersona.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosUsuario.js"></script>
+
 
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var lang = "${sessionScope['lang']}"</script>

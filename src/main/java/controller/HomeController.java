@@ -35,7 +35,7 @@ public class HomeController {
 			session.setAttribute("lang", "es");
 		}
 		
-		if(session.getAttribute("id_persona")!=null) {
+		if(session.getAttribute("email")!=null) {
 			m= new ModelAndView("welcome");
 		}else {
 			m= new ModelAndView("login");

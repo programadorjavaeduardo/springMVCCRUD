@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,9 +28,6 @@ public class FormacionController {
 
 	@Autowired
 	FormacionService formacionService;
-	
-	@Autowired
-    private Validator validator;
 	
 	private String titulo;
 
@@ -64,7 +60,7 @@ public class FormacionController {
 	
 	@RequestMapping(value="/gestionFormaciones")
 	public ModelAndView mostrargestionFormaciones(Locale locale) {
-		List<Formacion> formaciones= formacionService.getFormaciones();
+		formaciones= formacionService.getFormaciones();
 		mensajeConfirmacion= messageSource.getMessage("mensajeConfirmacion.formacion", null, locale);
 		ModelAndView m = new ModelAndView("gestionFormaciones");
 		m.addObject("formaciones", formaciones);

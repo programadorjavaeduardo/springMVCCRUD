@@ -16,7 +16,6 @@ public class FormacionValidator implements Validator {
 	}
 
 	public void validate(Object target, Errors errors) {
-		Formacion formacion = (Formacion) target;
 		
 		// la descripcionEsp es obligatoria
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "descripcionEsp", "field.descripcionEsp.required");
