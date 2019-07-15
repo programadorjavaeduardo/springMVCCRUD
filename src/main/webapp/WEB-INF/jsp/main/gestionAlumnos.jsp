@@ -50,7 +50,6 @@
       				<th><spring:message code="alumno.header.fatherSurname"></spring:message></th>
       				<th><spring:message code="alumno.header.telephone"></spring:message> </th>
       				<th><spring:message code="alumno.header.email"></spring:message> </th>
-      				<th><spring:message code="alumno.header.password"></spring:message> </th>
       				<th><spring:message code="alumno.header.formation"></spring:message></th>
       				<th colspan="2"><spring:message code="alumno.header.actions"></spring:message></th>
             </tr>
@@ -64,7 +63,6 @@
                 <td> ${Alumno.ape_paterno}</td>
                 <td> ${Alumno.telefono}</td>
                 <td> ${Alumno.email}</td>
-                <td> ${Alumno.password}</td>
                 <td> ${sessionScope['lang']=='es' ? Alumno.formacion.descripcionEsp : Alumno.formacion.descripcionEng} </td>
                 <td> <a onclick="return confirmarBorrarAlumno(${Alumno.id_alumno})"><spring:message code="actions.delete"></spring:message></a> </td>
                 <td> <a onclick="obtenerAlumno(${Alumno.id_alumno})"> <spring:message code="actions.edit"></spring:message></a> </td>

@@ -69,7 +69,14 @@
         
         <div class="form-group">
           <label for="password"><spring:message code="alumno.header.password"></spring:message></label>
-          <form:input class="form-control" type="password" name="password" id="password" path="password"/>
+          <c:choose>
+          	<c:when test="${Alumno.id_alumno==null}">
+          		<form:input class="form-control" type="password" name="password" id="password" path="password"/>
+          	</c:when>
+          	<c:otherwise>
+          		<form:input class="form-control" type="text" name="password" id="password" path="password"/>
+          	</c:otherwise>
+          </c:choose>
          
         </div>
 
