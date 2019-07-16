@@ -75,7 +75,7 @@ public class Curso {
 	@Override
 	public String toString() {
 		return "Curso [id_curso=" + id_curso + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio="
-				+ precio + ", instructor=" + instructor + "]";
+				+ precio +  "]";
 	}
 	
 	

@@ -28,18 +28,21 @@ public class CursoDaoImpl implements CursoDao {
 	
 	private ResultSet rs;
 	
-	private static String SQL_FIND_ALL="SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor, i.nombre FROM curso c LEFT JOIN Instructor i ON c.id_instructor=i.id_instructor";
+	private Connection con;
+	
+	private static String SQL_FIND_ALL="SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password, i.es_instructor FROM curso c LEFT JOIN Instructor i ON c.id_instructor=i.id_instructor";
 	private static String SQL_DELETE_CURSO="DELETE FROM Curso where id_curso=?";
 	private static String SQL_INSERT_CURSO="INSERT INTO Curso(id_curso, nombre, descripcion, precio, id_instructor) VALUES(?,?,?,?,?)";
-	private static String SQL_GET_CURSO_BY_ID="SELECT C.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor from Curso c WHERE c.id_curso=?";
+	private static String SQL_GET_CURSO_BY_ID="SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password, i.es_instructor from Curso c LEFT JOIN Instructor i ON c.id_instructor=i.id_instructor WHERE c.id_curso=?";
 	private static String SQL_UPDATE_CURSO="UPDATE Curso SET id_curso=?, nombre=?, descripcion=?, precio=?, id_instructor=? where id_curso=?";
+	private static String SQL_NEXT_ID="SELECT MAX(id_curso)+1 from Curso c";
 
 	
 	public List<Curso> findAll() {
 		// TODO Auto-generated method stub
 		List<Curso> cursos= null;
 		try {
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_FIND_ALL);
 			rs= pstmt.executeQuery();
@@ -71,7 +74,7 @@ public class CursoDaoImpl implements CursoDao {
 		boolean realizado=false;
 		try {
 			
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_DELETE_CURSO);
 			pstmt.setInt(1, idCurso);
@@ -95,14 +98,18 @@ public class CursoDaoImpl implements CursoDao {
 		boolean realizado=false;
 		try {
 			
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_INSERT_CURSO);
 			pstmt.setInt(1, c.getId_curso());
 			pstmt.setString(2, c.getNombre());
 			pstmt.setString(3, c.getDescripcion());
 			pstmt.setFloat(4, c.getPrecio());
-			pstmt.setInt(5, c.getInstructor().getId_instructor());
+			if(c.getInstructor()!=null) {
+				pstmt.setInt(5, c.getInstructor().getId_instructor());
+			}else {
+				pstmt.setNull(5, java.sql.Types.NULL);
+			}
 			
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {
@@ -123,7 +130,7 @@ public class CursoDaoImpl implements CursoDao {
 	public Curso getCursoById(int idCurso) {
 		Curso c= null;
 		try {
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_GET_CURSO_BY_ID);
 			pstmt.setInt(1, idCurso);
@@ -153,7 +160,7 @@ public class CursoDaoImpl implements CursoDao {
 		boolean realizado=false;
 		try {
 			
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_UPDATE_CURSO);
 			pstmt=con.prepareStatement(SQL_INSERT_CURSO);
@@ -175,5 +182,30 @@ public class CursoDaoImpl implements CursoDao {
 	 	}
 	
 		return realizado;
+	}
+
+
+
+	public int getNextId() {
+		int id=-1;
+		try {
+			
+			con=(Connection) dataSource.getConnection();
+			
+			pstmt=con.prepareStatement(SQL_NEXT_ID);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				id=rs.getInt(1);
+			}
+			
+		}
+	 	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de obtencion del siguiente id ha fallado");
+			e.printStackTrace();
+	 	}
+	
+		return id;
 	}
 }

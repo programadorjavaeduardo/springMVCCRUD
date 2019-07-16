@@ -21,14 +21,11 @@
         <beans:property name="maxWait" value="16000"/>
         <beans:property name="minIdle" value="0"/>
 	</beans:bean>
-  
-  	
-    
-    
+
 	
-    
     <context:component-scan
-        base-package="beans, controller, dao, service, view" />
+        base-package="beans, controller, dao, service, view, prueba" />
+    
     
    
     

@@ -32,6 +32,7 @@ public class AlumnoDaoImpl implements AlumnoDao {
 	private static String SQL_GET_ALUMNO_BY_ID="SELECT a.id_alumno, a.nombre, a.apellido_paterno, a.apellido_materno, a.telefono, a.email, a.password, a.id_formacion, a.es_instructor, f.descripcionEsp, f.descripcionEng FROM Alumno a LEFT JOIN Formacion f ON a.id_formacion=f.id_formacion WHERE a.id_alumno=?";
 	private static String SQL_UPDATE_ALUMNO="UPDATE Alumno SET nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, password=?, id_formacion=?, a.es_instructor=? where id_alumno=?";
 	private static String SQL_GET_ALUMNO_BY_USER_PASS="SELECT a.id_alumno, a.nombre, a.apellido_paterno, a.apellido_materno, a.telefono, a.email, a.password, a.id_formacion, a.es_instructor, f.descripcionEsp, f.descripcionEng FROM Alumno a LEFT JOIN Formacion f ON a.id_formacion=f.id_formacion WHERE a.email=? AND a.password=?";
+	private static String SQL_GET_MAX_ID= "SELECT MAX(id_alumno) from Alumno";
 	
 	public List<Alumno> findAll() {
 		// TODO Auto-generated method stub
@@ -215,6 +216,27 @@ public class AlumnoDaoImpl implements AlumnoDao {
 		
 		return correcto;
 	}
+
+
+
+	public int getMaxId() {
+		int id=-1;
+		try {
+			Connection con=(Connection) dataSource.getConnection();
+			pstmt=con.prepareStatement(SQL_GET_MAX_ID);
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				id=rs.getInt(1);
+			}
+		}catch(SQLException ex) {
+			System.out.println("La consulta de obtencion del max id de Alumno ha fallado");
+			ex.printStackTrace();
+		}
+		return id;
+	}
+	
+	
 
 
 }

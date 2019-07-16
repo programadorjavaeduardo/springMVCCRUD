@@ -39,4 +39,10 @@ public class InstructorServiceImpl implements InstructorService{
 		return instructorDao.getCursosByIdInstructor(idInstructor);
 	}
 
+	public int getNextId() {
+		return instructorDao.getNextId();
+	}
+	
+	
+
 }

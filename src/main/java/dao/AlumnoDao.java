@@ -18,4 +18,5 @@ public interface AlumnoDao {
 
 	public boolean comprobarLogin(String email, String password);
 
+	public int getMaxId();
 }

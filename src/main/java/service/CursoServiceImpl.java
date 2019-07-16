@@ -34,6 +34,10 @@ public class CursoServiceImpl implements CursoService {
 	public boolean updateCurso(Curso c) {
 		return cursoDao.updateCurso(c);
 	}
+
+	public int getNextId() {
+		return cursoDao.getNextId();
+	}
 	
 	
 

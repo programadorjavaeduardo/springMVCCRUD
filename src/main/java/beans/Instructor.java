@@ -3,7 +3,9 @@ package beans;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Instructor {
 
 	private Integer id_instructor;
@@ -29,7 +31,6 @@ public class Instructor {
 	
 	private int es_instructor;
 	
-	@Autowired
 	private List<Curso> cursos;
 	
 	
@@ -37,10 +38,14 @@ public class Instructor {
 		
 	}
 	
+	public Instructor(int id_instructor) {
+		this.id_instructor= id_instructor;
+	}
+	
 	
 	
 	public Instructor(Integer id_instructor, String nombre, String ape_paterno, String ape_materno, String email,
-			String password, String telefono, int es_instructor, List<Curso> cursos) {
+			String password, String telefono, int es_instructor) {
 		super();
 		this.id_instructor = id_instructor;
 		this.nombre = nombre;
@@ -50,7 +55,7 @@ public class Instructor {
 		this.password = password;
 		this.telefono = telefono;
 		this.es_instructor = es_instructor;
-		this.cursos=cursos;
+		
 	}
 
 
@@ -129,23 +134,19 @@ public class Instructor {
 
 
 
-	public List<Curso> getCursos() {
-		return cursos;
-	}
-
-
-
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = cursos;
-	}
-
-
-
 	@Override
 	public String toString() {
 		return "Instructor [id_instructor=" + id_instructor + ", nombre=" + nombre + ", ape_paterno=" + ape_paterno
 				+ ", ape_materno=" + ape_materno + ", email=" + email + ", password=" + password + ", telefono="
 				+ telefono + ", es_instructor=" + es_instructor + ", cursos=" + cursos + "]";
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
 	}
 	
 	

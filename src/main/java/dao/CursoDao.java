@@ -10,4 +10,5 @@ public interface CursoDao {
 	public boolean insertarCurso(Curso c);
 	public Curso getCursoById(int idCurso);
 	public boolean updateCurso(Curso c);
+	public int getNextId();
 }

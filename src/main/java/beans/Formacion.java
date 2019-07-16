@@ -11,7 +11,21 @@ public class Formacion {
 	
 	private String descripcionEng;
 	
+	public Formacion() {
+		
+	}
 	
+	
+	
+	public Formacion(int id_formacion, String descripcionEsp, String descripcionEng) {
+		super();
+		this.id_formacion = id_formacion;
+		this.descripcionEsp = descripcionEsp;
+		this.descripcionEng = descripcionEng;
+	}
+
+
+
 	public int getId_formacion() {
 		return id_formacion;
 	}

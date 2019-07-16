@@ -17,4 +17,6 @@ public interface InstructorService {
 	public boolean updateInstructor(Instructor instructor);
 
 	public List<Curso> getCursosByIdInstructor(int idInstructor);
+	
+	public int getNextId();
 }

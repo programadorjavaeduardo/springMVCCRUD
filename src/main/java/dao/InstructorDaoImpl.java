@@ -28,24 +28,32 @@ public class InstructorDaoImpl implements InstructorDao {
 	
 	private ResultSet rs;
 	
-	private static String SQL_FIND_ALL="SELECT i.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password, i.es_instructor, c.id_curso, c.nombre FROM Instructor i LEFT JOIN Curso c ON i.id_instructor=c.id_instructor";
+	private Connection con;
+	
+	private static String SQL_GET_ALL="SELECT i.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password, i.es_instructor FROM Instructor i";
+	
 	private static String SQL_DELETE_INSTRUCTOR="DELETE FROM Instructor where id_instructor=?";
 	private static String SQL_INSERT_INSTRUCTOR="INSERT INTO Instructor(id_instructor,nombre, apellido_paterno, apellido_materno, telefono, email, password, es_instructor) VALUES(?,?,?,?,?,?,?,?)";
-	private static String SQL_GET_INSTRUCTOR_BY_ID="SELECT i.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password, i.es_instructor, c.nombre FROM Instructor i LEFT JOIN Curso c ON i.id_instructor=c.id_instructor WHERE i.id_instructor=?";
+	private static String SQL_GET_INSTRUCTOR_BY_ID=SQL_GET_ALL + " WHERE i.id_instructor=?";
 	private static String SQL_UPDATE_INSTRUCTOR="UPDATE Alumno SET id_instructor=?, nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, password=? where id_instructor=?";
-	private static String SQL_GET_INSTRUCTOR_BY_USER_PASS="SELECT i.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password, i.es_instructor, c.nombre FROM Instructor i LEFT JOIN Curso c ON i.id_instructor=c.id_instructor WHERE i.email=? AND i.password=?";
+	private static String SQL_GET_INSTRUCTOR_BY_USER_PASS= SQL_GET_ALL + " WHERE i.email=? AND i.password=?";
+	private static String SQL_GET_LIST_CURSOS_BY_ID_INSTRUCTOR= "SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor from Curso c WHERE c.id_instructor=?";
+	private static String SQL_GET_NEXT_ID= "SELECT MAX(id_instructor)+1 from Instructor";
 	
 	public List<Instructor> findAll() {
 		// TODO Auto-generated method stub
 		List<Instructor> instructores= null;
+		List<Curso> cursos=null;
+		
 		try {
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
-			pstmt=con.prepareStatement(SQL_FIND_ALL);
+			pstmt=con.prepareStatement(SQL_GET_ALL);
 			rs= pstmt.executeQuery();
-			instructores= new ArrayList<Instructor>();
 			
+			instructores= new ArrayList<Instructor>();
 			while(rs.next()) {
+				
 				Instructor i= new Instructor();
 				i.setId_instructor(rs.getInt(1));
 				i.setNombre(rs.getString(2));
@@ -55,8 +63,13 @@ public class InstructorDaoImpl implements InstructorDao {
 				i.setEmail(rs.getString(6));
 				i.setPassword(rs.getString(7));
 				i.setEs_instructor(rs.getInt(8));
+				
+				//cursos
+				cursos=getCursosByIdInstructor(i.getId_instructor());
+				i.setCursos(cursos);
 				instructores.add(i);
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("La consulta de obtencion de Instructores ha fallado");
@@ -72,7 +85,7 @@ public class InstructorDaoImpl implements InstructorDao {
 		boolean realizado=false;
 		try {
 			
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_DELETE_INSTRUCTOR);
 			pstmt.setInt(1, idInstructor);
@@ -96,7 +109,7 @@ public class InstructorDaoImpl implements InstructorDao {
 		boolean realizado=false;
 		try {
 			
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_INSERT_INSTRUCTOR);
 			pstmt.setInt(1, i.getId_instructor());
@@ -126,8 +139,9 @@ public class InstructorDaoImpl implements InstructorDao {
 
 	public Instructor getInstructorById(int idInstructor) {
 		Instructor i= null;
+		List<Curso> cursos=null;
 		try {
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_GET_INSTRUCTOR_BY_ID);
 			pstmt.setInt(1, idInstructor);
@@ -142,7 +156,9 @@ public class InstructorDaoImpl implements InstructorDao {
 				i.setTelefono(rs.getString(5));
 				i.setEmail(rs.getString(6));
 				i.setPassword(rs.getString(7));
-				i.setId_instructor(rs.getInt(8));
+				i.setEs_instructor(rs.getInt(8));
+				cursos=getCursosByIdInstructor(i.getId_instructor());
+				i.setCursos(cursos);
 				
 			}
 		} catch (SQLException e) {
@@ -159,7 +175,7 @@ public class InstructorDaoImpl implements InstructorDao {
 		boolean realizado=false;
 		try {
 			
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_UPDATE_INSTRUCTOR);
 			pstmt.setString(1, i.getNombre());
@@ -189,7 +205,7 @@ public class InstructorDaoImpl implements InstructorDao {
 	public boolean comprobarLogin(String email, String password) {
 		boolean correcto= false;
 		try {
-			Connection con=(Connection) dataSource.getConnection();
+			con=(Connection) dataSource.getConnection();
 			
 			pstmt=con.prepareStatement(SQL_GET_INSTRUCTOR_BY_USER_PASS);
 			pstmt.setString(1, email);
@@ -211,8 +227,54 @@ public class InstructorDaoImpl implements InstructorDao {
 
 
 	public List<Curso> getCursosByIdInstructor(int idInstructor) {
-		// TODO Auto-generated method stub
-		return null;
+		//cursos
+		List<Curso> cursos=null;
+		try{
+			PreparedStatement pstmt2=con.prepareStatement(SQL_GET_LIST_CURSOS_BY_ID_INSTRUCTOR);
+			pstmt2.setInt(1, idInstructor);
+			ResultSet rs2=pstmt2.executeQuery();
+			cursos= new ArrayList<Curso>();
+			while(rs2.next()) {
+				
+				Curso c= new Curso();
+				c.setId_curso(rs2.getInt(1));
+				c.setNombre(rs2.getString(2));
+				c.setDescripcion(rs2.getString(3));
+				c.setPrecio(rs2.getFloat(4));
+				cursos.add(c);
+			}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de obtencion de cursos del instructor por id:" +idInstructor + " ha fallado");
+			e.printStackTrace();
+	 	}
+		
+		return cursos;
+	}
+
+
+
+	public int getNextId() {
+		int id=-1;
+		try {
+			
+			con=(Connection) dataSource.getConnection();
+			
+			pstmt=con.prepareStatement(SQL_GET_NEXT_ID);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				id=rs.getInt(1);
+			}
+			
+		}
+	 	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de obtencion del siguiente id ha fallado");
+			e.printStackTrace();
+	 	}
+	
+		return id;
 	}
 
 

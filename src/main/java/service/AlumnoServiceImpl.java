@@ -39,6 +39,10 @@ public class AlumnoServiceImpl implements AlumnoService {
 		return alumnoDao.comprobarLogin(email,password);
 	}
 
+	public int getMaxId() {
+		return alumnoDao.getMaxId();
+	}
+
 	
 
 }

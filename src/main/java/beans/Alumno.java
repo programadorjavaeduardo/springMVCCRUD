@@ -37,10 +37,9 @@ public class Alumno {
 	
 	
 	
-	public Alumno(Integer id_alumno, String nombre, String ape_paterno, String ape_materno, String email,
+	public Alumno(String nombre, String ape_paterno, String ape_materno, String email,
 			String password, String telefono, Formacion formacion, int es_instructor) {
 		super();
-		this.id_alumno = id_alumno;
 		this.nombre = nombre;
 		this.ape_paterno = ape_paterno;
 		this.ape_materno = ape_materno;
