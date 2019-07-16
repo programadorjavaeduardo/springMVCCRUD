@@ -39,7 +39,7 @@ public class AlumnoController {
 	@Autowired
 	FormacionService formacionService;
 	
-	@Autowired
+	
 	Validator validator;
 	
 	@Autowired

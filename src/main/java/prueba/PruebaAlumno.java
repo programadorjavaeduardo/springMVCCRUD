@@ -31,7 +31,7 @@ public class PruebaAlumno {
 		
 		//insertar
 		Formacion f= new Formacion(1,"ESO","ESO");
-		Alumno a= new Alumno("Jaimito","r","r","r","r","1234",f,0);
+		Alumno a= new Alumno("Pedro", "ape_paterno", "ape_materno", "email", "password", "telefono", f, 0);
 		boolean insertado=alumnoServiceImpl.insertarAlumno(a);
 		if(insertado) {
 			System.out.println("Insertado correctamente");
