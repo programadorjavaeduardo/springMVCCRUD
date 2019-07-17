@@ -30,10 +30,10 @@ public class CursoDaoImpl implements CursoDao {
 	
 	private Connection con;
 	
-	private static String SQL_FIND_ALL="SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password, i.es_instructor FROM curso c LEFT JOIN Instructor i ON c.id_instructor=i.id_instructor";
+	private static String SQL_JOIN_CURSO_INSTRUCTOR="SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password FROM curso c LEFT JOIN Instructor i ON c.id_instructor=i.id_instructor";
 	private static String SQL_DELETE_CURSO="DELETE FROM Curso where id_curso=?";
 	private static String SQL_INSERT_CURSO="INSERT INTO Curso(id_curso, nombre, descripcion, precio, id_instructor) VALUES(?,?,?,?,?)";
-	private static String SQL_GET_CURSO_BY_ID="SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password, i.es_instructor from Curso c LEFT JOIN Instructor i ON c.id_instructor=i.id_instructor WHERE c.id_curso=?";
+	private static String SQL_GET_CURSO_BY_ID= SQL_JOIN_CURSO_INSTRUCTOR + " WHERE c.id_curso=?";
 	private static String SQL_UPDATE_CURSO="UPDATE Curso SET id_curso=?, nombre=?, descripcion=?, precio=?, id_instructor=? where id_curso=?";
 	private static String SQL_NEXT_ID="SELECT MAX(id_curso)+1 from Curso c";
 
@@ -44,7 +44,7 @@ public class CursoDaoImpl implements CursoDao {
 		try {
 			con=(Connection) dataSource.getConnection();
 			
-			pstmt=con.prepareStatement(SQL_FIND_ALL);
+			pstmt=con.prepareStatement(SQL_JOIN_CURSO_INSTRUCTOR);
 			rs= pstmt.executeQuery();
 			cursos= new ArrayList<Curso>();
 			

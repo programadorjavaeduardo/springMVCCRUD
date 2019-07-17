@@ -29,8 +29,6 @@ public class Instructor {
 	private String telefono;
 	
 	
-	private int es_instructor;
-	
 	private List<Curso> cursos;
 	
 	
@@ -45,7 +43,7 @@ public class Instructor {
 	
 	
 	public Instructor(Integer id_instructor, String nombre, String ape_paterno, String ape_materno, String email,
-			String password, String telefono, int es_instructor) {
+			String password, String telefono) {
 		super();
 		this.id_instructor = id_instructor;
 		this.nombre = nombre;
@@ -54,7 +52,7 @@ public class Instructor {
 		this.email = email;
 		this.password = password;
 		this.telefono = telefono;
-		this.es_instructor = es_instructor;
+		
 		
 	}
 
@@ -121,24 +119,11 @@ public class Instructor {
 	}
 
 
-
-	public int getEs_instructor() {
-		return es_instructor;
-	}
-
-
-
-	public void setEs_instructor(int es_instructor) {
-		this.es_instructor = es_instructor;
-	}
-
-
-
 	@Override
 	public String toString() {
 		return "Instructor [id_instructor=" + id_instructor + ", nombre=" + nombre + ", ape_paterno=" + ape_paterno
 				+ ", ape_materno=" + ape_materno + ", email=" + email + ", password=" + password + ", telefono="
-				+ telefono + ", es_instructor=" + es_instructor + ", cursos=" + cursos + "]";
+				+ telefono + ", cursos=" + cursos + "]";
 	}
 
 	public List<Curso> getCursos() {

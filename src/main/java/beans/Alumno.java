@@ -27,9 +27,6 @@ public class Alumno {
 	@Autowired
 	private Formacion formacion;
 	
-	private int es_instructor;
-	
-	
 	
 	public Alumno() {
 		
@@ -38,7 +35,7 @@ public class Alumno {
 	
 	
 	public Alumno(String nombre, String ape_paterno, String ape_materno, String email,
-			String password, String telefono, Formacion formacion, int es_instructor) {
+			String password, String telefono, Formacion formacion) {
 		super();
 		this.nombre = nombre;
 		this.ape_paterno = ape_paterno;
@@ -47,7 +44,6 @@ public class Alumno {
 		this.password = password;
 		this.telefono = telefono;
 		this.formacion = formacion;
-		this.es_instructor = es_instructor;
 	}
 
 
@@ -116,23 +112,11 @@ public class Alumno {
 	}
 
 
-	public int getEs_instructor() {
-		return es_instructor;
-	}
-
-
-
-	public void setEs_instructor(int es_instructor) {
-		this.es_instructor = es_instructor;
-	}
-
-
-
 	@Override
 	public String toString() {
 		return "Alumno [id_alumno=" + id_alumno + ", nombre=" + nombre + ", ape_paterno=" + ape_paterno
 				+ ", ape_materno=" + ape_materno + ", email=" + email + ", password=" + password + ", telefono="
-				+ telefono + ", formacion=" + formacion + ", es_instructor=" + es_instructor + "]";
+				+ telefono + ", formacion=" + formacion + "]";
 	}
 	
 	

@@ -30,10 +30,10 @@ public class InstructorDaoImpl implements InstructorDao {
 	
 	private Connection con;
 	
-	private static String SQL_GET_ALL="SELECT i.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password, i.es_instructor FROM Instructor i";
+	private static String SQL_GET_ALL="SELECT i.id_instructor, i.nombre, i.apellido_paterno, i.apellido_materno, i.telefono, i.email, i.password FROM Instructor i";
 	
 	private static String SQL_DELETE_INSTRUCTOR="DELETE FROM Instructor where id_instructor=?";
-	private static String SQL_INSERT_INSTRUCTOR="INSERT INTO Instructor(id_instructor,nombre, apellido_paterno, apellido_materno, telefono, email, password, es_instructor) VALUES(?,?,?,?,?,?,?,?)";
+	private static String SQL_INSERT_INSTRUCTOR="INSERT INTO Instructor(id_instructor,nombre, apellido_paterno, apellido_materno, telefono, email, password) VALUES(?,?,?,?,?,?,?)";
 	private static String SQL_GET_INSTRUCTOR_BY_ID=SQL_GET_ALL + " WHERE i.id_instructor=?";
 	private static String SQL_UPDATE_INSTRUCTOR="UPDATE Alumno SET id_instructor=?, nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, password=? where id_instructor=?";
 	private static String SQL_GET_INSTRUCTOR_BY_USER_PASS= SQL_GET_ALL + " WHERE i.email=? AND i.password=?";
@@ -62,7 +62,6 @@ public class InstructorDaoImpl implements InstructorDao {
 				i.setTelefono(rs.getString(5));
 				i.setEmail(rs.getString(6));
 				i.setPassword(rs.getString(7));
-				i.setEs_instructor(rs.getInt(8));
 				
 				//cursos
 				cursos=getCursosByIdInstructor(i.getId_instructor());
@@ -119,7 +118,6 @@ public class InstructorDaoImpl implements InstructorDao {
 			pstmt.setString(5, i.getTelefono());
 			pstmt.setString(6, i.getEmail());
 			pstmt.setString(7, i.getPassword());
-			pstmt.setInt(8, 1);
 			
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {
@@ -156,7 +154,6 @@ public class InstructorDaoImpl implements InstructorDao {
 				i.setTelefono(rs.getString(5));
 				i.setEmail(rs.getString(6));
 				i.setPassword(rs.getString(7));
-				i.setEs_instructor(rs.getInt(8));
 				cursos=getCursosByIdInstructor(i.getId_instructor());
 				i.setCursos(cursos);
 				

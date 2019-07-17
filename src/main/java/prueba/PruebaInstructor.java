@@ -35,7 +35,7 @@ public class PruebaInstructor {
 		
 		int id=instructorServiceImpl.getNextId();
 		System.out.println("ID Siguiente:"+id);
-		Instructor i= new Instructor(id,"Instructor","r","r","r","r","1234", 1);
+		Instructor i= new Instructor(id,"Instructor","r","r","r","r","1234");
 		System.out.println("Intructor a insertar:"+ i.toString());
 		boolean insertado=instructorServiceImpl.insertarInstructor(i);
 		if(insertado) {
