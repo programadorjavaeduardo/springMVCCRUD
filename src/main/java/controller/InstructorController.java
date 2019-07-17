@@ -25,21 +25,20 @@ import org.springframework.web.servlet.ModelAndView;
 import beans.Alumno;
 import beans.AlumnoValidator;
 import beans.Formacion;
+import beans.Instructor;
+import beans.InstructorValidator;
 import beans.LoginValidator;
 import service.AlumnoService;
 import service.FormacionService;
+import service.InstructorService;
 
 @Controller
-@RequestMapping("alumno")
-public class AlumnoController {
+@RequestMapping("instructor")
+public class InstructorController {
 
 	@Autowired
-	AlumnoService alumnoService;
+	InstructorService instructorService;
 
-	@Autowired
-	FormacionService formacionService;
-	
-	
 	@Autowired
 	MessageSource messageSource;
 
@@ -51,9 +50,8 @@ public class AlumnoController {
 
 	private String textoBoton;
 
-	private List<Formacion> formaciones;
 	
-	private static String TITULO_NUEVO_ALUMNO="title.newAlumno";
+	private static String TITULO_NUEVO_INSTRUCTOR="title.newInstructor";
 	private static String BOTON_AGREGAR="button.add";
 	private static String MENSAJE_BORRADO_OK="message.delete.ok";
 	private static String MENSAJE_BORRADO_NOOK="message.delete.nook";
@@ -61,22 +59,23 @@ public class AlumnoController {
 	private static String MENSAJE_INSERT_NOOK="message.insert.nook"; 
 	private static String MENSAJE_UPDATE_OK="message.update.ok"; 
 	private static String MENSAJE_UPDATE_NOOK="message.update.nook"; 
-	private static String TITULO_EDIT_ALUMNO="title.editAlumno";
+	private static String TITULO_EDIT_INSTRUCTOR="title.editInstructor";
 	private static String BOTON_EDITAR="button.edit";
-	private static String TITULO_ACCESO_ALUMNO="title.loginAlumno";
+	private static String TITULO_ACCESO_INSTRUCTOR="title.loginInstructor";
 	private static String LOGIN_NOOK="login.incorrect";
+	
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(new AlumnoValidator()); // registramos el validador de alumno
+        binder.setValidator(new InstructorValidator()); // registramos el validador de alumno
         
     }
 	
 	@RequestMapping(value="/abrirVentanaLogin")
 	public ModelAndView abrirVentanaLogin(Locale locale) {
 		ModelAndView m= new ModelAndView("login");
-		String objetoLogin="alumno";
-		String titulo=messageSource.getMessage(TITULO_ACCESO_ALUMNO, null, locale);
+		String objetoLogin="instructor";
+		String titulo=messageSource.getMessage(TITULO_ACCESO_INSTRUCTOR, null, locale);
 		m.addObject("objetoLogin", objetoLogin);
 		m.addObject("titulo", titulo);
 		return m;
@@ -85,68 +84,64 @@ public class AlumnoController {
 	
 	
 	
-	@RequestMapping(value="/gestionAlumnos")
-	public ModelAndView mostrargestionAlumnos(Locale locale) {
-		List<Alumno> alumnos= alumnoService.findAll();
-		mensajeConfirmacion= messageSource.getMessage("mensajeConfirmacion.alumno", null, locale);
+	@RequestMapping(value="/gestionInstructores")
+	public ModelAndView gestionInstructores(Locale locale) {
+		List<Instructor> instructores= instructorService.findAll();
+		mensajeConfirmacion= messageSource.getMessage("mensajeConfirmacion.instructor", null, locale);
 		//Alumnos= geti18nTexts(Alumnos,locale);
-		ModelAndView m = new ModelAndView("gestionAlumnos");
+		ModelAndView m = new ModelAndView("gestionInstructores");
 		
-		m.addObject("alumnos", alumnos);
+		m.addObject("instructores", instructores);
 		m.addObject("mensajeConfirmacion",mensajeConfirmacion);
 		return m;
 	}
 
 	
-	@RequestMapping(value="/borrarAlumnoAJAX")
+	@RequestMapping(value="/borrarInstructorAJAX")
 	@ResponseBody
-	public String borrarAlumnoAJAX(@RequestParam(value="idAlumno")int idAlumno, Locale locale) {
+	public String borrarInstructorAJAX(@RequestParam(value="idInstructor")int idInstructor, Locale locale) {
 
 		JSONObject jsonRespuesta= new JSONObject();
-		System.out.println("IdAlumno a borrar:"+idAlumno);
-		boolean realizado=alumnoService.deleteAlumno(idAlumno);
+		System.out.println("IdInstructor a borrar:"+idInstructor);
+		boolean realizado=instructorService.deleteInstructor(idInstructor);
 		
 		jsonRespuesta.put("realizado", realizado);
 		
 		return jsonRespuesta.toString();
 	}
 	
-	@RequestMapping(value="/nuevoAlumno")
-	public ModelAndView nuevoAlumno(Locale locale){
+	@RequestMapping(value="/nuevoInstructor")
+	public ModelAndView nuevoInstructor(Locale locale){
 		ModelAndView m= new ModelAndView("detalleAlumno");
-		titulo=messageSource.getMessage(TITULO_NUEVO_ALUMNO, null, locale);
+		titulo=messageSource.getMessage(TITULO_NUEVO_INSTRUCTOR, null, locale);
 		textoBoton= messageSource.getMessage(BOTON_AGREGAR, null, locale);
-		formaciones=formacionService.getFormaciones();
-		m.addObject("alumno", new Alumno());
+		m.addObject("instructor", new Instructor());
 		m.addObject("titulo", titulo);
 		m.addObject("textoBoton", textoBoton);
-		m.addObject("formaciones", formaciones);
 		return m;
 	}
 
-	@RequestMapping(value="/insertarAlumno", method=RequestMethod.POST)
-	public ModelAndView agregarAlumno(@Valid Alumno Alumno, BindingResult bindingResult, Locale locale){
+	@RequestMapping(value="/insertarInstructor", method=RequestMethod.POST)
+	public ModelAndView agregarAlumno(@Valid Instructor instructor, BindingResult bindingResult, Locale locale){
 		ModelAndView m;
 		
 		if(bindingResult.hasErrors()) {
 			m = new ModelAndView("detalleAlumno");
-			titulo=messageSource.getMessage(TITULO_NUEVO_ALUMNO, null, locale);
+			titulo=messageSource.getMessage(TITULO_NUEVO_INSTRUCTOR, null, locale);
 			textoBoton= messageSource.getMessage(BOTON_AGREGAR, null, locale);
-			formaciones=formacionService.getFormaciones();
-			m.addObject("Alumno", new Alumno());
+			m.addObject("Instructor", new Instructor());
 			m.addObject("titulo", titulo);
 			m.addObject("textoBoton", textoBoton);
-			m.addObject("formaciones", formaciones);
 		}else {
-			boolean realizado=alumnoService.insertarAlumno(Alumno);
+			boolean realizado=instructorService.insertarInstructor(instructor);
 			if(realizado) {
 				mensaje=messageSource.getMessage(MENSAJE_INSERT_OK, null, locale);
 			}else {
 				mensaje=messageSource.getMessage(MENSAJE_INSERT_NOOK, null, locale);
 			}
-			m= new ModelAndView("gestionAlumnos");
-			List<Alumno> alumnos=alumnoService.findAll();
-			m.addObject("alumnos", alumnos);
+			m= new ModelAndView("gestionInstructores");
+			List<Instructor> instructores=instructorService.findAll();
+			m.addObject("instructores", instructores);
 			m.addObject("mensaje",mensaje);
 			
 		}
@@ -155,46 +150,42 @@ public class AlumnoController {
 		
 	}
 
-	@RequestMapping(value="/obtenerAlumno")
-	public ModelAndView getAlumno(@RequestParam("idAlumno") int idAlumno, Locale locale ){
-		ModelAndView m= new ModelAndView("detalleAlumno");
-		titulo=messageSource.getMessage(TITULO_EDIT_ALUMNO, null, locale);
+	@RequestMapping(value="/obtenerInstructor")
+	public ModelAndView getAlumno(@RequestParam("idInstructor") int idInstructor, Locale locale ){
+		ModelAndView m= new ModelAndView("detalleInstructor");
+		titulo=messageSource.getMessage(TITULO_EDIT_INSTRUCTOR, null, locale);
 		textoBoton= messageSource.getMessage(BOTON_EDITAR, null, locale);
 
-		Alumno alumno=alumnoService.getAlumnoById(idAlumno);
-		formaciones=formacionService.getFormaciones();
-		int seleccionado= alumno.getFormacion().getId_formacion();
-		m.addObject("alumno", alumno);
+		Instructor instructor=instructorService.getInstructorById(idInstructor);
+		
+		m.addObject("instructor", instructor);
 		m.addObject("titulo", titulo);
 		m.addObject("textoBoton", textoBoton);
-		m.addObject("formaciones", formaciones);
-		m.addObject("formacionSeleccionada",seleccionado);
 		return m;
 	}
 
-	@RequestMapping(value="/editarAlumno")
-	public ModelAndView editarAlumno(@Valid Alumno Alumno, BindingResult bindingResult, Locale locale){
+	@RequestMapping(value="/editarInstructor")
+	public ModelAndView editarInstructor(@Valid Instructor instructor, BindingResult bindingResult, Locale locale){
 		ModelAndView m;
 		
 		if(bindingResult.hasErrors()) {
-			m = new ModelAndView("detalleAlumno");
-			titulo=messageSource.getMessage(TITULO_EDIT_ALUMNO, null, locale);
+			m = new ModelAndView("detalleInstructor");
+			titulo=messageSource.getMessage(TITULO_EDIT_INSTRUCTOR, null, locale);
 			textoBoton= messageSource.getMessage(BOTON_EDITAR, null, locale);
-			formaciones=formacionService.getFormaciones();
-			m.addObject("Alumno", new Alumno());
+			m.addObject("instructor", new Instructor());
 			m.addObject("titulo", titulo);
 			m.addObject("textoBoton", textoBoton);
-			m.addObject("formaciones", formaciones);
+			
 		}else {
-			boolean realizado=alumnoService.updateAlumno(Alumno);
+			boolean realizado=instructorService.updateInstructor(instructor);
 			if(realizado) {
 				mensaje=messageSource.getMessage(MENSAJE_UPDATE_OK, null, locale);
 			}else {
 				mensaje=messageSource.getMessage(MENSAJE_UPDATE_NOOK, null, locale);
 			}
-			m= new ModelAndView("gestionAlumnos");
-			List<Alumno> alumnos=alumnoService.findAll();
-			m.addObject("alumnos", alumnos);
+			m= new ModelAndView("gestionInstructores");
+			List<Instructor> instructores=instructorService.findAll();
+			m.addObject("instructores", instructores);
 			m.addObject("mensaje",mensaje);
 			
 		}
@@ -207,7 +198,9 @@ public class AlumnoController {
 	public ModelAndView comprobarLogin(@RequestParam("email") String email, @RequestParam("password") String password,  HttpServletRequest req, Locale locale) {
 		ModelAndView m= new ModelAndView();
 		
-		if(alumnoService.comprobarLogin(email,password)) {
+		if(instructorService.comprobarLogin(email,password)) {
+			String objetoLogin= "instructor";
+			m.addObject("objetoLogin", objetoLogin);
 			m.setViewName("welcome");
 			HttpSession ses=req.getSession();
 			ses.setAttribute("email", email );
@@ -219,18 +212,7 @@ public class AlumnoController {
 		return m;
 	}
 
-	@RequestMapping("/downloadPDFFormat")
-	public ModelAndView downloadPDF(Model model){
-		List<Alumno> Alumnos= alumnoService.findAll();
-		ModelAndView m = new ModelAndView("pdfView");
-		m.addObject("Alumnos", Alumnos);
-		return m;
-	}
-
-	@RequestMapping("/downloadXLSFormat")
-	public String downloadXLS(Model model){
-		return "xlsView";
-	}
+	
 
 
 

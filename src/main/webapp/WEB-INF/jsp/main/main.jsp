@@ -15,7 +15,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosHeader.js"></script>
 
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var lang = "${sessionScope['lang']}"</script>
@@ -25,19 +25,12 @@
 	<div class="container">
     	<jsp:include page="../common/header.jsp" ></jsp:include>
     	
-    	<c:choose>
-    		<c:when test="${objetoLogin=='alumno'}">
-    			<jsp:include page="../common/actionsAlumno.jsp" ></jsp:include>
-    		</c:when>
-    		<c:otherwise>
-    			<jsp:include page="../common/actionsInstructor.jsp" ></jsp:include>
-    		</c:otherwise>
-    	
-    	
-    	</c:choose>
-    	
    
-		
+		<div style="height: 600px;" class="row">
+			<div class="col">
+				<p class="text-center"> Main Universidad Online </p>
+			</div>
+		</div>
 
 		<jsp:include page="../common/footer.jsp" ></jsp:include>
 	</div>

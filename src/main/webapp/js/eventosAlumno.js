@@ -4,48 +4,37 @@ $(document).ready(function(){
     window.location=ctx+"/alumno/gestionAlumnos.html?locale="+lang;
   });
 
-  $("#linkStudentZone").on("click",function(){
+  $("#linkZonaAlumnos").on("click",function(){
 
 	  $(this).attr("href",ctx+"/alumno/gestionAlumnos.html?locale="+lang);
 	  $(this).click();
   });
 
   
-  $("#linkNewAlumno").on("click",function(){
+  $("#linkNuevoAlumno").on("click",function(){
 
-	  $(this).attr("href",ctx+"/alumno/newAlumno.html");
+	  $(this).attr("href",ctx+"/alumno/nuevoAlumno.html");
 	  $(this).click();
   });
 
-  $("#linkIndex").on("click",function(){
+  $("#linkIndice").on("click",function(){
 
 	  $(this).attr("href",ctx+"/");
 	  $(this).click();
   });
   
-  $("#linkES").on("click",function(){
-
-	  $(this).attr("href",ctx+"/language/esp.html?locale=es");
-	  $(this).click();
-  });
-
-  $("#linkEN").on("click",function(){
-
-	  $(this).attr("href",ctx+"/language/eng.html?locale=en");
-	  $(this).click();
-  });
 
 });
 
 function obtenerAlumno(idAlumno){
-	window.location=ctx+"/alumno/getAlumno.html?idAlumno="+idAlumno+"&locale="+lang;
+	window.location=ctx+"/alumno/obtenerAlumno.html?idAlumno="+idAlumno+"&locale="+lang;
 }
 function direccionarSalidaA(idAlumno){
     if(idAlumno === undefined){
-      window.form.action=ctx+"/alumno/addAlumno.html?locale="+lang;
+      window.form.action=ctx+"/alumno/insertarAlumno.html?locale="+lang;
       $('#form').serializeArray();
     }else{
-      window.form.action=ctx+"/alumno/editAlumno.html?locale="+lang;
+      window.form.action=ctx+"/alumno/editarAlumno.html?locale="+lang;
     }
     return true;
 }
@@ -54,7 +43,7 @@ function confirmarBorrarAlumno(idAlumno){
   if(confirm(mensajeConfirmacion)){
 	 
 	  $.ajax({
-		  url: ctx+"/alumno/deleteAlumnoAJAX.html?idAlumno="+idAlumno+"&locale="+lang,
+		  url: ctx+"/alumno/borrarAlumnoAJAX.html?idAlumno="+idAlumno+"&locale="+lang,
 		  dataType: 'json',
 		  success: function(data){
 			  
@@ -80,5 +69,7 @@ function confirmarBorrarAlumno(idAlumno){
     return false;
   }
 }
+
+
 
 

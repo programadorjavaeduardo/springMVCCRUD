@@ -13,7 +13,7 @@
 
 	<div class="container">
    
-    	<jsp:include page="login.jsp" ></jsp:include>
+    	<jsp:include page="main.jsp" ></jsp:include>
     	
 
     </div>

@@ -19,4 +19,6 @@ public interface InstructorService {
 	public List<Curso> getCursosByIdInstructor(int idInstructor);
 	
 	public int getNextId();
+
+	public boolean comprobarLogin(String email, String password);
 }

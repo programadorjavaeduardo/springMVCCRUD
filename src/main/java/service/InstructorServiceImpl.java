@@ -42,7 +42,10 @@ public class InstructorServiceImpl implements InstructorService{
 	public int getNextId() {
 		return instructorDao.getNextId();
 	}
+
+	public boolean comprobarLogin(String email, String password) {
+		return instructorDao.comprobarLogin(email,password);
 	
-	
+	}
 
 }

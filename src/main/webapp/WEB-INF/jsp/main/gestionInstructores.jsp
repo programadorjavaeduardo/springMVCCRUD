@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><spring:message code="title.studentManagement"></spring:message></title>
+<title><spring:message code="title.instructorManagement"></spring:message></title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
@@ -15,8 +15,8 @@
 <script>var lang = "${sessionScope['lang']}"</script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var mensajeConfirmacion="${mensajeConfirmacion}"</script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosInstructor.js"></script>
+
 
 
 </head>
@@ -26,11 +26,11 @@
 
   <div class="container">
     <jsp:include page="../common/header.jsp" />
-    <jsp:include page="../common/actionsAlumno.jsp" ></jsp:include>
+    <jsp:include page="../common/actionsInstructor.jsp" ></jsp:include>
    
     <div class="row mt-5">
         <div class="col">
-           <h3> <spring:message code="title.studentManagement"></spring:message></h3>
+           <h3> <spring:message code="title.instructorManagement"></spring:message></h3>
         </div>
     </div>
     <div class="row">
@@ -45,27 +45,25 @@
           <thead>
             <tr>
               		<th>Id </th>
-      				<th><spring:message code="alumno.header.name"></spring:message></th>
-      				<th><spring:message code="alumno.header.motherSurname"></spring:message></th>
-      				<th><spring:message code="alumno.header.fatherSurname"></spring:message></th>
-      				<th><spring:message code="alumno.header.telephone"></spring:message> </th>
-      				<th><spring:message code="alumno.header.email"></spring:message> </th>
-      				<th><spring:message code="alumno.header.formation"></spring:message></th>
-      				<th colspan="2"><spring:message code="alumno.header.actions"></spring:message></th>
+      				<th><spring:message code="instructor.header.name"></spring:message></th>
+      				<th><spring:message code="instructor.header.motherSurname"></spring:message></th>
+      				<th><spring:message code="instructor.header.fatherSurname"></spring:message></th>
+      				<th><spring:message code="instructor.header.telephone"></spring:message> </th>
+      				<th><spring:message code="instructor.header.email"></spring:message> </th>
+      				<th colspan="2"><spring:message code="instructor.header.actions"></spring:message></th>
             </tr>
           </thead>
           <tbody>
-            <c:forEach var="alumno" items="${alumnos}">
-              <tr id="tr_${alumno.id_alumno}">
-                <td> ${alumno.id_alumno}</td>
-                <td> ${alumno.nombre}</td>
-                <td> ${alumno.ape_materno}</td>
-                <td> ${alumno.ape_paterno}</td>
-                <td> ${alumno.telefono}</td>
-                <td> ${alumno.email}</td>
-                <td> ${sessionScope['lang']=='es' ? alumno.formacion.descripcionEsp : alumno.formacion.descripcionEng} </td>
-                <td> <a onclick="return confirmarBorrarAlumno(${alumno.id_alumno})"><spring:message code="actions.delete"></spring:message></a> </td>
-                <td> <a onclick="obtenerAlumno(${alumno.id_alumno})"> <spring:message code="actions.edit"></spring:message></a> </td>
+            <c:forEach var="instructor" items="${instructores}">
+              <tr id="tr_${instructor.id_instructor}">
+                <td> ${instructor.id_instructor}</td>
+                <td> ${instructor.nombre}</td>
+                <td> ${instructor.ape_materno}</td>
+                <td> ${instructor.ape_paterno}</td>
+                <td> ${instructor.telefono}</td>
+                <td> ${instructor.email}</td>
+                <td> <a onclick="return confirmarBorrarInstructor(${instructor.id_instructor})"><spring:message code="actions.delete"></spring:message></a> </td>
+                <td> <a onclick="obtenerAlumno(${instructor.id_instructor})"> <spring:message code="actions.edit"></spring:message></a> </td>
               </tr>
 
             </c:forEach>
@@ -80,7 +78,7 @@
       <div class="col">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a id="linkNuevoAlumno" class="nav-link" href=""><spring:message code="actions.newAlumno"></spring:message></a>
+            <a id="linkNuevoInstructor" class="nav-link" href=""><spring:message code="actions.newAlumno"></spring:message></a>
           </li>
           <li class="nav-item">
             <a id="linkIndice" class="nav-link" href=""><spring:message code="actions.index"></spring:message></a>

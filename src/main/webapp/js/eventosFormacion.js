@@ -4,15 +4,15 @@ $(document).ready(function(){
     window.location=ctx+"/formacion/gestionFormaciones.html";
   });
 
-  $("#linkFormationZone").on("click",function(){
+  $("#linkZonaFormaciones").on("click",function(){
 
 	  $(this).attr("href",ctx+"/formacion/gestionFormaciones.html?locale="+lang);
 	  $(this).click();
   });
 
-  $("#linkNewFormacion").on("click",function(){
+  $("#linkNuevaFormacion").on("click",function(){
 
-	  $(this).attr("href",ctx+"/formacion/newFormacion.html");
+	  $(this).attr("href",ctx+"/formacion/nuevaFormacion.html");
 	  $(this).click();
   });
 
@@ -29,22 +29,22 @@ $(document).ready(function(){
 });
 
 function obtenerFormacion(idFormacion){
-	window.location=ctx+"/formacion/getFormacion.html?id_formacion="+idFormacion+"&locale="+lang;
+	window.location=ctx+"/formacion/obtenerFormacion.html?id_formacion="+idFormacion+"&locale="+lang;
 }
 
 function direccionarSalidaF(idFormacion){
     if(idFormacion === undefined || idFormacion==0){
-      window.form.action=ctx+"/formacion/addFormacion.html?locale="+lang;
+      window.form.action=ctx+"/formacion/insertarFormacion.html?locale="+lang;
       $('#form').serializeArray();
     }else{
-      window.form.action=ctx+"/formacion/editFormacion.html?locale="+lang;
+      window.form.action=ctx+"/formacion/editarFormacion.html?locale="+lang;
     }
     return true;
 }
 
 function confirmarBorrarFormacion(idFormacion){
   if(confirm(mensajeConfirmacion)){
-	  window.location=ctx+"/formacion/deleteFormacion.html?id_formacion="+idFormacion+"&locale="+lang;
+	  window.location=ctx+"/formacion/borrarFormacionAJAX.html?id_formacion="+idFormacion+"&locale="+lang;
     return true;
   }else{
     return false;

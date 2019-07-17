@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -8,13 +8,14 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><spring:message code="title.login"></spring:message></title>
+<title>${titulo}</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilos.css" >
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosHeader.js"></script>
+
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var lang = "${sessionScope['lang']}"</script>
 
@@ -34,7 +35,9 @@
 	  	
 	    <div class="col">
 	      	
-	      <form action="${pageContext.request.contextPath}/alumno/comprobarLogin.html" name="form" id="form" method="post" >
+	      <h3>${titulo}</h3>	
+	      	
+	      <form action="" name="form" id="form" method="post" onsubmit="return direccionarLogin('${objetoLogin}');">
 	      	
 	      	
 	        <div class="form-group">
@@ -57,6 +60,7 @@
 	            <input type="button" id="botonCancelar" name="botonCancelar" value="<spring:message code="actions.cancel"></spring:message>" class="btn btn-danger mr-4">
 	
 	        </div>
+	       
 	      </form>
 	    </div>
 	  </div>

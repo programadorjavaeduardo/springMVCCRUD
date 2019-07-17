@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Controller
-@RequestMapping("language")
-public class LanguageController {
+@RequestMapping("lenguaje")
+public class LenguajeController {
 
     @RequestMapping("/esp")
     public String setEsp(HttpServletRequest req, HttpServletResponse res,SessionLocaleResolver session)
@@ -18,9 +18,9 @@ public class LanguageController {
         HttpSession ses= req.getSession();
         ses.setAttribute("lang", "es");
         if(ses.getAttribute("id_alumno")!=null) {
-        	return "welcome";
+        	return "login";
         }else {
-        	 return "login";
+        	 return "index";
         }
         
     }
@@ -31,9 +31,9 @@ public class LanguageController {
     	HttpSession ses= req.getSession();
         ses.setAttribute("lang", "en");
         if(ses.getAttribute("id_alumno")!=null) {
-        	return "welcome";
+        	return "login";
         }else {
-        	 return "login";
+        	 return "index";
         }
        
     }

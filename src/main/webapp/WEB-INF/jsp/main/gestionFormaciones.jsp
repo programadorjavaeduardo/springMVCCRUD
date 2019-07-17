@@ -23,7 +23,7 @@
 <body>
   <div class="container">
     <jsp:include page="../common/header.jsp" />
-    <jsp:include page="../common/actions.jsp" ></jsp:include>
+    <jsp:include page="../common/actionsAlumno.jsp" ></jsp:include>
     <div class="row mt-5">
       <div class="col">
           <h3> <spring:message code="title.formationManagement"></spring:message></h3>

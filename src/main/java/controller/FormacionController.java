@@ -68,8 +68,8 @@ public class FormacionController {
 		return m;
 	}
 
-	@RequestMapping(value="/deleteFormacion")
-	public ModelAndView borrarFormacion(@RequestParam(value="id_formacion")int idFormacion, Locale locale) {
+	@RequestMapping(value="/borrarFormacionAJAX")
+	public ModelAndView borrarFormacionAJAX(@RequestParam(value="id_formacion")int idFormacion, Locale locale) {
 
 
 		System.out.println("IdFormacion a borrar:"+idFormacion);
@@ -90,7 +90,7 @@ public class FormacionController {
 
 		return m;
 	}
-	@RequestMapping(value="/newFormacion")
+	@RequestMapping(value="/nuevaFormacion")
 	public ModelAndView nuevaFormacion(Locale locale){
 		ModelAndView m= new ModelAndView("detalleFormacion");
 		titulo=messageSource.getMessage(TITULO_NUEVA_FORMACION, null, locale);
@@ -101,7 +101,7 @@ public class FormacionController {
 		return m;
 	}
 
-	@RequestMapping(value="/addFormacion", method=RequestMethod.POST)
+	@RequestMapping(value="/insertarFormacion", method=RequestMethod.POST)
 	public ModelAndView agregarFormacion(@ModelAttribute("formacion") @Valid Formacion formacion, BindingResult bindingResult, Locale locale){
 		ModelAndView m = null;
 		if(bindingResult.hasErrors()) {
@@ -133,7 +133,7 @@ public class FormacionController {
 		return m;
 	}
 
-	@RequestMapping(value="/getFormacion")
+	@RequestMapping(value="/obtenerFormacion")
 	public ModelAndView getFormacion(@RequestParam("id_formacion") int idFormacion, Locale locale ){
 		ModelAndView m= new ModelAndView("detalleFormacion");
 		titulo=messageSource.getMessage(TITULO_EDIT_FORMACION, null, locale);
@@ -146,7 +146,7 @@ public class FormacionController {
 		return m;
 	}
 
-	@RequestMapping(value="/editFormacion")
+	@RequestMapping(value="/editarFormacion")
 	public ModelAndView editarFormacion(@Valid Formacion formacion, BindingResult bindingResult, Locale locale){
 		ModelAndView m= new ModelAndView("gestionFormaciones");
 		if(bindingResult.hasErrors()) {

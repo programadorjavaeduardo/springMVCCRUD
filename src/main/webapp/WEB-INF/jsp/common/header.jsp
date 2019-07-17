@@ -1,17 +1,18 @@
 	<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-	<div class="row">
-		
-       <div class="col-10 align-self-start">
-            <div class="jumbotron text-center">
-              <h1><spring:message code="header.welcome" /></h1>
-            </div>
-        </div>
-				<div class="col-2 align-self-center">
-           <a id="linkES" href="">ES</a>
-           <a id="linkEN" href="">EN</a>
-        </div>
-
-    </div>
+	
+	   		<nav class="navbar navbar-dark bg-dark">
+  				<a class="navbar-brand" href="#">universidadonline.com</a>
+  				<a class="nav-item nav-link active" href="#" id=linkLoginInstructor><spring:message code="header.instructores"></spring:message> <span class="sr-only">(current)</span></a>
+      			<a class="nav-item nav-link" href="#" id="lingLoginAlumno"><spring:message code="header.alumnos"></spring:message></a>
+      			<a class="nav-item nav-link" href="#" id="linkRegistrarAlumno"><spring:message code="header.registrar"></spring:message></a>
+      			<a class="nav-item nav-link" id="linkES" href="#">ES</a>
+           		<a class="nav-item nav-link" id="linkEN" href="#">EN</a>
+    			
+			</nav>
+	   
+	  
+      
+  
 
 
      

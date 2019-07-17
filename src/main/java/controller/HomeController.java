@@ -26,24 +26,9 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model, HttpServletRequest req) {
-		ModelAndView m=null;
-		String textoBoton= messageSource.getMessage("button.login", null, locale);
-		HttpSession session = req.getSession();
-		String lang=(String) session.getAttribute("lang");
-		if(lang==null) {
-			session.setAttribute("lang", "es");
-		}
+	public String home(Locale locale, Model model, HttpServletRequest req) {
 		
-		if(session.getAttribute("email")!=null) {
-			m= new ModelAndView("welcome");
-		}else {
-			m= new ModelAndView("login");
-			m.addObject("textoBoton",textoBoton);
-		}
-		
-		
-		return m;
+		return "index";
 	}
 	
 	
