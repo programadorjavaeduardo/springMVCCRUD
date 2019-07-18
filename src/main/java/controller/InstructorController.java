@@ -99,7 +99,7 @@ public class InstructorController {
 	
 	@RequestMapping(value="/borrarInstructorAJAX")
 	@ResponseBody
-	public String borrarInstructorAJAX(@RequestParam(value="idInstructor")int idInstructor, Locale locale) {
+	public String borrarInstructorAJAX(@RequestParam(value="id_instructor")int idInstructor, Locale locale) {
 
 		JSONObject jsonRespuesta= new JSONObject();
 		System.out.println("IdInstructor a borrar:"+idInstructor);
@@ -112,7 +112,7 @@ public class InstructorController {
 	
 	@RequestMapping(value="/nuevoInstructor")
 	public ModelAndView nuevoInstructor(Locale locale){
-		ModelAndView m= new ModelAndView("detalleAlumno");
+		ModelAndView m= new ModelAndView("detalleInstructor");
 		titulo=messageSource.getMessage(TITULO_NUEVO_INSTRUCTOR, null, locale);
 		textoBoton= messageSource.getMessage(BOTON_AGREGAR, null, locale);
 		m.addObject("instructor", new Instructor());
@@ -122,17 +122,19 @@ public class InstructorController {
 	}
 
 	@RequestMapping(value="/insertarInstructor", method=RequestMethod.POST)
-	public ModelAndView agregarAlumno(@Valid Instructor instructor, BindingResult bindingResult, Locale locale){
+	public ModelAndView agregarInstructor(@Valid Instructor instructor, BindingResult bindingResult, Locale locale){
 		ModelAndView m;
 		
 		if(bindingResult.hasErrors()) {
-			m = new ModelAndView("detalleAlumno");
+			m = new ModelAndView("detalleInstructor");
 			titulo=messageSource.getMessage(TITULO_NUEVO_INSTRUCTOR, null, locale);
 			textoBoton= messageSource.getMessage(BOTON_AGREGAR, null, locale);
-			m.addObject("Instructor", new Instructor());
+			m.addObject("instructor", new Instructor());
 			m.addObject("titulo", titulo);
 			m.addObject("textoBoton", textoBoton);
 		}else {
+			int id=instructorService.getNextId();
+			instructor.setId_instructor(id);
 			boolean realizado=instructorService.insertarInstructor(instructor);
 			if(realizado) {
 				mensaje=messageSource.getMessage(MENSAJE_INSERT_OK, null, locale);
@@ -151,7 +153,7 @@ public class InstructorController {
 	}
 
 	@RequestMapping(value="/obtenerInstructor")
-	public ModelAndView getAlumno(@RequestParam("idInstructor") int idInstructor, Locale locale ){
+	public ModelAndView getAlumno(@RequestParam("id_instructor") int idInstructor, Locale locale ){
 		ModelAndView m= new ModelAndView("detalleInstructor");
 		titulo=messageSource.getMessage(TITULO_EDIT_INSTRUCTOR, null, locale);
 		textoBoton= messageSource.getMessage(BOTON_EDITAR, null, locale);

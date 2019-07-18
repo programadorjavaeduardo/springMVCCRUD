@@ -35,7 +35,7 @@ public class InstructorDaoImpl implements InstructorDao {
 	private static String SQL_DELETE_INSTRUCTOR="DELETE FROM Instructor where id_instructor=?";
 	private static String SQL_INSERT_INSTRUCTOR="INSERT INTO Instructor(id_instructor,nombre, apellido_paterno, apellido_materno, telefono, email, password) VALUES(?,?,?,?,?,?,?)";
 	private static String SQL_GET_INSTRUCTOR_BY_ID=SQL_GET_ALL + " WHERE i.id_instructor=?";
-	private static String SQL_UPDATE_INSTRUCTOR="UPDATE Alumno SET id_instructor=?, nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, password=? where id_instructor=?";
+	private static String SQL_UPDATE_INSTRUCTOR="UPDATE Instructor SET nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, password=? where id_instructor=?";
 	private static String SQL_GET_INSTRUCTOR_BY_USER_PASS= SQL_GET_ALL + " WHERE i.email=? AND i.password=?";
 	private static String SQL_GET_LIST_CURSOS_BY_ID_INSTRUCTOR= "SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor from Curso c WHERE c.id_instructor=?";
 	private static String SQL_GET_NEXT_ID= "SELECT MAX(id_instructor)+1 from Instructor";
@@ -181,7 +181,7 @@ public class InstructorDaoImpl implements InstructorDao {
 			pstmt.setString(4, i.getTelefono());
 			pstmt.setString(5, i.getEmail());
 			pstmt.setString(6, i.getPassword());
-			pstmt.setInt(9, i.getId_instructor());
+			pstmt.setInt(7, i.getId_instructor());
 			int registros=pstmt.executeUpdate();
 			if(registros>0) {
 				realizado=true;

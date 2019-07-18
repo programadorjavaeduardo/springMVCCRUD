@@ -15,7 +15,7 @@
 <script>var lang = "${sessionScope['lang']}"</script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var mensajeConfirmacion="${mensajeConfirmacion}"</script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosInstructor.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventos.js"></script>
 
 
 
@@ -46,8 +46,8 @@
             <tr>
               		<th>Id </th>
       				<th><spring:message code="instructor.header.name"></spring:message></th>
-      				<th><spring:message code="instructor.header.motherSurname"></spring:message></th>
       				<th><spring:message code="instructor.header.fatherSurname"></spring:message></th>
+      				<th><spring:message code="instructor.header.motherSurname"></spring:message></th>
       				<th><spring:message code="instructor.header.telephone"></spring:message> </th>
       				<th><spring:message code="instructor.header.email"></spring:message> </th>
       				<th colspan="2"><spring:message code="instructor.header.actions"></spring:message></th>
@@ -58,12 +58,12 @@
               <tr id="tr_${instructor.id_instructor}">
                 <td> ${instructor.id_instructor}</td>
                 <td> ${instructor.nombre}</td>
-                <td> ${instructor.ape_materno}</td>
                 <td> ${instructor.ape_paterno}</td>
+                <td> ${instructor.ape_materno}</td>
                 <td> ${instructor.telefono}</td>
                 <td> ${instructor.email}</td>
                 <td> <a onclick="return confirmarBorrarInstructor(${instructor.id_instructor})"><spring:message code="actions.delete"></spring:message></a> </td>
-                <td> <a onclick="obtenerAlumno(${instructor.id_instructor})"> <spring:message code="actions.edit"></spring:message></a> </td>
+                <td> <a onclick="obtenerInstructor(${instructor.id_instructor})"> <spring:message code="actions.edit"></spring:message></a> </td>
               </tr>
 
             </c:forEach>
@@ -78,7 +78,7 @@
       <div class="col">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a id="linkNuevoInstructor" class="nav-link" href=""><spring:message code="actions.newAlumno"></spring:message></a>
+            <a id="linkNuevoInstructor" class="nav-link" href=""><spring:message code="actions.newInstructor"></spring:message></a>
           </li>
           <li class="nav-item">
             <a id="linkIndice" class="nav-link" href=""><spring:message code="actions.index"></spring:message></a>

@@ -16,8 +16,8 @@
 <script>var lang = "${sessionScope['lang']}"</script>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var mensajeConfirmacion="${mensajeConfirmacion}"</script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventos.js"></script>
+
 
 </head>
 <body>
@@ -70,7 +70,7 @@
       <div class="col">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a id="linkNewFormacion" class="nav-link" href=""><spring:message code="actions.newFormation"></spring:message></a>
+            <a id="linkNuevaFormacion" class="nav-link" href=""><spring:message code="actions.newFormation"></spring:message></a>
           </li>
           <li class="nav-item">
             <a id="linkIndex" class="nav-link" href=""><spring:message code="actions.index"></spring:message></a>

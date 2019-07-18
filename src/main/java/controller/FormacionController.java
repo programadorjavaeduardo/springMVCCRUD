@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import beans.Formacion;
@@ -69,27 +71,18 @@ public class FormacionController {
 	}
 
 	@RequestMapping(value="/borrarFormacionAJAX")
-	public ModelAndView borrarFormacionAJAX(@RequestParam(value="id_formacion")int idFormacion, Locale locale) {
+	@ResponseBody
+	public String borrarInstructorAJAX(@RequestParam(value="id_formacion")int idFormacion, Locale locale) {
 
-
+		JSONObject jsonRespuesta= new JSONObject();
 		System.out.println("IdFormacion a borrar:"+idFormacion);
 		boolean realizado=formacionService.deleteFormacion(idFormacion);
-		ModelAndView m= new ModelAndView("gestionFormaciones");
-		if(realizado) {
-			
-			mensaje=messageSource.getMessage(MENSAJE_BORRADO_OK, null, locale);
-			m.addObject("mensaje",mensaje);
-		}else {
-			mensaje=messageSource.getMessage(MENSAJE_BORRADO_NOOK, null, locale);
-			m.addObject("mensaje",mensaje);
-		}
 		
-		//carga de las formaciones
-		List<Formacion> formaciones= formacionService.getFormaciones();
-		m.addObject("formaciones", formaciones);
-
-		return m;
+		jsonRespuesta.put("realizado", realizado);
+		
+		return jsonRespuesta.toString();
 	}
+	
 	@RequestMapping(value="/nuevaFormacion")
 	public ModelAndView nuevaFormacion(Locale locale){
 		ModelAndView m= new ModelAndView("detalleFormacion");

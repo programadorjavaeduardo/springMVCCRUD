@@ -13,9 +13,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosHeader.js"></script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventos.js"></script>
 
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var lang = "${sessionScope['lang']}"</script>
@@ -28,7 +27,10 @@
    
 		<div style="height: 600px;" class="row">
 			<div class="col">
-				<p class="text-center"> Main Universidad Online </p>
+				<h1 class="text-center"><spring:message code="header.welcomeMessage"></spring:message></h1>
+				<hr class="mb-3">
+				
+				<h3 class="text-center"><spring:message code="header.mainMessage"></spring:message></h3>
 			</div>
 		</div>
 

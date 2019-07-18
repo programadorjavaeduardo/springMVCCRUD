@@ -208,7 +208,9 @@ public class AlumnoController {
 		ModelAndView m= new ModelAndView();
 		
 		if(alumnoService.comprobarLogin(email,password)) {
+			String objetoLogin= "alumno";
 			m.setViewName("welcome");
+			m.addObject("objetoLogin", objetoLogin);
 			HttpSession ses=req.getSession();
 			ses.setAttribute("email", email );
 		}else {

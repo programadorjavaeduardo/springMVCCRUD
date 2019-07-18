@@ -13,8 +13,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventos.js"></script>
+
 
 
 <script>var ctx = "${pageContext.request.contextPath}"</script>
@@ -23,8 +23,7 @@
 </head>
 <body>
 	<div class="container">
-    	<jsp:include page="../common/header.jsp" ></jsp:include>
-    	
+    	<jsp:include page="../common/header.jsp" ></jsp:include> 	
     	<c:choose>
     		<c:when test="${objetoLogin=='alumno'}">
     			<jsp:include page="../common/actionsAlumno.jsp" ></jsp:include>

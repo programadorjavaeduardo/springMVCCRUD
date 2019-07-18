@@ -13,9 +13,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-grid.min.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosFormacion.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventosAlumno.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventos.js"></script>
+
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var lang = "${sessionScope['lang']}"</script>
 
@@ -84,9 +83,9 @@
         <div class="form-group">
 
             <input type="submit" name="botonEnviar" value="${textoBoton}" class="btn btn-primary mr-3">
-            <input type="button" id="botonCancelar" name="botonCancelar" value="<spring:message code="actions.cancel"></spring:message>" class="btn btn-danger mr-4">
+            <input type="button" id="botonCancelar" name="botonCancelar" onclick="history.back();" value="<spring:message code="actions.cancel"></spring:message>" class="btn btn-danger mr-4">
 
-            <input type="hidden" name="id_alumno" value="${instructor.id_instructor}">
+            <input type="hidden" name="id_instructor" value="${instructor.id_instructor}">
             
         </div>
       </form:form>

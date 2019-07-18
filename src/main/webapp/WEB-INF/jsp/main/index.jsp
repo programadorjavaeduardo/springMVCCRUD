@@ -7,7 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><spring:message code="header.welcome" /></title>
-
+<script>var ctx = "${pageContext.request.contextPath}"</script>
+<script>var lang = "${sessionScope['lang']}"</script>
 </head>
 <body>
 
