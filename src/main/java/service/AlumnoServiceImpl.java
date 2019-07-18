@@ -35,7 +35,7 @@ public class AlumnoServiceImpl implements AlumnoService {
 		return alumnoDao.updateAlumno(Alumno);
 	}
 
-	public boolean comprobarLogin(String email, String password) {
+	public Alumno comprobarLogin(String email, String password) {
 		return alumnoDao.comprobarLogin(email,password);
 	}
 

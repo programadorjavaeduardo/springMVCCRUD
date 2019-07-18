@@ -43,7 +43,7 @@ public class InstructorServiceImpl implements InstructorService{
 		return instructorDao.getNextId();
 	}
 
-	public boolean comprobarLogin(String email, String password) {
+	public Instructor comprobarLogin(String email, String password) {
 		return instructorDao.comprobarLogin(email,password);
 	
 	}

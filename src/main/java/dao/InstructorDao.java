@@ -23,6 +23,6 @@ public interface InstructorDao {
 	
 	public int getNextId();
 
-	public boolean comprobarLogin(String email, String password);
+	public Instructor comprobarLogin(String email, String password);
 
 }

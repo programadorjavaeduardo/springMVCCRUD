@@ -3,13 +3,13 @@ $(document).ready(function(){
   
   $("#linkES").on("click",function(){
 
-	  $(this).attr("href",ctx+"/lenguaje/esp.html?locale=es");
+	  $(this).attr("href",ctx+"/lenguaje/lenguajeSelector.html?locale=es");
 	  $(this).click();
   });
 
   $("#linkEN").on("click",function(){
 
-	  $(this).attr("href",ctx+"/lenguaje/eng.html?locale=en");
+	  $(this).attr("href",ctx+"/lenguaje/lenguajeSelector.html?locale=en");
 	  $(this).click();
   });
   
@@ -81,6 +81,14 @@ $(document).ready(function(){
 	  $(this).attr("href",ctx+"/");
 	  $(this).click();
   });
+  
+  $("#linkUnlogin").on("click",function(){
+
+	  $(this).attr("href",ctx+"/lenguaje/unLogin.html");
+	  $(this).click();
+  });
+  
+  linkUnlogin
 
 
   

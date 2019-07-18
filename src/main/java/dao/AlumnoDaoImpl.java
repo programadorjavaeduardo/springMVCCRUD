@@ -192,8 +192,8 @@ public class AlumnoDaoImpl implements AlumnoDao {
 
 
 
-	public boolean comprobarLogin(String email, String password) {
-		boolean correcto= false;
+	public Alumno comprobarLogin(String email, String password) {
+		Alumno a=null;
 		try {
 			Connection con=(Connection) dataSource.getConnection();
 			
@@ -203,7 +203,19 @@ public class AlumnoDaoImpl implements AlumnoDao {
 			rs= pstmt.executeQuery();
 			
 			if(rs.next()) {
-				correcto=true;
+				a= new Alumno();
+				a.setId_alumno(rs.getInt(1));
+				a.setNombre(rs.getString(2));
+				a.setApe_paterno(rs.getString(3));
+				a.setApe_materno(rs.getString(4));
+				a.setTelefono(rs.getString(5));
+				a.setEmail(rs.getString(6));
+				a.setPassword(rs.getString(7));
+				Formacion f= new Formacion();
+				f.setId_formacion(rs.getInt(8));
+				f.setDescripcionEsp(rs.getString(9));
+				f.setDescripcionEsp(rs.getString(10));
+				a.setFormacion(f);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -211,7 +223,7 @@ public class AlumnoDaoImpl implements AlumnoDao {
 			e.printStackTrace();
 		}
 		
-		return correcto;
+		return a;
 	}
 
 

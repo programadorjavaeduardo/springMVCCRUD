@@ -199,8 +199,9 @@ public class InstructorDaoImpl implements InstructorDao {
 
 
 
-	public boolean comprobarLogin(String email, String password) {
-		boolean correcto= false;
+	public Instructor comprobarLogin(String email, String password) {
+		
+		Instructor i=null;
 		try {
 			con=(Connection) dataSource.getConnection();
 			
@@ -210,7 +211,15 @@ public class InstructorDaoImpl implements InstructorDao {
 			rs= pstmt.executeQuery();
 			
 			if(rs.next()) {
-				correcto=true;
+				i= new Instructor();
+				i.setId_instructor(rs.getInt(1));
+				i.setNombre(rs.getString(2));
+				i.setApe_paterno(rs.getString(3));
+				i.setApe_materno(rs.getString(4));
+				i.setTelefono(rs.getString(5));
+				i.setEmail(rs.getString(6));
+				i.setPassword(rs.getString(7));
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -218,7 +227,7 @@ public class InstructorDaoImpl implements InstructorDao {
 			e.printStackTrace();
 		}
 		
-		return correcto;
+		return i;
 	}
 
 

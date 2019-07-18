@@ -206,13 +206,14 @@ public class AlumnoController {
 	@RequestMapping("/comprobarLogin")
 	public ModelAndView comprobarLogin(@RequestParam("email") String email, @RequestParam("password") String password,  HttpServletRequest req, Locale locale) {
 		ModelAndView m= new ModelAndView();
-		
-		if(alumnoService.comprobarLogin(email,password)) {
+		Alumno a=alumnoService.comprobarLogin(email,password);
+		if(a!=null) {
 			String objetoLogin= "alumno";
 			m.setViewName("welcome");
 			m.addObject("objetoLogin", objetoLogin);
 			HttpSession ses=req.getSession();
 			ses.setAttribute("email", email );
+			ses.setAttribute("user", a.getNombre());
 		}else {
 			mensaje= messageSource.getMessage(LOGIN_NOOK,null,locale);
 			m.addObject("mensaje", mensaje);

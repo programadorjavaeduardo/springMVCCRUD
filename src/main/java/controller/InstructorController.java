@@ -199,13 +199,14 @@ public class InstructorController {
 	@RequestMapping("/comprobarLogin")
 	public ModelAndView comprobarLogin(@RequestParam("email") String email, @RequestParam("password") String password,  HttpServletRequest req, Locale locale) {
 		ModelAndView m= new ModelAndView();
-		
-		if(instructorService.comprobarLogin(email,password)) {
+		Instructor i=instructorService.comprobarLogin(email,password);
+		if(i!=null) {
 			String objetoLogin= "instructor";
 			m.addObject("objetoLogin", objetoLogin);
 			m.setViewName("welcome");
 			HttpSession ses=req.getSession();
 			ses.setAttribute("email", email );
+			ses.setAttribute("user", i.getNombre());
 		}else {
 			mensaje= messageSource.getMessage(LOGIN_NOOK,null,locale);
 			m.addObject("mensaje", mensaje);

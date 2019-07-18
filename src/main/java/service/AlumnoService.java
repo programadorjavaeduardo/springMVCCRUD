@@ -10,7 +10,7 @@ public interface AlumnoService {
 	public boolean insertarAlumno(Alumno p);
 	public Alumno getAlumnoById(int idAlumno);
 	public boolean updateAlumno(Alumno Alumno);
-	public boolean comprobarLogin(String email, String password);
+	public Alumno comprobarLogin(String email, String password);
 	public int getMaxId();
 
 }

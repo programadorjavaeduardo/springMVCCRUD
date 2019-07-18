@@ -16,7 +16,7 @@ public interface AlumnoDao {
 
 	public boolean updateAlumno(Alumno Alumno);
 
-	public boolean comprobarLogin(String email, String password);
+	public Alumno comprobarLogin(String email, String password);
 
 	public int getMaxId();
 }

@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eventos.js"></script>
 <title><spring:message code="header.welcome" /></title>
 <script>var ctx = "${pageContext.request.contextPath}"</script>
 <script>var lang = "${sessionScope['lang']}"</script>
