@@ -88,7 +88,20 @@ $(document).ready(function(){
 	  $(this).click();
   });
   
-  linkUnlogin
+  $("#linkVerCursosDisponibles").on("click",function(){
+
+	  $(this).attr("href",ctx+"/alumno/verCursosDisponibles.html");
+	  $(this).click();
+  });
+  
+  $("#linkVerCursosMatriculados").on("click",function(){
+
+	  $(this).attr("href",ctx+"/alumno/verCursosMatriculados.html");
+	  $(this).click();
+  });
+  
+  
+  
 
 
   
