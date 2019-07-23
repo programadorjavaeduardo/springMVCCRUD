@@ -31,7 +31,7 @@ $(document).ready(function(){
 	  $(this).click();
   });
   
-  $("#linkZonaFormaciones").on("click",function(){
+  $("#linkGestionFormaciones").on("click",function(){
 
 	  $(this).attr("href",ctx+"/formacion/gestionFormaciones.html?locale="+lang);
 	  $(this).click();
@@ -43,9 +43,7 @@ $(document).ready(function(){
 	  $(this).click();
   });
 
-  
-  
-  $("#linkZonaAlumnos").on("click",function(){
+  $("#linkGestionAlumnos").on("click",function(){
 
 	  $(this).attr("href",ctx+"/alumno/gestionAlumnos.html?locale="+lang);
 	  $(this).click();
@@ -58,13 +56,8 @@ $(document).ready(function(){
 	  $(this).click();
   });
 
-  $("#linkIndice").on("click",function(){
-
-	  $(this).attr("href",ctx+"/");
-	  $(this).click();
-  });
-  
-  $("#linkInstructorZone").on("click",function(){
+ 
+  $("#linkGestionInstructores").on("click",function(){
 
 	  $(this).attr("href",ctx+"/instructor/gestionInstructores.html?locale="+lang);
 	  $(this).click();
@@ -76,12 +69,7 @@ $(document).ready(function(){
 	  $(this).click();
   });
 
-  $("#linkIndex").on("click",function(){
-
-	  $(this).attr("href",ctx+"/");
-	  $(this).click();
-  });
-  
+ 
   $("#linkUnlogin").on("click",function(){
 
 	  $(this).attr("href",ctx+"/lenguaje/unLogin.html");
@@ -100,15 +88,22 @@ $(document).ready(function(){
 	  $(this).click();
   });
   
-  
-  
+  $("#linkVerCursosImpartidos").on("click",function(id){
+	  
+	  
+	  alert(id);
 
+	  $(this).attr("href",ctx+"/instructor/verCursosImpartidos.html?id_instructor"+id+"&locale="+lang);
+	  $(this).click();
+  });
+  
+  $("#linkVerCursosRestantes").on("click",function(){
 
+	  $(this).attr("href",ctx+"/instructor/verCursosRestantes.html");
+	  $(this).click();
+  });
   
   
-  
-  
-
 });
 
 function direccionarLogin(objetoLogin){
@@ -241,6 +236,61 @@ function confirmarBorrarInstructor(idInstructor){
 		  		
 		  })
 	}
+}
+
+function verCursosImpartidos(id){
+	window.location=ctx+"/instructor/verCursosImpartidos.html?id_instructor="+id+"&locale="+lang;
+	
+}
+
+function confirmarDejarDeImpartir(idInstructor, idCurso){
+	if(confirm(mensajeConfirmacion)){
+		$.ajax({
+			  url: ctx+"/instructor/desvincularCursoAJAX.html?id_instructor="+idInstructor+"&id_curso="+idCurso+"&locale="+lang,
+			  dataType: 'json',
+			  success: function(data){
+				  
+				  if(data.realizado===true){
+					  $("table #tr_"+idCurso).remove();
+					  alert("Curso desvinculado de instructor");
+				  }else{
+					  alert("El curso no se ha desvinculado");
+				  }
+				  
+				  
+			  },
+			  error: function(){
+				  alert("No se ha podido obtener la informacion AJAX");
+			  }
+		  		
+		  })
+	}
+}
+
+function verCursosRestantes(){
+	window.location=ctx+"/instructor/verCursosRestantes.html?locale="+lang;
+}
+
+function impartirCurso(idInstructor,idCurso){
+	$.ajax({
+		  url: ctx+"/instructor/impartirCursoAJAX.html?id_instructor="+idInstructor+"&id_curso="+idCurso+"&locale="+lang,
+		  dataType: 'json',
+		  success: function(data){
+			  
+			  if(data.realizado===true){
+				  $("table #tr_"+idCurso).remove();
+				  alert("Curso vinculado al instructor");
+			  }else{
+				  alert("El curso no se ha vinculado");
+			  }
+			  
+			  
+		  },
+		  error: function(){
+			  alert("No se ha podido obtener la informacion AJAX");
+		  }
+	  		
+	  })
 }
 
 

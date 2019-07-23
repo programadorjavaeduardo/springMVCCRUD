@@ -21,4 +21,10 @@ public interface InstructorService {
 	public int getNextId();
 
 	public Instructor comprobarLogin(String email, String password);
+
+	public boolean desvincularCurso(int idCurso);
+
+	public List<Curso> getCursosNoImpartidos();
+
+	public boolean vincularCurso(int idInstructor, int idCurso);
 }

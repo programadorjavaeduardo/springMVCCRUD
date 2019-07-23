@@ -36,9 +36,12 @@ public class InstructorDaoImpl implements InstructorDao {
 	private static String SQL_INSERT_INSTRUCTOR="INSERT INTO Instructor(id_instructor,nombre, apellido_paterno, apellido_materno, telefono, email, password) VALUES(?,?,?,?,?,?,?)";
 	private static String SQL_GET_INSTRUCTOR_BY_ID=SQL_GET_ALL + " WHERE i.id_instructor=?";
 	private static String SQL_UPDATE_INSTRUCTOR="UPDATE Instructor SET nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, password=? where id_instructor=?";
+	private static String SQL_UPDATE_DESMATRICULACION_CURSO="Update Curso SET id_instructor=null where id_curso=?";
+	private static String SQL_UPDATE_MATRICULACION_CURSO="Update Curso SET id_instructor=? where id_curso=?";
 	private static String SQL_GET_INSTRUCTOR_BY_USER_PASS= SQL_GET_ALL + " WHERE i.email=? AND i.password=?";
 	private static String SQL_GET_LIST_CURSOS_BY_ID_INSTRUCTOR= "SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor from Curso c WHERE c.id_instructor=?";
 	private static String SQL_GET_NEXT_ID= "SELECT MAX(id_instructor)+1 from Instructor";
+	private static String SQL_GET_LIST_OTHER_COURSES="SELECT c.id_curso, c.nombre, c.descripcion, c.precio from curso c WHERE c.id_instructor IS NULL"; 
 	
 	public List<Instructor> findAll() {
 		// TODO Auto-generated method stub
@@ -247,6 +250,9 @@ public class InstructorDaoImpl implements InstructorDao {
 				c.setNombre(rs2.getString(2));
 				c.setDescripcion(rs2.getString(3));
 				c.setPrecio(rs2.getFloat(4));
+				Instructor i= new Instructor();
+				i.setId_instructor(idInstructor);
+				c.setInstructor(i);
 				cursos.add(c);
 			}
 		}catch (SQLException e) {
@@ -281,6 +287,86 @@ public class InstructorDaoImpl implements InstructorDao {
 	 	}
 	
 		return id;
+	}
+
+
+
+	public boolean desvincularCurso(int idCurso) {
+		boolean realizado=false;
+		try {
+			
+			con=(Connection) dataSource.getConnection();
+			
+			pstmt=con.prepareStatement(SQL_UPDATE_DESMATRICULACION_CURSO);
+			pstmt.setInt(1, idCurso);
+			
+			int registros=pstmt.executeUpdate();
+			if(registros>0) {
+				realizado=true;
+			}
+			
+		}
+	 	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de desmatriculacion curso " + idCurso + " ha fallado");
+			e.printStackTrace();
+	 	}
+	
+		return realizado;
+	}
+
+
+
+	public List<Curso> getCursosNoImpartidos() {
+		//cursos
+				List<Curso> cursos=null;
+				try{
+					pstmt=con.prepareStatement(SQL_GET_LIST_OTHER_COURSES);
+					
+					rs=pstmt.executeQuery();
+					cursos= new ArrayList<Curso>();
+					while(rs.next()) {
+						
+						Curso c= new Curso();
+						c.setId_curso(rs.getInt(1));
+						c.setNombre(rs.getString(2));
+						c.setDescripcion(rs.getString(3));
+						c.setPrecio(rs.getFloat(4));
+						cursos.add(c);
+					}
+				}catch (SQLException e) {
+					// TODO Auto-generated catch block
+					System.out.println("La consulta de obtencion de cursos sin instructor ha fallado");
+					e.printStackTrace();
+			 	}
+				
+				return cursos;
+	}
+
+
+
+	public boolean vincularCurso(int idInstructor, int idCurso) {
+		boolean realizado=false;
+		try {
+			
+			con=(Connection) dataSource.getConnection();
+			
+			pstmt=con.prepareStatement(SQL_UPDATE_MATRICULACION_CURSO);
+			pstmt.setInt(1, idInstructor);
+			pstmt.setInt(2, idCurso);
+			int registros=pstmt.executeUpdate();
+			if(registros>0) {
+				realizado=true;
+			}
+			
+		}
+	 	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de matriculacion curso " + idCurso + " al instructor " + idInstructor + "ha fallado");
+			e.printStackTrace();
+	 	}
+	
+		return realizado;
 	}
 
 

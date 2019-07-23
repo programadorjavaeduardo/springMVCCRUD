@@ -48,4 +48,16 @@ public class InstructorServiceImpl implements InstructorService{
 	
 	}
 
+	public boolean desvincularCurso(int idCurso) {
+		return instructorDao.desvincularCurso(idCurso);
+	}
+
+	public List<Curso> getCursosNoImpartidos() {
+		return instructorDao.getCursosNoImpartidos();
+	}
+
+	public boolean vincularCurso(int idInstructor, int idCurso) {
+		return instructorDao.vincularCurso(idInstructor,idCurso);
+	}
+
 }

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import beans.Alumno;
 import beans.AlumnoValidator;
+import beans.Curso;
 import beans.Formacion;
 import beans.Instructor;
 import beans.InstructorValidator;
@@ -49,9 +50,14 @@ public class InstructorController {
 	private String mensajeConfirmacion;
 
 	private String textoBoton;
+	
+	private List<Curso> cursos;
 
 	
 	private static String TITULO_NUEVO_INSTRUCTOR="title.newInstructor";
+	private static String TITULO_CURSOS_MATRICULADOS="title.deliveredCourses";
+	private static String TITULO_CURSOS_RESTANTES_SIN_IMPARTIR="title.otherCourses";
+	
 	private static String BOTON_AGREGAR="button.add";
 	private static String MENSAJE_BORRADO_OK="message.delete.ok";
 	private static String MENSAJE_BORRADO_NOOK="message.delete.nook";
@@ -63,6 +69,7 @@ public class InstructorController {
 	private static String BOTON_EDITAR="button.edit";
 	private static String TITULO_ACCESO_INSTRUCTOR="title.loginInstructor";
 	private static String LOGIN_NOOK="login.incorrect";
+	private static String MESSAGE_STOP_PROVIDING="mensajeConfirmacion.stopProviding";
 	
 	
 	@InitBinder
@@ -205,14 +212,64 @@ public class InstructorController {
 			m.addObject("objetoLogin", objetoLogin);
 			m.setViewName("welcome");
 			HttpSession ses=req.getSession();
-			ses.setAttribute("email", email );
-			ses.setAttribute("user", i.getNombre());
+			ses.setAttribute("user", i);
+			m.addObject("id", i.getId_instructor());
 		}else {
 			mensaje= messageSource.getMessage(LOGIN_NOOK,null,locale);
 			m.addObject("mensaje", mensaje);
 			m.setViewName("login");
 		}
 		return m;
+	}
+	
+	@RequestMapping(value="/verCursosImpartidos")
+	public ModelAndView verCursosImpartidos(@RequestParam("id_instructor") int idInstructor, Locale locale){
+		ModelAndView m= new ModelAndView();
+		cursos= instructorService.getCursosByIdInstructor(idInstructor);
+		titulo= messageSource.getMessage(TITULO_CURSOS_MATRICULADOS,null,locale);
+		mensajeConfirmacion= messageSource.getMessage(MESSAGE_STOP_PROVIDING, null, locale);
+		m.setViewName("gestionCursos");
+		m.addObject("titulo", titulo);
+		m.addObject("cursos", cursos);
+		m.addObject(mensajeConfirmacion, mensajeConfirmacion);
+		return m;
+		
+	}
+	
+	@RequestMapping(value="/verCursosRestantes")
+	public ModelAndView verCursosRestantes(Locale locale){
+		ModelAndView m= new ModelAndView();
+		cursos= instructorService.getCursosNoImpartidos();
+		titulo= messageSource.getMessage(TITULO_CURSOS_RESTANTES_SIN_IMPARTIR,null,locale);
+		m.setViewName("gestionCursos");
+		m.addObject("titulo", titulo);
+		m.addObject("cursos", cursos);
+		return m;
+		
+	}
+	
+	@RequestMapping(value="/desvincularCursoAJAX")
+	@ResponseBody
+	public String desvincularCursoAJAX(@RequestParam("id_instructor") int idInstructor, @RequestParam("id_curso") int idCurso, Locale locale) {
+		JSONObject jsonRespuesta= new JSONObject();
+		System.out.println("Desvinculando "+idInstructor+ " del curso "+idCurso+"...");
+		boolean realizado=instructorService.desvincularCurso(idCurso);
+		
+		jsonRespuesta.put("realizado", realizado);
+		
+		return jsonRespuesta.toString();
+	}
+	
+	@RequestMapping(value="/impartirCursoAJAX")
+	@ResponseBody
+	public String impartirCursoAJAX(@RequestParam("id_instructor") int idInstructor, @RequestParam("id_curso") int idCurso, Locale locale) {
+		JSONObject jsonRespuesta= new JSONObject();
+		System.out.println("Vinculando Instructor "+idInstructor+ " al curso "+idCurso+"...");
+		boolean realizado=instructorService.vincularCurso(idInstructor,idCurso);
+		
+		jsonRespuesta.put("realizado", realizado);
+		
+		return jsonRespuesta.toString();
 	}
 
 	
