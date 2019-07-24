@@ -37,7 +37,7 @@ public class AlumnoDaoImpl implements AlumnoDao {
 	private static String SQL_GET_ALUMNO_BY_USER_PASS=SQL_JOIN_ALUMNO_FORMACION + " WHERE a.email=? AND a.password=?";
 	private static String SQL_GET_MAX_ID= "SELECT MAX(id_alumno) from Alumno";
 	private static String SQL_GET_CURSOS_MATRICULADOS= "SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor from Curso c INNER JOIN alumno_curso ac ON c.id_curso= ac.id_curso INNER JOIN Alumno al ON al.id_alumno=ac.id_alumno where al.id_alumno=?";
-	private static String SQL_GET_CURSOS_RESTANTES= "SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor from Curso c LEFT JOIN alumno_curso ac ON c.id_curso=ac.id_curso where (ac.id_alumno <> ? OR ac.id_alumno IS NULL)";
+	private static String SQL_GET_CURSOS_RESTANTES= "SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor from Curso c where id_curso not in (select id_curso from alumno_curso al where id_alumno=?)";
 	private static String SQL_DESMATRICULACION_CURSO="DELETE from alumno_curso WHERE id_alumno=? and id_curso=?";
 	private static String SQL_INSERT_MATRICULACION_CURSO="INSERT INTO alumno_curso(id_alumno,id_curso,fecha_matr) VALUES(?,?,?)";
 	public List<Alumno> findAll() {
