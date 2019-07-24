@@ -267,7 +267,7 @@ function confirmarDejarDeImpartir(idInstructor, idCurso){
 	}
 }
 
-function verCursosRestantes(){
+function verCursosRestantesInstructor(){
 	window.location=ctx+"/instructor/verCursosRestantes.html?locale="+lang;
 }
 
@@ -280,6 +280,61 @@ function impartirCurso(idInstructor,idCurso){
 			  if(data.realizado===true){
 				  $("table #tr_"+idCurso).remove();
 				  alert("Curso vinculado al instructor");
+			  }else{
+				  alert("El curso no se ha vinculado");
+			  }
+			  
+			  
+		  },
+		  error: function(){
+			  alert("No se ha podido obtener la informacion AJAX");
+		  }
+	  		
+	  })
+}
+
+function verCursosRestantesAlumno(id){
+	window.location=ctx+"/alumno/verCursosRestantes.html?id_alumno="+id+"&locale="+lang;
+}
+
+function verCursosMatriculados(id){
+	window.location=ctx+"/alumno/verCursosMatriculados.html?id_alumno="+id+"&locale="+lang;
+	
+}
+
+function desmatricular(idAlumno, idCurso){
+	if(confirm(mensajeConfirmacion)){
+		$.ajax({
+			  url: ctx+"/alumno/desmatricularCursoAJAX.html?id_alumno="+idAlumno+"&id_curso="+idCurso+"&locale="+lang,
+			  dataType: 'json',
+			  success: function(data){
+				  
+				  if(data.realizado===true){
+					  $("table #tr_"+idCurso).remove();
+					  alert("Curso desvinculado de alumno");
+				  }else{
+					  alert("El curso no se ha desvinculado");
+				  }
+				  
+				  
+			  },
+			  error: function(){
+				  alert("No se ha podido obtener la informacion AJAX");
+			  }
+		  		
+		  })
+	}
+}
+
+function matricular(idAlumno,idCurso){
+	$.ajax({
+		  url: ctx+"/alumno/matricularCursoAJAX.html?id_alumno="+idAlumno+"&id_curso="+idCurso+"&locale="+lang,
+		  dataType: 'json',
+		  success: function(data){
+			  
+			  if(data.realizado===true){
+				  $("table #tr_"+idCurso).remove();
+				  alert("Curso vinculado al alumno");
 			  }else{
 				  alert("El curso no se ha vinculado");
 			  }

@@ -7,9 +7,9 @@
       			<a class="nav-item nav-link" href="#" id="linkRegistrarAlumno"><spring:message code="header.registrar"></spring:message></a>
       			<a class="nav-item nav-link" id="linkES" href="#">ES</a>
            		<a class="nav-item nav-link" id="linkEN" href="#">EN</a>
-           		<c:if test="${sessionScope['user']['nombre']!=null}">
+           		<c:if test="${sessionScope['id']!=null}">
            			<div class="dropdown">
-  						<button type="button" class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${sessionScope['user']['nombre']}</button>
+  						<button type="button" class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${sessionScope['nombre']}</button>
            				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     						<a class="dropdown-item" href="#" id="linkUnlogin">Cerrar Sesion</a>
     

@@ -61,14 +61,21 @@
 		                <td> ${curso.nombre}</td>
 		                <td> ${curso.descripcion}</td>
 		                <td> ${curso.precio}</td>
-		                <td>${curso.instructor.id_instructor}</td>
+		                
 		                <c:choose>
-		                	<c:when test="${curso.instructor.id_instructor==null}">
-		                		<td> <a href="#" onclick="impartirCurso(${sessionScope['user']['id_instructor']},${curso.id_curso});"><spring:message code="actions.provide"></spring:message></a> </td>
+		                	<c:when test="${cursosRestantesPorImpartir==true}">
+		                		<td> <a href="#" onclick="impartirCurso(${sessionScope['id']},${curso.id_curso});"><spring:message code="actions.provide"></spring:message></a> </td>
 		                	</c:when>
-		                	<c:otherwise>
-		                		<td> <a href="#" onclick="return confirmarDejarDeImpartir(${sessionScope['user']['id_instructor']},${curso.id_curso});"><spring:message code="actions.stopProviding"></spring:message></a> </td>
-		                	</c:otherwise>
+		                	<c:when test="${cursosImpartidos==true}">
+		                		<td> <a href="#" onclick="return confirmarDejarDeImpartir(${sessionScope['id']},${curso.id_curso});"><spring:message code="actions.stopProviding"></spring:message></a> </td>
+		                	</c:when>
+		                	
+		                	<c:when test="${cursosMatriculados==true}">
+		                		<td> <a href="#" onclick="desmatricular(${sessionScope['id']},${curso.id_curso});"><spring:message code="actions.stopMatriculating"></spring:message></a> </td>
+		                	</c:when>
+		                	<c:when test="${cursosRestantes==true}">
+		                		<td> <a href="#" onclick="return matricular(${sessionScope['id']},${curso.id_curso});"><spring:message code="actions.matriculate"></spring:message></a> </td>
+		                	</c:when> 
 		                
 		                </c:choose>
 		                

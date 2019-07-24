@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -13,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import beans.Alumno;
+import beans.Curso;
 import beans.Formacion;
+import beans.Instructor;
 
 @Repository
 public class AlumnoDaoImpl implements AlumnoDao {
@@ -33,7 +36,10 @@ public class AlumnoDaoImpl implements AlumnoDao {
 	private static String SQL_UPDATE_ALUMNO="UPDATE Alumno SET nombre=?, apellido_paterno=?, apellido_materno=?, telefono=?, email=?, password=?, id_formacion=? where id_alumno=?";
 	private static String SQL_GET_ALUMNO_BY_USER_PASS=SQL_JOIN_ALUMNO_FORMACION + " WHERE a.email=? AND a.password=?";
 	private static String SQL_GET_MAX_ID= "SELECT MAX(id_alumno) from Alumno";
-	
+	private static String SQL_GET_CURSOS_MATRICULADOS= "SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor from Curso c INNER JOIN alumno_curso ac ON c.id_curso= ac.id_curso INNER JOIN Alumno al ON al.id_alumno=ac.id_alumno where al.id_alumno=?";
+	private static String SQL_GET_CURSOS_RESTANTES= "SELECT c.id_curso, c.nombre, c.descripcion, c.precio, c.id_instructor from Curso c LEFT JOIN alumno_curso ac ON c.id_curso=ac.id_curso where (ac.id_alumno <> ? OR ac.id_alumno IS NULL)";
+	private static String SQL_DESMATRICULACION_CURSO="DELETE from alumno_curso WHERE id_alumno=? and id_curso=?";
+	private static String SQL_INSERT_MATRICULACION_CURSO="INSERT INTO alumno_curso(id_alumno,id_curso,fecha_matr) VALUES(?,?,?)";
 	public List<Alumno> findAll() {
 		// TODO Auto-generated method stub
 		List<Alumno> Alumnos= null;
@@ -244,6 +250,121 @@ public class AlumnoDaoImpl implements AlumnoDao {
 		}
 		return id;
 	}
+
+
+
+	public List<Curso> getCursosMatriculados(int idAlumno) {
+		List<Curso> cursos= null;
+		try {
+			Connection con=(Connection) dataSource.getConnection();
+			
+			pstmt=con.prepareStatement(SQL_GET_CURSOS_MATRICULADOS);
+			pstmt.setInt(1, idAlumno);
+			rs= pstmt.executeQuery();
+			cursos= new ArrayList<Curso>();
+			while(rs.next()) {
+				Curso c= new Curso();
+				c.setId_curso(rs.getInt(1));
+				c.setNombre(rs.getString(2));
+				c.setDescripcion(rs.getString(3));
+				c.setPrecio(rs.getFloat(4));
+				Instructor i= new Instructor();
+				i.setId_instructor(rs.getInt(5));
+				c.setInstructor(i);
+				cursos.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de obtencion de cursos matriculados por el alumno de id=" + idAlumno + " ha fallado");
+			e.printStackTrace();
+		}
+		
+		return cursos;
+	}
+
+
+
+	public List<Curso> getCursosRestantes(int idAlumno) {
+		List<Curso> cursos= null;
+		try {
+			Connection con=(Connection) dataSource.getConnection();
+			
+			pstmt=con.prepareStatement(SQL_GET_CURSOS_RESTANTES);
+			pstmt.setInt(1, idAlumno);
+			rs= pstmt.executeQuery();
+			cursos= new ArrayList<Curso>();
+			while(rs.next()) {
+				Curso c= new Curso();
+				c.setId_curso(rs.getInt(1));
+				c.setNombre(rs.getString(2));
+				c.setDescripcion(rs.getString(3));
+				c.setPrecio(rs.getFloat(4));
+				Instructor i= new Instructor();
+				i.setId_instructor(rs.getInt(5));
+				c.setInstructor(i);
+				cursos.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de obtencion de cursos restantes por el alumno de id=" + idAlumno + " ha fallado");
+			e.printStackTrace();
+		}
+		
+		return cursos;
+	}
+	
+	public boolean desmatricularCurso(int idAlumno, int idCurso) {
+		boolean realizado=false;
+		try {
+			
+			Connection con=(Connection) dataSource.getConnection();
+			
+			pstmt=con.prepareStatement(SQL_DESMATRICULACION_CURSO);
+			pstmt.setInt(1, idAlumno);
+			pstmt.setInt(2, idCurso);
+			
+			int registros=pstmt.executeUpdate();
+			if(registros>0) {
+				realizado=true;
+			}
+			
+		}
+	 	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de desmatriculacion del alumno " + idAlumno + "del curso " + idCurso + " ha fallado");
+			e.printStackTrace();
+	 	}
+	
+		return realizado;
+	}
+
+
+
+	public boolean matricularCurso(int idAlumno, int idCurso) {
+		boolean realizado=false;
+		try {
+			
+			Connection con=(Connection) dataSource.getConnection();
+			
+			pstmt=con.prepareStatement(SQL_INSERT_MATRICULACION_CURSO);
+			pstmt.setInt(1, idAlumno);
+			pstmt.setInt(2, idCurso);
+			pstmt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
+			int registros=pstmt.executeUpdate();
+			if(registros>0) {
+				realizado=true;
+			}
+			
+		}
+	 	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("La consulta de matriculacion del alumno "+ idAlumno +  " al curso " + idCurso + " ha fallado");
+			e.printStackTrace();
+	 	}
+	
+		return realizado;
+	}
+
 	
 	
 

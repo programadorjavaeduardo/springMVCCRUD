@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import beans.Alumno;
 import beans.AlumnoValidator;
+import beans.Curso;
 import beans.Formacion;
 import beans.LoginValidator;
 import service.AlumnoService;
@@ -53,7 +54,11 @@ public class AlumnoController {
 
 	private List<Formacion> formaciones;
 	
+	private List<Curso> cursos;
+	
 	private static String TITULO_NUEVO_ALUMNO="title.newAlumno";
+	private static String TITULO_CURSOS_RESTANTES_SIN_IMPARTIR="title.otherCourses";
+	private static String TITULO_CURSOS_MATRICULADOS="title.doingCourses";
 	private static String BOTON_AGREGAR="button.add";
 	private static String MENSAJE_BORRADO_OK="message.delete.ok";
 	private static String MENSAJE_BORRADO_NOOK="message.delete.nook";
@@ -65,6 +70,7 @@ public class AlumnoController {
 	private static String BOTON_EDITAR="button.edit";
 	private static String TITULO_ACCESO_ALUMNO="title.loginAlumno";
 	private static String LOGIN_NOOK="login.incorrect";
+	private static String MESSAGE_STOP_MATRICULATING= "mensajeConfirmacion.stopMatriculating";
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -212,8 +218,9 @@ public class AlumnoController {
 			m.setViewName("welcome");
 			m.addObject("objetoLogin", objetoLogin);
 			HttpSession ses=req.getSession();
-			ses.setAttribute("email", email );
-			ses.setAttribute("user", a.getNombre());
+			ses.setAttribute("id", a.getId_alumno());
+			ses.setAttribute("nombre", a.getNombre());
+			
 		}else {
 			mensaje= messageSource.getMessage(LOGIN_NOOK,null,locale);
 			m.addObject("mensaje", mensaje);
@@ -221,6 +228,63 @@ public class AlumnoController {
 		}
 		return m;
 	}
+	
+	
+	@RequestMapping(value="/verCursosMatriculados")
+	public ModelAndView verCursosMatriculados(@RequestParam("id_alumno") int idAlumno, Locale locale){
+		ModelAndView m= new ModelAndView();
+		cursos= alumnoService.getCursosMatriculados(idAlumno);
+		titulo= messageSource.getMessage(TITULO_CURSOS_MATRICULADOS,null,locale);
+		mensajeConfirmacion= messageSource.getMessage(MESSAGE_STOP_MATRICULATING, null, locale);
+		boolean cursosMatriculados= true;
+		m.setViewName("gestionCursos");
+		m.addObject("titulo", titulo);
+		m.addObject("cursos", cursos);
+		m.addObject("cursosMatriculados", cursosMatriculados);
+		m.addObject(mensajeConfirmacion, mensajeConfirmacion);
+		return m;
+		
+	}
+	
+	@RequestMapping(value="/verCursosRestantes")
+	public ModelAndView verCursosRestantes(@RequestParam("id_alumno") int idAlumno,Locale locale){
+		ModelAndView m= new ModelAndView();
+		cursos= alumnoService.getCursosRestantes(idAlumno);
+		titulo= messageSource.getMessage(TITULO_CURSOS_RESTANTES_SIN_IMPARTIR,null,locale);
+		boolean cursosRestantes= true;
+		m.setViewName("gestionCursos");
+		m.addObject("titulo", titulo);
+		m.addObject("cursos", cursos);
+		m.addObject("cursosRestantes", cursosRestantes);
+		return m;
+		
+	}
+	
+	@RequestMapping(value="/desmatricularCursoAJAX")
+	@ResponseBody
+	public String desmatricularCursoAJAX(@RequestParam("id_alumno") int idAlumno, @RequestParam("id_curso") int idCurso, Locale locale) {
+		JSONObject jsonRespuesta= new JSONObject();
+		System.out.println("Desvinculando alumno "+idAlumno+ " del curso "+idCurso+"...");
+		boolean realizado=alumnoService.desmatricularCurso(idAlumno,idCurso);
+		
+		jsonRespuesta.put("realizado", realizado);
+		
+		return jsonRespuesta.toString();
+	}
+	
+	
+	@RequestMapping(value="/matricularCursoAJAX")
+	@ResponseBody
+	public String impartirCursoAJAX(@RequestParam("id_alumno") int idAlumno, @RequestParam("id_curso") int idCurso, Locale locale) {
+		JSONObject jsonRespuesta= new JSONObject();
+		System.out.println("Vinculando Alumno "+idAlumno+ " al curso "+idCurso+"...");
+		boolean realizado=alumnoService.matricularCurso(idAlumno,idCurso);
+		
+		jsonRespuesta.put("realizado", realizado);
+		
+		return jsonRespuesta.toString();
+	}
+
 
 	@RequestMapping("/downloadPDFFormat")
 	public ModelAndView downloadPDF(Model model){

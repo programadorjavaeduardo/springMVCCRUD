@@ -212,8 +212,8 @@ public class InstructorController {
 			m.addObject("objetoLogin", objetoLogin);
 			m.setViewName("welcome");
 			HttpSession ses=req.getSession();
-			ses.setAttribute("user", i);
-			m.addObject("id", i.getId_instructor());
+			ses.setAttribute("id", i.getId_instructor());
+			ses.setAttribute("nombre", i.getNombre());
 		}else {
 			mensaje= messageSource.getMessage(LOGIN_NOOK,null,locale);
 			m.addObject("mensaje", mensaje);
@@ -228,9 +228,11 @@ public class InstructorController {
 		cursos= instructorService.getCursosByIdInstructor(idInstructor);
 		titulo= messageSource.getMessage(TITULO_CURSOS_MATRICULADOS,null,locale);
 		mensajeConfirmacion= messageSource.getMessage(MESSAGE_STOP_PROVIDING, null, locale);
+		boolean cursosImpartidos=true;
 		m.setViewName("gestionCursos");
 		m.addObject("titulo", titulo);
 		m.addObject("cursos", cursos);
+		m.addObject("cursosImpartidos", cursosImpartidos);
 		m.addObject(mensajeConfirmacion, mensajeConfirmacion);
 		return m;
 		
@@ -241,9 +243,11 @@ public class InstructorController {
 		ModelAndView m= new ModelAndView();
 		cursos= instructorService.getCursosNoImpartidos();
 		titulo= messageSource.getMessage(TITULO_CURSOS_RESTANTES_SIN_IMPARTIR,null,locale);
+		boolean cursosRestantesPorImpartir=true;
 		m.setViewName("gestionCursos");
 		m.addObject("titulo", titulo);
 		m.addObject("cursos", cursos);
+		m.addObject("cursosRestantesPorImpartir", cursosRestantesPorImpartir);
 		return m;
 		
 	}

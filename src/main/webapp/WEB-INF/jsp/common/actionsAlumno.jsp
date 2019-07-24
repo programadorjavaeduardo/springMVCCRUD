@@ -12,10 +12,10 @@
 	              <a id="linkGestionFormaciones" href="#" class="nav-link"><spring:message code="link.formationZone"/></a>
 	            </li>
 	            <li class="nav-item">
-	              <a id="linkVerCursosDisponibles" href="#" class="nav-link"><spring:message code="link.availableCourses"/></a>
+	              <a onclick="verCursosMatriculados(${sessionScope['id']});" href="#" class="nav-link"><spring:message code="link.matriculatedCourses"/></a>
 	            </li>
 	            <li class="nav-item">
-	              <a id="linkVerCursosMatriculados" href="#" class="nav-link"><spring:message code="link.matriculatedCourses"/></a>
+	              <a onclick="verCursosRestantesAlumno(${sessionScope['id']});" href="#" class="nav-link"><spring:message code="link.otherCourses"/></a>
 	            </li>
 	            
 	          </ul>

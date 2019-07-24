@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import beans.Alumno;
+import beans.Curso;
 
 
 public interface AlumnoDao {
@@ -19,4 +20,12 @@ public interface AlumnoDao {
 	public Alumno comprobarLogin(String email, String password);
 
 	public int getMaxId();
+
+	public List<Curso> getCursosMatriculados(int idAlumno);
+
+	public List<Curso> getCursosRestantes(int idAlumno);
+
+	public boolean desmatricularCurso(int idAlumno, int idCurso);
+	
+	public boolean matricularCurso(int idAlumno, int idCurso);
 }
