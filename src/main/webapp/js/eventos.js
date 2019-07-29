@@ -348,6 +348,18 @@ function matricular(idAlumno,idCurso){
 	  })
 }
 
+function generateXLS(source,id){
+	var url="";
+	if(source=="alumno"){
+		url= ctx+"/alumno/generarExcel.html?id_alumno="+id+"&locale="+lang;
+	}else{
+		url= ctx+"/instructor/generarExcel.html?id_instructor="+id+"&locale="+lang;
+	}
+	
+	window.open(url, '_blank');
+	
+}
+
 
 
 

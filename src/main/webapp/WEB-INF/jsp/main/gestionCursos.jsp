@@ -99,6 +99,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#" onclick="history.back();"><spring:message code="actions.index"></spring:message></a>
           </li>
+          
         </ul>
 
       </div>

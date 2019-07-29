@@ -286,17 +286,17 @@ public class AlumnoController {
 	}
 
 
-	@RequestMapping("/downloadPDFFormat")
-	public ModelAndView downloadPDF(Model model){
-		List<Alumno> Alumnos= alumnoService.findAll();
-		ModelAndView m = new ModelAndView("pdfView");
-		m.addObject("Alumnos", Alumnos);
-		return m;
-	}
+	
 
-	@RequestMapping("/downloadXLSFormat")
-	public String downloadXLS(Model model){
-		return "xlsView";
+	@RequestMapping("/generarExcel")
+	public ModelAndView generarExcel(@RequestParam("id_alumno") int idAlumno, Locale locale){
+		ModelAndView m;
+		m= new ModelAndView("excelView");
+		cursos= alumnoService.getCursosMatriculados(idAlumno);
+		m.addObject("cursos", cursos);
+		m.addObject("source", "alumno");
+		// return a view which will be resolved by an excel view resolver
+        return m;
 	}
 
 

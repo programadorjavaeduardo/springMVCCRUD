@@ -275,6 +275,18 @@ public class InstructorController {
 		
 		return jsonRespuesta.toString();
 	}
+	
+	@RequestMapping("/generarExcel")
+	public ModelAndView generarExcel(@RequestParam("id_instructor") int idInstructor, Locale locale){
+		ModelAndView m;
+		m= new ModelAndView("excelView");
+		cursos= instructorService.getCursosByIdInstructor(idInstructor);
+		m.addObject("cursos", cursos);
+		m.addObject("source", "instructor");
+		// return a view which will be resolved by an excel view resolver
+        return m;
+		
+	}
 
 	
 
