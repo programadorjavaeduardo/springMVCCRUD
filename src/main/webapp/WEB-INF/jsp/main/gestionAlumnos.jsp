@@ -28,7 +28,7 @@
 
   <div class="container">
     <jsp:include page="../common/header.jsp" />
-    <jsp:include page="../common/actionsAlumno.jsp" ></jsp:include>
+    <jsp:include page="../common/actions.jsp" ></jsp:include>
    
     <div class="row mt-5">
         <div class="col">
@@ -43,7 +43,7 @@
 
     <div class="row mt-5">
       <div class="col">
-        <table class="table table-hover table_bordered">
+        <table class="table table-bordered table-hover" >
           <thead>
             <tr>
               		<th>Id </th>
@@ -84,9 +84,7 @@
           <li class="nav-item">
             <a id="linkNuevoAlumno" class="nav-link" href=""><spring:message code="actions.newAlumno"></spring:message></a>
           </li>
-          <li class="nav-item">
-            <a id="linkIndice" class="nav-link" href=""><spring:message code="actions.index"></spring:message></a>
-          </li>
+         
         </ul>
 
       </div>

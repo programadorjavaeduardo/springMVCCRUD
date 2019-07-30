@@ -25,7 +25,8 @@
 <body>
   <div class="container">
     <jsp:include page="../common/header.jsp" />
-    <jsp:include page="../common/actionsAlumno.jsp" ></jsp:include>
+    <jsp:include page="../common/actions.jsp" ></jsp:include>
+    
     <div class="row mt-5">
       <div class="col">
           <h3> <spring:message code="title.formationManagement"></spring:message></h3>
@@ -74,9 +75,7 @@
           <li class="nav-item">
             <a id="linkNuevaFormacion" class="nav-link" href=""><spring:message code="actions.newFormation"></spring:message></a>
           </li>
-          <li class="nav-item">
-            <a id="linkIndex" class="nav-link" href=""><spring:message code="actions.index"></spring:message></a>
-          </li>
+          
         </ul>
 
       </div>

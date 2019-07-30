@@ -15,7 +15,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @RequestMapping("lenguaje")
 public class LenguajeController {
 
-	private String objetoLogin;
+	
 	
     @RequestMapping("/lenguajeSelector")
     public ModelAndView languageSelector(HttpServletRequest req)
@@ -24,14 +24,8 @@ public class LenguajeController {
         HttpSession ses= req.getSession();
         String language=(String) req.getParameter("locale");
         ses.setAttribute("lang", language);
-        if (ses.getAttribute("id_alumno")!=null  || ses.getAttribute("id_instructor")!=null) {
-        	if(ses.getAttribute("id_alumno")!=null) {
-        		objetoLogin="alumno";
-        	}else {
-        		objetoLogin="instructor";
-        	}
+        if (ses.getAttribute("id")!=null) {
         	m.setViewName("welcome");
-        	m.addObject("objetoLogin", objetoLogin);
         	
         }else {
         	m.setViewName("index");
@@ -44,7 +38,9 @@ public class LenguajeController {
     @RequestMapping(value="/unLogin")
     public String unLogin(Locale locale, HttpServletRequest req) {
     	HttpSession ses=req.getSession();
-    	ses.removeAttribute("user");
+    	ses.removeAttribute("id");
+    	ses.removeAttribute("nombre");
+    	ses.removeAttribute("objetoLogin");
     	return "index";
     }
     

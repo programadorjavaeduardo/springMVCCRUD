@@ -24,7 +24,7 @@
 <body>
   <div class="container">
     <jsp:include page="../common/header.jsp" />
-    <jsp:include page="../common/actionsInstructor.jsp" ></jsp:include>
+    <jsp:include page="../common/actions.jsp" ></jsp:include>
     <div class="row mt-5">
       <div class="col">
           <h3>${titulo}</h3>

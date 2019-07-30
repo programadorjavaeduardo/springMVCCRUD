@@ -26,6 +26,7 @@
 <body>
   <div class="container">
     <jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/actions.jsp" ></jsp:include>
     <div class="row mt-5">
       <div class="col">
           <h3> ${titulo}</h3>
@@ -92,18 +93,7 @@
      </div>
     </div>
 
-    <div class="row">
-      <div class="col">
-        <ul class="nav flex-column">
-          
-          <li class="nav-item">
-            <a class="nav-link" href="#" onclick="history.back();"><spring:message code="actions.index"></spring:message></a>
-          </li>
-          
-        </ul>
-
-      </div>
-    </div>
+    
       <jsp:include page="../common/footer.jsp" />
   </div>
 

@@ -79,14 +79,43 @@ public class InstructorController {
     }
 	
 	@RequestMapping(value="/abrirVentanaLogin")
-	public ModelAndView abrirVentanaLogin(Locale locale) {
-		ModelAndView m= new ModelAndView("login");
-		String objetoLogin="instructor";
-		String titulo=messageSource.getMessage(TITULO_ACCESO_INSTRUCTOR, null, locale);
-		m.addObject("objetoLogin", objetoLogin);
-		m.addObject("titulo", titulo);
+	public ModelAndView abrirVentanaLogin(Locale locale, HttpServletRequest req) {
+		HttpSession ses= req.getSession();
+		ModelAndView m;
+		if(ses.getAttribute("id")!=null && ses.getAttribute("objetoLogin").equals("instructor")) {
+			m= new ModelAndView("welcome");
+		}else {
+			ses.removeAttribute("id");
+			ses.removeAttribute("name");
+			ses.removeAttribute("objetoLogin");
+			m= new ModelAndView("login");
+			String objetoLogin="instructor";
+			String titulo=messageSource.getMessage(TITULO_ACCESO_INSTRUCTOR, null, locale);
+			m.addObject("objetoLogin", objetoLogin);
+			m.addObject("titulo", titulo);
+		}
+		
 		return m;
 		
+	}
+	
+	@RequestMapping("/comprobarLogin")
+	public ModelAndView comprobarLogin(@RequestParam("email") String email, @RequestParam("password") String password,  HttpServletRequest req, Locale locale) {
+		ModelAndView m= new ModelAndView();
+		Instructor i=instructorService.comprobarLogin(email,password);
+		if(i!=null) {
+			String objetoLogin= "instructor";
+			m.setViewName("welcome");
+			HttpSession ses=req.getSession();
+			ses.setAttribute("id", i.getId_instructor());
+			ses.setAttribute("nombre", i.getNombre());
+			ses.setAttribute("objetoLogin", objetoLogin);
+		}else {
+			mensaje= messageSource.getMessage(LOGIN_NOOK,null,locale);
+			m.addObject("mensaje", mensaje);
+			m.setViewName("login");
+		}
+		return m;
 	}
 	
 	
@@ -201,25 +230,6 @@ public class InstructorController {
 		
 		return m;
 		
-	}
-	
-	@RequestMapping("/comprobarLogin")
-	public ModelAndView comprobarLogin(@RequestParam("email") String email, @RequestParam("password") String password,  HttpServletRequest req, Locale locale) {
-		ModelAndView m= new ModelAndView();
-		Instructor i=instructorService.comprobarLogin(email,password);
-		if(i!=null) {
-			String objetoLogin= "instructor";
-			m.addObject("objetoLogin", objetoLogin);
-			m.setViewName("welcome");
-			HttpSession ses=req.getSession();
-			ses.setAttribute("id", i.getId_instructor());
-			ses.setAttribute("nombre", i.getNombre());
-		}else {
-			mensaje= messageSource.getMessage(LOGIN_NOOK,null,locale);
-			m.addObject("mensaje", mensaje);
-			m.setViewName("login");
-		}
-		return m;
 	}
 	
 	@RequestMapping(value="/verCursosImpartidos")

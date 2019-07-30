@@ -79,14 +79,45 @@ public class AlumnoController {
     }
 	
 	@RequestMapping(value="/abrirVentanaLogin")
-	public ModelAndView abrirVentanaLogin(Locale locale) {
-		ModelAndView m= new ModelAndView("login");
-		String objetoLogin="alumno";
-		String titulo=messageSource.getMessage(TITULO_ACCESO_ALUMNO, null, locale);
-		m.addObject("objetoLogin", objetoLogin);
-		m.addObject("titulo", titulo);
+	public ModelAndView abrirVentanaLogin(Locale locale, HttpServletRequest req) {
+		HttpSession ses= req.getSession();
+		ModelAndView m;
+		if(ses.getAttribute("id")!=null && ses.getAttribute("objetoLogin").equals("alumno")) {
+			m= new ModelAndView("welcome");
+		}else {
+			ses.removeAttribute("id");
+			ses.removeAttribute("name");
+			ses.removeAttribute("objetoLogin");
+			m= new ModelAndView("login");
+			String objetoLogin="alumno";
+			
+			String titulo=messageSource.getMessage(TITULO_ACCESO_ALUMNO, null, locale);
+			m.addObject("objetoLogin", objetoLogin);
+			m.addObject("titulo", titulo);
+		}
+		
 		return m;
 		
+	}
+	
+	@RequestMapping("/comprobarLogin")
+	public ModelAndView comprobarLogin(@RequestParam("email") String email, @RequestParam("password") String password,  HttpServletRequest req, Locale locale) {
+		ModelAndView m= new ModelAndView();
+		Alumno a=alumnoService.comprobarLogin(email,password);
+		if(a!=null) {
+			String objetoLogin= "alumno";
+			m.setViewName("welcome");
+			HttpSession ses=req.getSession();
+			ses.setAttribute("id", a.getId_alumno());
+			ses.setAttribute("nombre", a.getNombre());
+			ses.setAttribute("objetoLogin", objetoLogin);
+			
+		}else {
+			mensaje= messageSource.getMessage(LOGIN_NOOK,null,locale);
+			m.addObject("mensaje", mensaje);
+			m.setViewName("login");
+		}
+		return m;
 	}
 	
 	
@@ -208,27 +239,6 @@ public class AlumnoController {
 		return m;
 		
 	}
-	
-	@RequestMapping("/comprobarLogin")
-	public ModelAndView comprobarLogin(@RequestParam("email") String email, @RequestParam("password") String password,  HttpServletRequest req, Locale locale) {
-		ModelAndView m= new ModelAndView();
-		Alumno a=alumnoService.comprobarLogin(email,password);
-		if(a!=null) {
-			String objetoLogin= "alumno";
-			m.setViewName("welcome");
-			m.addObject("objetoLogin", objetoLogin);
-			HttpSession ses=req.getSession();
-			ses.setAttribute("id", a.getId_alumno());
-			ses.setAttribute("nombre", a.getNombre());
-			
-		}else {
-			mensaje= messageSource.getMessage(LOGIN_NOOK,null,locale);
-			m.addObject("mensaje", mensaje);
-			m.setViewName("login");
-		}
-		return m;
-	}
-	
 	
 	@RequestMapping(value="/verCursosMatriculados")
 	public ModelAndView verCursosMatriculados(@RequestParam("id_alumno") int idAlumno, Locale locale){

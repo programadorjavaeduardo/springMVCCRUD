@@ -25,16 +25,7 @@
 <body>
 	<div class="container">
     	<jsp:include page="../common/header.jsp" ></jsp:include> 	
-    	<c:choose>
-    		<c:when test="${objetoLogin=='alumno'}">
-    			<jsp:include page="../common/actionsAlumno.jsp" ></jsp:include>
-    		</c:when>
-    		<c:otherwise>
-    			<jsp:include page="../common/actionsInstructor.jsp" ></jsp:include>
-    		</c:otherwise>
-    	
-    	
-    	</c:choose>
+    	<jsp:include page="../common/actions.jsp" ></jsp:include> 
     	
    
 		
