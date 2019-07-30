@@ -13,15 +13,23 @@ $(document).ready(function(){
 	  $(this).click();
   });
   
-  $("#linkLoginInstructor").on("click",function(){
+  
+  
+  $("#lingLoginAlumno").on("click",function(){
+
+	  $(this).attr("href",ctx+"/alumno/abrirVentanaLogin.html?locale="+lang);
+	  $(this).click();
+  });
+  
+  $("#lingLoginInstructor").on("click",function(){
 
 	  $(this).attr("href",ctx+"/instructor/abrirVentanaLogin.html?locale="+lang);
 	  $(this).click();
   });
   
-  $("#lingLoginAlumno").on("click",function(){
+  $("#lingLoginAdmin").on("click",function(){
 
-	  $(this).attr("href",ctx+"/alumno/abrirVentanaLogin.html?locale="+lang);
+	  $(this).attr("href",ctx+"/admin/abrirVentanaLogin.html?locale="+lang);
 	  $(this).click();
   });
   
@@ -112,6 +120,8 @@ function direccionarLogin(objetoLogin){
 		
 	}else if(objetoLogin == "instructor"){
 		window.form.action=ctx+"/instructor/comprobarLogin.html?locale="+lang;
+	}else if(objetoLogin == "admin"){
+		window.form.action=ctx+"/admin/comprobarLogin.html?locale="+lang;
 	}
 	return true;
 }
